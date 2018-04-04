@@ -36,7 +36,8 @@
 
   <!-- update speaker -->
   <div *ngIf="type === 'speaker'">
-    <select [(ngModel)]="speaker">
+    <select [(ngModel)]="speaker" (change)="getSpeakerImage()">
+        <option value="" selected disabled hidden>Choose Speaker</option>
         <option *ngFor="let speaker of speakers" value="{{ speaker.slug }}">{{ speaker.name }}</option>
     </select>
     <div *ngIf="speaker">

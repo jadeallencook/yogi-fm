@@ -108,13 +108,24 @@ export class AddVideoComponent implements OnInit {
     }
   }
 
+  getSpeakerImage() {
+    firebase.database().ref('/speakers/' + this.speaker).once('value').then((snapshot) => {
+      if (snapshot.val()) {
+        this.image = snapshot.val().image;
+      } else {
+        this.image = '';
+      }
+    });
+  }
+
   updateSpeaker() {
     if (!this.speaker) {
       this.errorMessage('No speaker was selected...');
     } else if (!this.image) {
       this.errorMessage('You forgot to add an image...');
     } else {
-      firebase.database().ref('/speakers/' + this.speaker).push({
+      const ref = firebase.database().ref('/speakers/' + this.speaker);
+      ref.set({
         image: this.image
       }).then(() => {
         this.resetValues();
