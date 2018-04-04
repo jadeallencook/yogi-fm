@@ -52,6 +52,9 @@ export const environment = {
   }, {
     type: 'Classical',
     slug: 'classical'
+  }, {
+    type: 'Tibetan',
+    slug: 'tibetan'
   }],
   firebase: {
     config: {
