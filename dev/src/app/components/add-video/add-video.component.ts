@@ -54,10 +54,12 @@ export class AddVideoComponent implements OnInit {
       this.errorMessage('You forgot the video link...');
     } else {
       const ref = firebase.database().ref('/music/' + this.genre);
+      let videoExists = false;
       ref.once('value').then((snapshot) => {
-        let videoExists = false;
-        for (let music of Object.keys(snapshot.val())) {
-          if (snapshot.val()[music].video === this.video) videoExists = true;
+        if (snapshot.val()) {
+          for (let music of Object.keys(snapshot.val())) {
+            if (snapshot.val()[music].video === this.video) videoExists = true;
+          }
         }
         if (videoExists) {
           this.errorMessage('Music has already been added...');
@@ -81,10 +83,12 @@ export class AddVideoComponent implements OnInit {
       this.errorMessage('There are missing fields...');
     } else {
       const ref = firebase.database().ref('/lectures/' + this.speaker);
+      let videoExists = false;
       ref.once('value').then((snapshot) => {
-        let videoExists = false;
-        for (let lecture of Object.keys(snapshot.val())) {
-          if (snapshot.val()[lecture].video === this.video) videoExists = true;
+        if (snapshot.val()) {
+          for (let lecture of Object.keys(snapshot.val())) {
+            if (snapshot.val()[lecture].video === this.video) videoExists = true;
+          }
         }
         if (videoExists) {
           this.errorMessage('Video has already been added...');
