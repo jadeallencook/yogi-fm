@@ -5,6 +5,26 @@
 
 export const environment = {
   production: false,
+  business: 'Yoga Ear',
+  speakers: [{
+    name: 'Alan Watts',
+    slug: 'alan-watts'
+  }, {
+    name: 'Aldous Huxley',
+    slug: 'aldous-huxley'
+  }, {
+    name: 'Buckminster Fuller',
+    slug: 'buckminster-fuller'
+  }, {
+    name: 'Ram Dass',
+    slug: 'ram-dass'
+  }, {
+    name: 'Timothy Leary',
+    slug: 'timothy-leary'
+  }, {
+    name: 'Terence McKenna',
+    slug: 'terence-mckenna'
+  }],
   firebase: {
     config: {
       apiKey: "AIzaSyAWMXKQMNmdzq1BQzPuSjfeVqqIddH-XfE",
