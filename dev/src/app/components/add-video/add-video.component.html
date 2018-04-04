@@ -16,11 +16,7 @@
   <div *ngIf="type === 'music'">
     <select [(ngModel)]="genre">
       <option value="" selected disabled hidden>Choose Genre</option>
-      <option value="jazz">Jazz</option>
-      <option value="classical">Classical</option>
-      <option value="inspirational">Inspirational</option>
-      <option value="lofi">Lo-Fi</option>
-      <option value="rock">Rock</option>
+      <option *ngFor="let genre of genres" value="{{ genre.slug }}">{{ genre.type }}</option>
     </select>
     <input [(ngModel)]="video" type="text" placeholder="Video URL" />
     <button (click)="addMusic()">Add Music</button>

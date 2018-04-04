@@ -20,14 +20,16 @@ export class AddVideoComponent implements OnInit {
 
   type: string = '';
   speakers: Array<Object>;
+  genres: Array<Object>;
 
   constructor() {
     this.speakers = environment.speakers;
+    this.genres = environment.genres;
   }
 
   resetValues() {
     for (let key of Object.keys(this)) {
-      if (key !== 'type' && key !== 'speakers') this[key] = '';
+      if (key !== 'type' && key !== 'speakers' && key !== 'genres') this[key] = '';
     }
   }
 

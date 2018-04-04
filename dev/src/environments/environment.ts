@@ -25,6 +25,34 @@ export const environment = {
     name: 'Terence McKenna',
     slug: 'terence-mckenna'
   }],
+  genres: [{
+    type: 'Jazz Vibes',
+    slug: 'jazz-vibes',
+  }, {
+    type: 'Classic Jazz',
+    slug: 'classic-jazz'
+  }, {
+    type: 'Indian',
+    slug: 'indian'
+  }, {
+    type: 'Chinesse',
+    slug: 'chinese'
+  }, {
+    type: 'Japanese',
+    slug: 'japanese'
+  }, {
+    type: 'Rock',
+    slug: 'rock'
+  }, {
+    type: 'Inspirational',
+    slug: 'inspirational'
+  }, {
+    type: 'Lo-Fi',
+    slug: 'lo-fi'
+  }, {
+    type: 'Classical',
+    slug: 'classical'
+  }],
   firebase: {
     config: {
       apiKey: "AIzaSyAWMXKQMNmdzq1BQzPuSjfeVqqIddH-XfE",
