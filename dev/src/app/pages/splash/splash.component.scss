@@ -1,0 +1,23 @@
+h1 {
+    text-align: center;
+}
+
+iframe {
+    margin: 25px auto;
+    display: block;
+}
+
+p {
+    text-align: center;
+}
+
+div.lecture-controls {
+    display: block;
+    text-align: center;
+    button {
+        border: none;
+        padding: 5px 15px;
+        border-radius: 0px;
+        cursor: pointer;
+    }
+}

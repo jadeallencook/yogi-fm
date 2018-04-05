@@ -1,1 +1,12 @@
 <h1>Namaste!</h1>
+
+<iframe width="560" height="315" [src]="this.playing" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<p>You're listening to {{ this.speaker }}...</p>
+
+<div class="lecture-controls">
+  <button (click)="getVideo(true)">New Lecture</button>
+</div>
+
+
+<iframe width="560" height="315" [src]="this.music" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
