@@ -1,23 +1,86 @@
-h1 {
-    text-align: center;
+$grey: #666;
+
+div#video-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  iframe {
+      margin: 0px auto;
+      width: 90%;
+      max-width: 550px;
+      border-radius: 25px;
+  }
 }
 
-iframe {
-    margin: 25px auto;
-    display: block;
+div#status-bar {
+  padding: 25px;
+  text-align: center;
+  font-size: 1.5em;
+  h1 {
+      margin: -5px 0px 0px 0px;
+  }
 }
 
-p {
+div#controls-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 25px;
+  div.btn {
+    background-color: #fff;
+    color: #000;
+    padding: 15px;
     text-align: center;
+    width: 50%;
+    margin: 0px auto;
+    border-radius: 25px;
+    max-width: 250px;
+  }
+  div.btn:hover {
+      opacity: 0.5;
+      cursor: pointer;
+  }
 }
 
-div.lecture-controls {
-    display: block;
+div#speakers-wrapper {
+    margin-top: 25px;
     text-align: center;
-    button {
-        border: none;
-        padding: 5px 15px;
-        border-radius: 0px;
+    div:hover {
         cursor: pointer;
+        opacity: 0.5;
+    }
+    div {
+        background-color: #fff;
+        height: 100px;
+        width: 100px;
+        display: inline-block;
+        border-radius: 100%;
+        margin: 15px;
+        background-size: cover;
+        background-position: center center;
+    }
+}
+
+div#genres-wrapper {
+    text-align: center;
+    margin-top: 15px;
+    div:hover {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+    div {
+        padding: 5px 15px;
+        margin: 5px;
+        border-radius: 15px;
+        background-color: #fff;
+        color: $grey;
+        display: inline-block;
+    }
+}
+
+div#footer {
+    text-align: center;
+    margin: 25px 0px;
+    a {
+        text-decoration: none;
+        color: lightseagreen;
     }
 }

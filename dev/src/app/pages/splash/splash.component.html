@@ -1,12 +1,28 @@
-<h1>Namaste!</h1>
-
-<iframe width="560" height="315" [src]="this.playing" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-<p>You're listening to {{ this.speaker }}...</p>
-
-<div class="lecture-controls">
-  <button (click)="getVideo(true)">New Lecture</button>
+<div id="status-bar">
+  You're listening to
+  <h1>{{ this.lectures.playing.name }}</h1>
+  with {{ this.music.playing.name }}...
 </div>
 
+<div id="video-wrapper" *ngIf="this.lectures.playing.url && this.music.playing.url">
+  <iframe height="315" [src]="this.lectures.playing.url" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  <iframe height="315" [src]="this.music.playing.url" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
 
-<iframe width="560" height="315" [src]="this.music" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div id="controls-wrapper">
+  <div class="btn" (click)="this.newLecture(true)">New Lecture</div>
+  <div class="btn" (click)="this.newSong(true)">New Song</div>
+</div>
+
+<div id="speakers-wrapper">
+  <div *ngFor="let speaker of this.lectures.speakers.names" (click)="this.toggle(speaker, 'lectures')" [ngStyle]="{ 'background-image': 'url(' + this.lectures.speakers.images[speaker].image + ')'}"
+    id="{{ speaker }}"></div>
+</div>
+
+<div id="genres-wrapper">
+  <div *ngFor="let genre of this.music.genres" (click)="this.toggle(genre, 'music')" id="{{ genre }}">{{ genre }}</div>
+</div>
+
+<div id="footer">Yoga Ear | Developed By
+  <a href="https://twitter.com/jadeallencook" target="_blank">Jade Allen Cook</a>
+</div>
