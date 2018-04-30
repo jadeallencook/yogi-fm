@@ -1,12 +1,19 @@
 $grey: #666;
 
+div#splash-wrapper {
+    margin: 0px auto;
+    width: 90%;
+    max-width: 1000px;
+}
+
 div#video-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   iframe {
       margin: 0px auto;
       width: 90%;
-      max-width: 550px;
+      max-width: 400px;
+      height: 225px;
       border-radius: 25px;
   }
 }

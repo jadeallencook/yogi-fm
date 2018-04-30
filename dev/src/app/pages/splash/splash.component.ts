@@ -79,13 +79,33 @@ export class SplashComponent implements OnInit {
 
   toggle(id, object) {
     var selected = this[object].selected;
-    if (selected.indexOf(id) > -1) {
-      var index = selected.indexOf(id);
-      selected.splice(index, 1);
-      document.getElementById(id).style.opacity = '0.15';
+    if (selected.length === Object.keys(this[object].db).length) {
+      this[object].selected = [id];
+      if (object === 'lectures') var elems = this.lectures.speakers.names;
+      else var elems = this.music.genres;
+      for (let elem of elems) {
+        if (id !== elem) document.getElementById(elem).style.opacity = '0.15';
+      }
+      console.log(id, this.lectures.playing.name.toLowerCase().replace(' ', '-'));
+      if (object === 'lectures' && id !== this.lectures.playing.name.toLowerCase().replace(' ', '-')) this.newLecture(true);
+      else if (object === 'music' && id !== this.music.playing.genre) this.newSong(true);
     } else {
-      selected.push(id);
-      document.getElementById(id).style.opacity = '1';
+      if (selected.indexOf(id) > -1) {
+        var index = selected.indexOf(id);
+        selected.splice(index, 1);
+        document.getElementById(id).style.opacity = '0.15';
+      } else {
+        selected.push(id);
+        document.getElementById(id).style.opacity = '1';
+      }
+    }
+    if (selected.length === 0) {
+      if (object === 'lectures') var elems = this.lectures.speakers.names;
+      else var elems = this.music.genres;
+      this[object].selected = elems;
+      for (let elem of elems) {
+        document.getElementById(elem).style.opacity = '1';
+      }
     }
   }
 
