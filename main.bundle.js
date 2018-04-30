@@ -553,14 +553,14 @@ var AdminComponent = /** @class */ (function () {
 /***/ "./src/app/pages/splash/splash.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"status-bar\">\n  You're listening to\n  <h1>{{ this.lectures.playing.name }}</h1>\n  with {{ this.music.playing.name }}...\n</div>\n\n<div id=\"video-wrapper\" *ngIf=\"this.lectures.playing.url && this.music.playing.url\">\n  <iframe height=\"315\" [src]=\"this.lectures.playing.url\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>\n  <iframe height=\"315\" [src]=\"this.music.playing.url\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>\n</div>\n\n<div id=\"controls-wrapper\">\n  <div class=\"btn\" (click)=\"this.newLecture(true)\">New Lecture</div>\n  <div class=\"btn\" (click)=\"this.newSong(true)\">New Song</div>\n</div>\n\n<div id=\"speakers-wrapper\">\n  <div *ngFor=\"let speaker of this.lectures.speakers.names\" (click)=\"this.toggle(speaker, 'lectures')\" [ngStyle]=\"{ 'background-image': 'url(' + this.lectures.speakers.images[speaker].image + ')'}\"\n    id=\"{{ speaker }}\"></div>\n</div>\n\n<div id=\"genres-wrapper\">\n  <div *ngFor=\"let genre of this.music.genres\" (click)=\"this.toggle(genre, 'music')\" id=\"{{ genre }}\">{{ genre }}</div>\n</div>\n\n<div id=\"footer\">Yoga Ear | Developed By\n  <a href=\"https://twitter.com/jadeallencook\" target=\"_blank\">Jade Allen Cook</a>\n</div>\n"
+module.exports = "<div id=\"splash-wrapper\">\n\n  <div id=\"status-bar\">\n    You're listening to\n    <h1>{{ this.lectures.playing.name }}</h1>\n    with {{ this.music.playing.name }}...\n  </div>\n\n  <div id=\"video-wrapper\" *ngIf=\"this.lectures.playing.url && this.music.playing.url\">\n    <iframe [src]=\"this.lectures.playing.url\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>\n    <iframe [src]=\"this.music.playing.url\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>\n  </div>\n\n  <div id=\"controls-wrapper\">\n    <div class=\"btn\" (click)=\"this.newLecture(true)\">New Lecture</div>\n    <div class=\"btn\" (click)=\"this.newSong(true)\">New Song</div>\n  </div>\n\n  <div id=\"speakers-wrapper\">\n    <div *ngFor=\"let speaker of this.lectures.speakers.names\" (click)=\"this.toggle(speaker, 'lectures')\" [ngStyle]=\"{ 'background-image': 'url(' + this.lectures.speakers.images[speaker].image + ')'}\"\n      id=\"{{ speaker }}\"></div>\n  </div>\n\n  <div id=\"genres-wrapper\">\n    <div *ngFor=\"let genre of this.music.genres\" (click)=\"this.toggle(genre, 'music')\" id=\"{{ genre }}\">{{ genre }}</div>\n  </div>\n\n  <div id=\"footer\">Yogi FM | Developed By\n    <a href=\"https://twitter.com/jadeallencook\" target=\"_blank\">@jadeallencook</a>\n  </div>\n\n</div>\n"
 
 /***/ }),
 
 /***/ "./src/app/pages/splash/splash.component.scss":
 /***/ (function(module, exports) {
 
-module.exports = "div#video-wrapper {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr; }\n  div#video-wrapper iframe {\n    margin: 0px auto;\n    width: 90%;\n    max-width: 550px;\n    border-radius: 25px; }\n  div#status-bar {\n  padding: 25px;\n  text-align: center;\n  font-size: 1.5em; }\n  div#status-bar h1 {\n    margin: -5px 0px 0px 0px; }\n  div#controls-wrapper {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr;\n  margin-top: 25px; }\n  div#controls-wrapper div.btn {\n    background-color: #fff;\n    color: #000;\n    padding: 15px;\n    text-align: center;\n    width: 50%;\n    margin: 0px auto;\n    border-radius: 25px;\n    max-width: 250px; }\n  div#controls-wrapper div.btn:hover {\n    opacity: 0.5;\n    cursor: pointer; }\n  div#speakers-wrapper {\n  margin-top: 25px;\n  text-align: center; }\n  div#speakers-wrapper div:hover {\n    cursor: pointer;\n    opacity: 0.5; }\n  div#speakers-wrapper div {\n    background-color: #fff;\n    height: 100px;\n    width: 100px;\n    display: inline-block;\n    border-radius: 100%;\n    margin: 15px;\n    background-size: cover;\n    background-position: center center; }\n  div#genres-wrapper {\n  text-align: center;\n  margin-top: 15px; }\n  div#genres-wrapper div:hover {\n    cursor: pointer;\n    opacity: 0.5; }\n  div#genres-wrapper div {\n    padding: 5px 15px;\n    margin: 5px;\n    border-radius: 15px;\n    background-color: #fff;\n    color: #666;\n    display: inline-block; }\n  div#footer {\n  text-align: center;\n  margin: 25px 0px; }\n  div#footer a {\n    text-decoration: none;\n    color: lightseagreen; }\n"
+module.exports = "div#splash-wrapper {\n  margin: 0px auto;\n  width: 90%;\n  max-width: 1000px; }\n\ndiv#video-wrapper {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr; }\n\ndiv#video-wrapper iframe {\n    margin: 0px auto;\n    width: 90%;\n    max-width: 400px;\n    height: 225px;\n    border-radius: 25px; }\n\ndiv#status-bar {\n  padding: 25px;\n  text-align: center;\n  font-size: 1.5em; }\n\ndiv#status-bar h1 {\n    margin: -5px 0px 0px 0px; }\n\ndiv#controls-wrapper {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr;\n  margin-top: 25px; }\n\ndiv#controls-wrapper div.btn {\n    background-color: #fff;\n    color: #000;\n    padding: 15px;\n    text-align: center;\n    width: 50%;\n    margin: 0px auto;\n    border-radius: 25px;\n    max-width: 250px; }\n\ndiv#controls-wrapper div.btn:hover {\n    opacity: 0.5;\n    cursor: pointer; }\n\ndiv#speakers-wrapper {\n  margin-top: 25px;\n  text-align: center; }\n\ndiv#speakers-wrapper div:hover {\n    cursor: pointer;\n    opacity: 0.5; }\n\ndiv#speakers-wrapper div {\n    background-color: #fff;\n    height: 100px;\n    width: 100px;\n    display: inline-block;\n    border-radius: 100%;\n    margin: 15px;\n    background-size: cover;\n    background-position: center center; }\n\ndiv#genres-wrapper {\n  text-align: center;\n  margin-top: 15px; }\n\ndiv#genres-wrapper div:hover {\n    cursor: pointer;\n    opacity: 0.5; }\n\ndiv#genres-wrapper div {\n    padding: 5px 15px;\n    margin: 5px;\n    border-radius: 15px;\n    background-color: #fff;\n    color: #666;\n    display: inline-block; }\n\ndiv#footer {\n  text-align: center;\n  margin: 25px 0px; }\n\ndiv#footer a {\n    text-decoration: none;\n    color: lightseagreen; }\n"
 
 /***/ }),
 
@@ -653,14 +653,44 @@ var SplashComponent = /** @class */ (function () {
     };
     SplashComponent.prototype.toggle = function (id, object) {
         var selected = this[object].selected;
-        if (selected.indexOf(id) > -1) {
-            var index = selected.indexOf(id);
-            selected.splice(index, 1);
-            document.getElementById(id).style.opacity = '0.15';
+        if (selected.length === Object.keys(this[object].db).length) {
+            this[object].selected = [id];
+            if (object === 'lectures')
+                var elems = this.lectures.speakers.names;
+            else
+                var elems = this.music.genres;
+            for (var _i = 0, elems_1 = elems; _i < elems_1.length; _i++) {
+                var elem = elems_1[_i];
+                if (id !== elem)
+                    document.getElementById(elem).style.opacity = '0.15';
+            }
+            console.log(id, this.lectures.playing.name.toLowerCase().replace(' ', '-'));
+            if (object === 'lectures' && id !== this.lectures.playing.name.toLowerCase().replace(' ', '-'))
+                this.newLecture(true);
+            else if (object === 'music' && id !== this.music.playing.genre)
+                this.newSong(true);
         }
         else {
-            selected.push(id);
-            document.getElementById(id).style.opacity = '1';
+            if (selected.indexOf(id) > -1) {
+                var index = selected.indexOf(id);
+                selected.splice(index, 1);
+                document.getElementById(id).style.opacity = '0.15';
+            }
+            else {
+                selected.push(id);
+                document.getElementById(id).style.opacity = '1';
+            }
+        }
+        if (selected.length === 0) {
+            if (object === 'lectures')
+                var elems = this.lectures.speakers.names;
+            else
+                var elems = this.music.genres;
+            this[object].selected = elems;
+            for (var _a = 0, elems_2 = elems; _a < elems_2.length; _a++) {
+                var elem = elems_2[_a];
+                document.getElementById(elem).style.opacity = '1';
+            }
         }
     };
     SplashComponent.prototype.videoId = function (url) {
