@@ -16,7 +16,7 @@ import { AddVideoComponent } from './components/add-video/add-video.component';
 const appRoutes: Routes = [
   { path: '', component: SplashComponent },
   { path: 'admin', component: AdminComponent },
-  { path: 'search/:critera',      component: SearchComponent },
+  { path: 'search/:critera', component: SearchComponent },
   { path: '**', component: SplashComponent }
 ];
 
