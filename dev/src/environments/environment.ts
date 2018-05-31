@@ -27,6 +27,9 @@ export const environment = {
   }, {
     name: 'Joseph Campbell',
     slug: 'joseph-campbell'
+  }, {
+    name: 'Sadhguru',
+    slug: 'sadhguru'
   }],
   genres: [{
     type: 'Jazz Vibes',
