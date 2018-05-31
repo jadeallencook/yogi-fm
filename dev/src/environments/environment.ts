@@ -30,6 +30,9 @@ export const environment = {
   }, {
     name: 'Sadhguru',
     slug: 'sadhguru'
+  }, {
+    name: 'Eckhart Tolle',
+    slug: 'eckhart-tolle'
   }],
   genres: [{
     type: 'Jazz Vibes',
