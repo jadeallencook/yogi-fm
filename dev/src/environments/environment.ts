@@ -24,6 +24,9 @@ export const environment = {
   }, {
     name: 'Terence McKenna',
     slug: 'terence-mckenna'
+  }, {
+    name: 'Joseph Campbell',
+    slug: 'joseph-campbell'
   }],
   genres: [{
     type: 'Jazz Vibes',

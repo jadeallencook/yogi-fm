@@ -45,8 +45,8 @@ export class SplashComponent implements OnInit {
       this.lectures.speakers.names = Object.keys(snapshot.val());
       this.lectures.speakers.images = snapshot.val();
     })]).then(() => {
-      this.newLecture(true);
-      this.newSong(true);
+      this.newLecture(false);
+      this.newSong(false);
     });
   }
 
