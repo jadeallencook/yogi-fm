@@ -10,6 +10,9 @@ import { environment } from '../../../environments/environment';
 })
 export class SplashComponent implements OnInit {
 
+  dev = false;
+  share = null;
+
   lectures: any = {
     speakers: {
       names: [],
@@ -34,6 +37,7 @@ export class SplashComponent implements OnInit {
   }
 
   constructor(public sanitizer: DomSanitizer) {
+    if (!window.location.hash) window.location.hash = '///';
     Promise.all([firebase.database().ref('/lectures').once('value').then((snapshot) => {
       this.lectures.selected = Object.keys(snapshot.val());
       this.lectures.db = snapshot.val();
@@ -45,8 +49,14 @@ export class SplashComponent implements OnInit {
       this.lectures.speakers.names = Object.keys(snapshot.val());
       this.lectures.speakers.images = snapshot.val();
     })]).then(() => {
-      this.newLecture(true);
-      this.newSong(true);
+      if (window.location.hash) {
+        var hash = window.location.hash.split('/');
+        this.newLecture(!this.dev, [hash[0], hash[1]]);
+        this.newSong(!this.dev, [hash[2], hash[3]]);
+      } else {
+        this.newLecture(!this.dev, false);
+        this.newSong(!this.dev, false);
+      }
     });
   }
 
@@ -57,24 +67,62 @@ export class SplashComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
-  newSong(autoplay) {
-    var genre = this.music.selected;
-    genre = genre[Math.floor(Math.random() * genre.length)];
+  newSong(autoplay, selected) {
+    var hash = window.location.hash.split('/');
+    var genre, url: any;
+    if (selected) {
+      if (selected[0] && selected[1]) {
+        genre = selected[0];
+        url = selected[1];
+      } else {
+        this.newSong(!this.dev, false);
+      }
+    } else {
+      genre = this.music.selected;
+      genre = genre[Math.floor(Math.random() * genre.length)];
+      url = Object.keys(this.music.db[genre]);
+      url = url[Math.floor(Math.random() * url.length)];
+    }
+    hash[2] = genre;
     this.music.playing.name = genre;
-    var url: any = Object.keys(this.music.db[genre]);
-    url = url[Math.floor(Math.random() * url.length)];
-    url = this.music.db[genre][url].video;
-    this.music.playing.url = this.sanitize(this.videoId(url), autoplay);
+    hash[3] = url;
+    if (this.music.db[genre] && this.music.db[genre][url]) {
+      url = this.music.db[genre][url].video;
+      this.music.playing.url = this.sanitize(this.videoId(url), autoplay);
+      window.location.hash = hash.join('/');
+      this.share = window.location.href;
+    } else {
+      this.newSong(!this.dev, false);
+    }
   }
 
-  newLecture(autoplay) {
-    var speaker = this.lectures.selected;
-    speaker = speaker[Math.floor(Math.random() * speaker.length)];
-    this.lectures.playing.name = speaker.replace('-', ' ').replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
-    var url: any = Object.keys(this.lectures.db[speaker]);
-    url = url[Math.floor(Math.random() * url.length)];
-    url = this.lectures.db[speaker][url].video;
-    this.lectures.playing.url = this.sanitize(this.videoId(url), autoplay);
+  newLecture(autoplay, selected) {
+    var hash = window.location.hash.split('/');
+    var speaker, url: any;
+    if (selected) {
+      if (selected[0] && selected[1]) {
+        speaker = selected[0].substr(1);
+        url = selected[1];
+      } else {
+        this.newSong(!this.dev, false);
+      }
+    } else {
+      speaker = this.lectures.selected;
+      speaker = speaker[Math.floor(Math.random() * speaker.length)];
+      url = Object.keys(this.lectures.db[speaker]);
+      url = url[Math.floor(Math.random() * url.length)];
+    }
+    hash[0] = speaker;
+    hash[1] = url;
+    if (this.lectures.db[speaker] && this.lectures.db[speaker][url]) {
+      this.lectures.playing.name = speaker.replace('-', ' ').replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+      url = this.lectures.db[speaker][url].video;
+      this.lectures.playing.url = this.sanitize(this.videoId(url), autoplay);
+      window.location.hash = hash.join('/');
+      this.share = window.location.href;
+    } else {
+      this.newLecture(!this.dev, false)
+    }
   }
 
   toggle(id, object) {
@@ -87,8 +135,8 @@ export class SplashComponent implements OnInit {
         if (id !== elem) document.getElementById(elem).style.opacity = '0.15';
       }
       console.log(id, this.lectures.playing.name.toLowerCase().replace(' ', '-'));
-      if (object === 'lectures' && id !== this.lectures.playing.name.toLowerCase().replace(' ', '-')) this.newLecture(true);
-      else if (object === 'music' && id !== this.music.playing.genre) this.newSong(true);
+      if (object === 'lectures' && id !== this.lectures.playing.name.toLowerCase().replace(' ', '-')) this.newLecture(true, false);
+      else if (object === 'music' && id !== this.music.playing.genre) this.newSong(true, false);
     } else {
       if (selected.indexOf(id) > -1) {
         var index = selected.indexOf(id);

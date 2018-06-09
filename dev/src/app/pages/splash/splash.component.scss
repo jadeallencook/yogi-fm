@@ -3,6 +3,15 @@ div#splash-wrapper {
   margin: 0px auto;
   width: 90%;
   max-width: 1000px;
+  div#share-wrapper {
+    text-align: center;
+    padding-top: 25px;
+    input {
+      background-color: #fff;
+      border: none;
+      border-radius: 25px;
+    }
+  }
   div#video-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;

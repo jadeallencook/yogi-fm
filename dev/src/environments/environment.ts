@@ -33,6 +33,12 @@ export const environment = {
   }, {
     name: 'Eckhart Tolle',
     slug: 'eckhart-tolle'
+  }, {
+    name: 'Mr. Rodgers',
+    slug: 'mr-rodgers'
+  }, {
+    name: 'Bruce Lee',
+    slug: 'bruce-lee'
   }],
   genres: [{
     type: 'Jazz Vibes',

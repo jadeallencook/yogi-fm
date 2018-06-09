@@ -25,6 +25,11 @@
     <div *ngFor="let genre of this.music.genres" (click)="this.toggle(genre, 'music')" id="{{ genre }}">{{ genre }}</div>
   </div>
 
+  <div id="share-wrapper">
+    <span>Share This Talk</span><br />
+    <input type="text" placeholder="loading..." [(ngModel)]="this.share" />
+  </div>
+
   <div id="footer">Yogi FM | Developed By
     <a href="https://twitter.com/jadeallencook" target="_blank">@jadeallencook</a>
   </div>
