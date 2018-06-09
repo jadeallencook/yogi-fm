@@ -9,11 +9,15 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  StatusBar
 } from 'react-native';
 
 type Props = {};
 export default class App extends Component<Props> {
+  componentDidMount() {
+      StatusBar.setHidden(true);
+  }
   render() {
     return (
       <View style={styles.container}>
