@@ -6,48 +6,22 @@ import './App.scss';
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      speaker: null,
-      genre: null
-    }
-  }
-
-  componentDidMount() {
-    if (window.location.hash) {
-      const hash = window.location.hash.replace('#', '').split('/');
-      if (
-        Object.keys(speakers).indexOf(hash[0]) !== -1 &&
-        Object.keys(genres).indexOf(hash[1]) !== -1 
-      ) {
-        this.setState({
-          speaker: hash[0],
-          genre: hash[1]
-        });
-      } else {
-        this.loadRandomSet();
+    const hash = window.location.hash.replace('#', '').split('/');
+    if (
+      Object.keys(speakers).indexOf(hash[0]) !== -1 &&
+      Object.keys(genres).indexOf(hash[1]) !== -1 
+    ) {
+      this.state = {
+        speaker: hash[0],
+        genre: hash[1]
+      };
+    } else {
+      this.state = {
+        speaker: Object.keys(speakers)[0],
+        genre: Object.keys(genres)[0]
       }
-    } else {
-      this.loadRandomSet();
     }
-  }
-
-  loadRandomSet() {
-    this.setState({
-      speaker: Object.keys(speakers)[0],
-      genre: Object.keys(genres)[0]
-    });
-  }
-
-  shouldComponentUpdate() {
-    if (window.location.hash) {
-      const hash = window.location.hash.replace('#', '').split('/');
-      if (
-        Object.keys(speakers).indexOf(hash[0]) !== -1 &&
-        Object.keys(genres).indexOf(hash[1]) !== -1 
-      ) return true;
-    } else {
-      return false;
-    }
+    window.location.hash = `${this.state.speaker}/${this.state.genre}`;
   }
 
   componentDidUpdate() {
@@ -58,6 +32,7 @@ class App extends Component {
     return (
       <div className="App">
           {
+            /* title */
             (this.state.speaker && this.state.genre) ?
             <h1>
               You're listening too
@@ -65,10 +40,12 @@ class App extends Component {
               with {this.state.genre.replace('-', ' ')}...
             </h1> : <h1>Loading...</h1>
           }
+          {/* videos */}
           <iframe title="speaker" width="400" height="225" src={`https://www.youtube.com/embed/videoseries?list=${speakers[this.state.speaker]}&autoplay=1`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
           <iframe title="music" width="400" height="225" src={`https://www.youtube.com/embed/videoseries?list=${genres[this.state.genre]}&autoplay=1`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
           <div className="speakers">
             {
+              /* speakers */
               Object.keys(speakers).map(speaker => {
                 return <div key={speaker} style={{
                   backgroundImage: `url(assets/images/${speaker}.png)`,
@@ -84,6 +61,7 @@ class App extends Component {
           </div>
           <div className="music">
             {
+              /* music */
               Object.keys(genres).map(genre => {
                 return <div key={genre} style={{
                   opacity: (this.state.genre === genre) ? '0.5' : '1'
@@ -96,6 +74,7 @@ class App extends Component {
               })
             }
           </div>
+          {/* footer */}
           <span className="footer">Yogi FM | Developed by <a target="_blank" rel="noopener noreferrer" href="https://github.com/jadeallencook">@jadeallencook</a></span>
       </div>
     );
