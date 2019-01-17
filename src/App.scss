@@ -52,4 +52,26 @@
       text-decoration: none;
     }
   }
+
+  span.share {
+    display: block;
+    margin-bottom: 15px;
+    span {
+      display: block;
+      font-size: 0.75em;
+    }
+    button {
+      border-radius: 0px;
+      border: none;
+      background-color: $blue;
+      color: $white;
+      padding: 5px 15px;
+    }
+    input {
+      width: 150px;
+      margin: 0px auto;
+      border: none;
+      padding: 5px 5px;
+    }
+  }
 }

@@ -74,6 +74,23 @@ class App extends Component {
               })
             }
           </div>
+          {/* share */}
+          <span className="share">
+            <span>Share This Mix:</span>
+            <input type="text" value={`http://www.yogifm.com/#${this.state.speaker}/${this.state.genre}`} readOnly />
+            <button onClick={() => {
+              function fallbackCopyTextToClipboard(text) {
+                var textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                document.body.removeChild(textArea);
+              }
+              if (!navigator.clipboard) fallbackCopyTextToClipboard(`http://www.yogifm.com/#${this.state.speaker}/${this.state.genre}`);
+              else navigator.clipboard.writeText(`http://www.yogifm.com/#${this.state.speaker}/${this.state.genre}`);
+            }}>Copy</button>
+          </span>
           {/* footer */}
           <span className="footer">Yogi FM | Developed by <a target="_blank" rel="noopener noreferrer" href="https://github.com/jadeallencook">@jadeallencook</a></span>
       </div>
