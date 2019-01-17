@@ -1,0 +1,10 @@
+@import './colors.scss';
+
+html,
+body {
+  margin: 0px;
+  height: 0px;
+  font-family: 'Noto Serif', serif;
+  background-color: $darkgrey;
+  color: $white;
+}
