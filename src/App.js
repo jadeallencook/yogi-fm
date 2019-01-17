@@ -35,7 +35,7 @@ class App extends Component {
             /* title */
             (this.state.speaker && this.state.genre) ?
             <h1>
-              You're listening too
+              You're listening to
               <span>{this.state.speaker.replace('-', ' ')}</span>
               with {this.state.genre.replace('-', ' ')}...
             </h1> : <h1>Loading...</h1>
