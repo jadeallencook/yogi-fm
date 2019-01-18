@@ -55,6 +55,7 @@ class App extends Component {
                     ...this.state,
                     speaker: speaker
                   });
+                  if ('ga' in window) window.ga('send', 'event', 'Lecture', 'Speaker', speaker);
                 }}></div>
               })
             }
@@ -70,6 +71,7 @@ class App extends Component {
                     ...this.state,
                     genre: genre
                   });
+                  if ('ga' in window) window.ga('send', 'event', 'Music', 'Genre', genre);
                 }}>{genre.replace('-', ' ')}</div>
               })
             }
@@ -91,8 +93,6 @@ class App extends Component {
               else navigator.clipboard.writeText(`http://www.yogifm.com/#${this.state.speaker}/${this.state.genre}`);
             }}>Copy</button>
           </span>
-          {/* footer */}
-          <span className="footer">Yogi FM | Developed by <a target="_blank" rel="noopener noreferrer" href="https://github.com/jadeallencook">@jadeallencook</a></span>
       </div>
     );
   }
