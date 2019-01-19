@@ -1,0 +1,47 @@
+@import '../global.style.scss';
+
+div.Sidebar {
+    background-color: $darkgrey;
+    position: absolute;
+    z-index: 2;
+    height: 100%;
+    width: 200px;
+    box-sizing: border-box;
+    padding: 0px 15px 225px 15px;
+    overflow-y: scroll;
+
+    h2 {
+        cursor: pointer;
+        margin: 25px 0px;
+    }
+
+    iframe {
+        position: fixed;
+        left: 0px;
+        width: 200px;
+        height: 125px;
+        bottom: 80px;
+    }
+
+    span.title {
+        font-family: $opensans;
+        text-transform: uppercase;
+        letter-spacing: .25em;
+        font-size: 0.75em;
+        margin-bottom: 5px;
+    }
+
+    span {
+        display: block;
+    }
+
+    span.link {
+        text-transform: capitalize;
+        margin-bottom: 10px;
+    }
+
+    span.link:hover {
+        opacity: 0.5;
+        cursor: pointer;
+    }
+}

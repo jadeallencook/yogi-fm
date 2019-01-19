@@ -1,0 +1,14 @@
+{
+    "drugs": {
+        "title": "Drug & Psychedelics",
+        "speakers": ["terence-mckenna", "timothy-leary", "aldous-huxley"]
+    },
+    "east": {
+        "title": "Far East",
+        "speakers": ["osho", "sadhguru"]
+    },
+    "self": {
+        "title": "Self Discovery",
+        "speakers": ["alan-watts", "ram-dass", "joseph-campbell", "eckhart-tolle"]
+    }
+}

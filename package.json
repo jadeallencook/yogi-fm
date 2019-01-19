@@ -4,10 +4,13 @@
   "private": true,
   "homepage": "https://jadeallencook.github.io/Yogi-FM/build/",
   "dependencies": {
+    "dom-parser": "^0.1.5",
+    "fetch": "^1.1.0",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-scripts": "2.1.3"
+    "react-scripts": "2.1.3",
+    "react-youtube": "^7.9.0"
   },
   "scripts": {
     "start": "react-scripts start",

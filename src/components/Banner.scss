@@ -1,0 +1,22 @@
+
+    @import '../global.style.scss';
+    
+    div.Banner {
+        background-color: $darkgrey;
+        height: 40vw;
+        text-align: center;
+        font-weight: normal;
+        background-image: url('http://localhost:3000/assets/images/banner.jpg');
+        background-size: cover;
+        background-position: center center;
+        padding-top: 15%;
+        font-size: 1.5em;
+        box-sizing: border-box;
+        text-shadow: 2px 2px 25px #363636;
+
+        h2 {
+            margin: -5px;
+            font-size: 4em;
+        }
+    }
+    

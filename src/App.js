@@ -1,98 +1,55 @@
 import React, { Component } from 'react';
-import speakers from './environments/speakers.environment.json';
-import genres from './environments/genres.environment.json';
 import './App.scss';
+
+import Sidebar from './components/Sidebar';
+import Browse from './components/Browse';
+import Player from './components/Player';
+import Songs from './components/Songs';
 
 class App extends Component {
   constructor() {
     super();
-    const hash = window.location.hash.replace('#', '').split('/');
-    if (
-      Object.keys(speakers).indexOf(hash[0]) !== -1 &&
-      Object.keys(genres).indexOf(hash[1]) !== -1 
-    ) {
-      this.state = {
-        speaker: hash[0],
-        genre: hash[1]
-      };
-    } else {
-      this.state = {
-        speaker: Object.keys(speakers)[0],
-        genre: Object.keys(genres)[0]
-      }
+    this.state = {
+      speaker: null,
+      lecture: null,
+      songs: false
     }
-    window.location.hash = `${this.state.speaker}/${this.state.genre}`;
   }
 
-  componentDidUpdate() {
-    window.location.hash = `${this.state.speaker}/${this.state.genre}`;
+  open(speaker) {
+    this.setState({
+      songs: speaker,
+      speaker: this.state.speaker,
+      lecture: this.state.lecture
+    });
+  }
+
+  home() {
+    this.setState({
+      speaker: this.state.speaker,
+      lecture: this.state.lecture,
+      songs: false
+    });
+  }
+
+  play(lecture) {
+    this.setState({
+      speaker: this.state.songs,
+      lecture: lecture,
+      songs: this.state.songs
+    });
   }
 
   render() {
     return (
       <div className="App">
-          {
-            /* title */
-            (this.state.speaker && this.state.genre) ?
-            <h1>
-              You're listening to
-              <span>{this.state.speaker.replace('-', ' ')}</span>
-              with {this.state.genre.replace('-', ' ')}...
-            </h1> : <h1>Loading...</h1>
-          }
-          {/* videos */}
-          <iframe title="speaker" width="400" height="225" src={`https://www.youtube.com/embed/videoseries?list=${speakers[this.state.speaker]}&autoplay=1`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-          <iframe title="music" width="400" height="225" src={`https://www.youtube.com/embed/videoseries?list=${genres[this.state.genre]}&autoplay=1`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-          <div className="speakers">
-            {
-              /* speakers */
-              Object.keys(speakers).map(speaker => {
-                return <div key={speaker} style={{
-                  backgroundImage: `url(assets/images/${speaker}.png)`,
-                  opacity: (this.state.speaker === speaker) ? '0.5' : '1'
-                }} onClick={() => {
-                  this.setState({
-                    ...this.state,
-                    speaker: speaker
-                  });
-                  if ('ga' in window) window.ga('send', 'event', 'Lecture', 'Speaker', speaker);
-                }}></div>
-              })
-            }
-          </div>
-          <div className="music">
-            {
-              /* music */
-              Object.keys(genres).map(genre => {
-                return <div key={genre} style={{
-                  opacity: (this.state.genre === genre) ? '0.5' : '1'
-                }} onClick={() => {
-                  this.setState({
-                    ...this.state,
-                    genre: genre
-                  });
-                  if ('ga' in window) window.ga('send', 'event', 'Music', 'Genre', genre);
-                }}>{genre.replace('-', ' ')}</div>
-              })
-            }
-          </div>
-          {/* share */}
-          <span className="share">
-            <span>Share This Mix:</span>
-            <input type="text" value={`http://www.yogifm.com/#${this.state.speaker}/${this.state.genre}`} readOnly />
-            <button onClick={() => {
-              function fallbackCopyTextToClipboard(text) {
-                var textArea = document.createElement('textarea');
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                document.body.removeChild(textArea);
-              }
-              if (!navigator.clipboard) fallbackCopyTextToClipboard(`http://www.yogifm.com/#${this.state.speaker}/${this.state.genre}`);
-              else navigator.clipboard.writeText(`http://www.yogifm.com/#${this.state.speaker}/${this.state.genre}`);
-            }}>Copy</button>
-          </span>
+        <Player speaker={this.state.speaker} video={this.state.lecture} />
+        <Sidebar lecture={this.state.lecture} home={this.home.bind(this)} open={this.open.bind(this)} />
+        { 
+          (this.state.songs) 
+          ? <Songs speaker={this.state.songs} play={this.play.bind(this)} /> 
+          : <Browse open={this.open.bind(this)} speaker={this.state.speaker} /> 
+        }
       </div>
     );
   }
