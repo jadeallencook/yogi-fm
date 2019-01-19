@@ -17,8 +17,8 @@
             </div>
             : <div className="Banner">
                 Welcome to
-                <h2>Nameste</h2>
-                
+                <h2>Yogi FM</h2>
+                click a speaker to get started...
             </div>
         }
     }
