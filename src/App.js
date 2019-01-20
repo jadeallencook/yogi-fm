@@ -51,11 +51,17 @@ class App extends Component {
     });
   }
 
-  play(id) {
-    console.log(speakers[this.state.songs]);
+  play(id, next) {
+    if (music[this.state.songs]) {
+      const video = document.getElementById('music-video');
+      video.setAttribute('src', video.getAttribute('src').replace(this.state.music, id));
+    } else {
+      const video = document.getElementById('speaker-video');
+      video.setAttribute('src', video.getAttribute('src').replace(this.state.lecture, id));
+    }
     this.setState({
       speaker: (speakers[this.state.songs]) ? this.state.songs : this.state.speaker,
-      lecture: (speakers[this.state.songs]) ? id : this.state.lecture,
+      lecture: (speakers[this.state.songs] || next) ? id : this.state.lecture,
       songs: this.state.songs,
       music: (music[this.state.songs]) ? id : this.state.music,
       genre: (music[this.state.songs]) ? this.state.songs : this.state.genre
@@ -67,7 +73,6 @@ class App extends Component {
     const lecture = Object.keys(speakers[speaker].videos)[Math.floor(Math.random()*Object.keys(speakers[speaker].videos).length)];
     const genre = Object.keys(music)[Math.floor(Math.random()*Object.keys(music).length)];
     const song = Object.keys(music[genre].videos)[Math.floor(Math.random()*Object.keys(music[genre].videos).length)];
-    console.log(genre);
     this.setState({
       songs: false,
       speaker: speaker,
@@ -80,7 +85,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Player options={this.state} />
+        <Player options={this.state} play={this.play.bind(this)} />
         <Sidebar 
           lecture={this.state.lecture} 
           home={this.home.bind(this)} 

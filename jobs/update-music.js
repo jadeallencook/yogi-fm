@@ -4,8 +4,6 @@ const FetchStream = require('fetch').FetchStream,
     DomParser = require('dom-parser'),
     music = Object.keys(environment);
 
-console.log(`\nYogi FM | Database CRON\n`);
-
 function extract(string, start, end) {
     string = string.replace(string.substring(0, string.indexOf(start) + start.length, ''));
     string = string.replace(string.substring(string.indexOf(end), string.length));
@@ -35,7 +33,7 @@ music.map(key => {
         environment[key].videos = data;
         fs.writeFile('./src/environments/music.environment.json', JSON.stringify(environment), function (err) {
             if (err) return console.log(err);
-            else console.log(`${Object.keys(data).length} \t- video(s) added database from playlist!`);
+            else console.log(`SUCCESS:\t${Object.keys(data).length} \tmusic video(s) added!`);
         });
     });
 });

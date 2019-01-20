@@ -25,7 +25,11 @@ div.Player {
     }
 
     div.controls {
-        margin: 9px 0px 3px 0px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        position: fixed;
+        margin-top: 10px;
         i {
             margin: 0px 30px;
             font-size: 1em;
@@ -36,13 +40,14 @@ div.Player {
         }
     }
     span {
+        position: absolute;
+        width: 100%;
+        margin-top: 40px;
         font-size: 0.75em;
         font-weight: 100;
         font-weight: 100;
         letter-spacing: .10em;
         display: block;
-        margin-bottom: -50px;
-        margin-top: 15px;
         b {
             font-weight: bold;
         }
