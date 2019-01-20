@@ -19,7 +19,8 @@ class Section extends Component {
                                     }} onClick={() => {
                                         this.props.open(key);
                                     }}></div>
-                                    <span>{speaker.name}</span>
+                                    <span className="name">{speaker.name}</span>
+                                    <span className="years">{speaker.years}</span>
                                 </div>
                             )
                         })

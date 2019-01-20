@@ -28,6 +28,11 @@ div.Featured {
             >span {
                 text-transform: capitalize;
                 font-size: 0.85em;
+                display: block;
+            }
+
+            span.years {
+                color: #969696;
             }
 
             >div:hover {

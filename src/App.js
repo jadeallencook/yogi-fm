@@ -1,54 +1,95 @@
 import React, { Component } from 'react';
 import './App.scss';
 
+import speakers from './environments/speakers.environment.json';
+import music from './environments/music.environment.json';
+
 import Sidebar from './components/Sidebar';
 import Browse from './components/Browse';
 import Player from './components/Player';
 import Songs from './components/Songs';
 
 class App extends Component {
+  /*
+    Lectures {
+      speaker: key
+      lecture: id
+    }
+    Music {
+      genre: key
+      music: id
+    }
+  */
   constructor() {
     super();
     this.state = {
-      speaker: null,
-      lecture: null,
-      songs: false
+      speaker: 'alan-watts',
+      lecture: 'XHBKM7mBHUM',
+      songs: false,
+      genre: 'classic-jazz',
+      music: 'QUMuDWDVd20'
     }
   }
 
-  open(speaker) {
+  open(section) {
     this.setState({
-      songs: speaker,
+      songs: section,
       speaker: this.state.speaker,
-      lecture: this.state.lecture
+      lecture: this.state.lecture,
+      music: this.state.music,
+      genre: this.state.genre
     });
   }
 
   home() {
     this.setState({
+      songs: false,
       speaker: this.state.speaker,
       lecture: this.state.lecture,
-      songs: false
+      music: this.state.music,
+      genre: this.state.genre
     });
   }
 
-  play(lecture) {
+  play(id) {
+    console.log(speakers[this.state.songs]);
     this.setState({
-      speaker: this.state.songs,
-      lecture: lecture,
-      songs: this.state.songs
+      speaker: (speakers[this.state.songs]) ? this.state.songs : this.state.speaker,
+      lecture: (speakers[this.state.songs]) ? id : this.state.lecture,
+      songs: this.state.songs,
+      music: (music[this.state.songs]) ? id : this.state.music,
+      genre: (music[this.state.songs]) ? this.state.songs : this.state.genre
     });
+  }
+
+  random() {
+    const speaker = Object.keys(speakers)[Math.floor(Math.random()*Object.keys(speakers).length)];
+    const lecture = Object.keys(speakers[speaker].videos)[Math.floor(Math.random()*Object.keys(speakers[speaker].videos).length)];
+    const genre = Object.keys(music)[Math.floor(Math.random()*Object.keys(music).length)];
+    const song = Object.keys(music[genre].videos)[Math.floor(Math.random()*Object.keys(music[genre].videos).length)];
+    console.log(genre);
+    this.setState({
+      songs: false,
+      speaker: speaker,
+      lecture: lecture,
+      music: song,
+      genre: genre
+    })
   }
 
   render() {
     return (
       <div className="App">
-        <Player speaker={this.state.speaker} video={this.state.lecture} />
-        <Sidebar lecture={this.state.lecture} home={this.home.bind(this)} open={this.open.bind(this)} />
+        <Player options={this.state} />
+        <Sidebar 
+          lecture={this.state.lecture} 
+          home={this.home.bind(this)} 
+          open={this.open.bind(this)}
+          random={this.random.bind(this)} />
         { 
           (this.state.songs) 
           ? <Songs speaker={this.state.songs} play={this.play.bind(this)} /> 
-          : <Browse open={this.open.bind(this)} speaker={this.state.speaker} /> 
+          : <Browse open={this.open.bind(this)} options={this.state} /> 
         }
       </div>
     );

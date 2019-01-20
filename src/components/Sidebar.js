@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import './Sidebar.scss';
 import speakers from '../environments/speakers.environment.json';
+import music from '../environments/music.environment.json';
 import YouTube from 'react-youtube';
 
 class Sidebar extends Component {
-    controls(event) {
-        const player = event.target;
-        player.playVideo();
-        player.setVolume(100);
-    }
-
     render() {
         return (
             <div className="Sidebar">
                 <h2 onClick={this.props.home}>Yogi FM</h2>
+                <span className="link" onClick={this.props.home}>Home</span>
+                <span className="link" onClick={this.props.random}>Random</span>
+                <br />
                 <span className="title">SPEAKERS</span>
                 {
                     Object.keys(speakers).map(key => {
@@ -30,14 +28,22 @@ class Sidebar extends Component {
                         )
                     })
                 }
+                <br />
+                <span className="title">MUSIC</span>
                 {
-                    (this.props.lecture)
-                    ? <YouTube 
-                        videoId={this.props.lecture} 
-                        onReady={this.controls} 
-                        controls={0}
-                        onStateChange={this.controls} />
-                    : null
+                    Object.keys(music).map(key => {
+                        const genre = music[key];
+                        return (
+                            <span 
+                                className="link" 
+                                key={key}
+                                onClick={() => {
+                                    this.props.open(key);
+                                }}>
+                                {genre.name}
+                            </span>
+                        )
+                    })
                 }
             </div>
         )

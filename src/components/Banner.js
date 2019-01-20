@@ -1,19 +1,24 @@
 
     import React, { Component } from 'react';
     import speakers from '../environments/speakers.environment.json';
+    import music from '../environments/music.environment.json';
     import './Banner.scss';
 
     class Banner extends Component {
         render() {
-            return (this.props.speaker) 
+            return (this.props.options.speaker) 
             ? <div className="Banner">
                 You're listening to
                 <h2>{
-                    (this.props.speaker) 
-                    ? speakers[this.props.speaker].name
+                    (this.props.options.speaker) 
+                    ? speakers[this.props.options.speaker].name
                     : null
                 }</h2>
-                on Yogi Fm...
+                {
+                    (this.props.options.music) 
+                    ? `with ${music[this.props.options.genre].name.toLowerCase()}...`
+                    : 'try choosing some music!'
+                }
             </div>
             : <div className="Banner">
                 Welcome to

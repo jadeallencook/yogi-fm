@@ -7,6 +7,13 @@ div.Songs {
     position: absolute;
     height: 100%;
     width: 100%;
+    >div.music-cover {
+        padding: 25px 0px;
+        h2 {
+            margin-left: 15px;
+            font-size: 4em;
+        }
+    }
     >div.cover {
         display: grid;
         width: 100%;
@@ -26,12 +33,20 @@ div.Songs {
             font-size: 0.75em;
         }
     }
-    div.song {
-        border-top: $grey solid thin;
+    div.song,
+    div.titles {
         padding: 15px;
-        cursor: pointer;
         display: grid;
         grid-template-columns: 75% 25%;
+        div {
+            overflow: hidden;
+            white-space: nowrap;
+            margin-right: 50px;
+        }
+    }
+    div.song {
+        cursor: pointer;
+        border-top: $grey solid thin;
     }
     div.song:hover {
         opacity: 0.5;

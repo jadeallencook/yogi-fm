@@ -8,7 +8,7 @@
         render() {
             return (
                 <div className="Browse">
-                    <Banner speaker={this.props.speaker} />
+                    <Banner options={this.props.options} />
                     <Featured open={this.props.open} />
                 </div>
             )
