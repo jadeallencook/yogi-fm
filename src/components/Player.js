@@ -20,7 +20,7 @@ class Player extends Component {
 
     render() {
         return (
-            <div className="Player">
+            <div className="Player animated slideInUp">
                 <YouTube className="speaker-video" videoId={this.props.options.lecture} controls={0} onReady={this.speakerControls} onStateChange={this.speakerControls} />
                 {/*<div className="controls">
                     <i className="fa fa-backward"></i>

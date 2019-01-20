@@ -7,7 +7,7 @@ import YouTube from 'react-youtube';
 class Sidebar extends Component {
     render() {
         return (
-            <div className="Sidebar">
+            <div className="Sidebar animated slideInLeft">
                 <h2 onClick={this.props.home}>Yogi FM</h2>
                 <span className="link" onClick={this.props.home}>Home</span>
                 <span className="link" onClick={this.props.random}>Random</span>

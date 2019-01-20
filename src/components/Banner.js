@@ -9,7 +9,7 @@
             return (this.props.options.speaker) 
             ? <div className="Banner">
                 You're listening to
-                <h2>{
+                <h2 className="animated flipInX" style={{ animationDelay: '100ms' }}>{
                     (this.props.options.speaker) 
                     ? speakers[this.props.options.speaker].name
                     : null

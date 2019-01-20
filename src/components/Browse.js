@@ -7,7 +7,7 @@
     class Browse extends Component {
         render() {
             return (
-                <div className="Browse">
+                <div className="Browse animated fadeIn">
                     <Banner options={this.props.options} />
                     <Featured open={this.props.open} />
                 </div>

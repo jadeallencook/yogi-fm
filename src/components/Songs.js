@@ -11,7 +11,7 @@ class Songs extends Component {
             <div className="Songs">
                 {
                     (lecture) ?
-                    <div className="cover">
+                    <div className="cover animated fadeIn">
                         <div className="image" style={{
                             backgroundImage: `url(${section.image})`
                         }}></div>
@@ -21,22 +21,25 @@ class Songs extends Component {
                         </div>
                     </div> 
                     : 
-                    <div className="music-cover">
+                    <div className="music-cover animated fadeInDown">
                         <h2>{section.name}</h2>
                     </div>
 
                 }
-                <div className="titles">
+                <div className="titles animated fadeIn">
                     <div><b>Lecture Title</b></div>
                     <div><b>{(lecture) ? 'Speaker' : 'Genre'}</b></div>
                 </div>
                 {
-                    Object.keys(section.videos).map(key => {
+                    Object.keys(section.videos).map((key, i) => {
                         const song = section.videos[key];
                         return(
                             <div 
                                 key={key} 
-                                className="song"
+                                className="song animated fadeInUp"
+                                style={{
+                                    animationDelay: `${(i*100)}ms`
+                                }}
                                 onClick={() => {
                                     this.props.play(key);
                                 }}>
