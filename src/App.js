@@ -69,8 +69,8 @@ class App extends Component {
       video.setAttribute('src', video.getAttribute('src').replace(this.state.lecture, id));
     }
     this.setState({
-      speaker: this.state.speaker,
-      lecture: (next) ? id : this.state.lecture,
+      speaker: (next) ? this.state.speaker : this.state.songs,
+      lecture: (next) ? id : (speakers[this.state.songs]) ? id : this.state.lecture,
       songs: this.state.songs,
       music: (music[this.state.songs] && !next) ? id : this.state.music,
       genre: (music[this.state.songs] && !next) ? this.state.songs : this.state.genre
