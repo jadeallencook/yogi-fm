@@ -20,15 +20,18 @@ function filter(string, speaker) {
         .replace(`${speaker} :`, '')
         .replace(`${speaker} -`, '')
         .replace(`${speaker} |`, '')
+        .replace(`${speaker} ~`, '')
         .replace(`${speaker}:`, '')
         .replace(`${speaker}-`, '')
         .replace(`${speaker}|`, '')
+        .replace(`${speaker}~`, '')
         .replace('&#39;', '\'')
         .replace('&#39;', '\'')
         .replace('&amp;', '&')
         .replace('&quot;', '"')
         .replace('&quot;', '"')
         .replace('.flv', '"')
+        .replace('bbc', 'BBC')
         .trim();
     return string;
 }
