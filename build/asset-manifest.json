@@ -1,13 +1,13 @@
 {
-  "main.css": "/Yogi-FM/build/static/css/main.a61158e0.chunk.css",
-  "main.js": "/Yogi-FM/build/static/js/main.17cd7f6e.chunk.js",
-  "main.js.map": "/Yogi-FM/build/static/js/main.17cd7f6e.chunk.js.map",
+  "main.css": "/Yogi-FM/build/static/css/main.724ee5fd.chunk.css",
+  "main.js": "/Yogi-FM/build/static/js/main.4c36691e.chunk.js",
+  "main.js.map": "/Yogi-FM/build/static/js/main.4c36691e.chunk.js.map",
   "static/js/1.095cd1a5.chunk.js": "/Yogi-FM/build/static/js/1.095cd1a5.chunk.js",
   "static/js/1.095cd1a5.chunk.js.map": "/Yogi-FM/build/static/js/1.095cd1a5.chunk.js.map",
   "runtime~main.js": "/Yogi-FM/build/static/js/runtime~main.5160589c.js",
   "runtime~main.js.map": "/Yogi-FM/build/static/js/runtime~main.5160589c.js.map",
-  "static/css/main.a61158e0.chunk.css.map": "/Yogi-FM/build/static/css/main.a61158e0.chunk.css.map",
+  "static/css/main.724ee5fd.chunk.css.map": "/Yogi-FM/build/static/css/main.724ee5fd.chunk.css.map",
   "index.html": "/Yogi-FM/build/index.html",
-  "precache-manifest.3aeef6c9673b3c612ca6dabb3ad5e98b.js": "/Yogi-FM/build/precache-manifest.3aeef6c9673b3c612ca6dabb3ad5e98b.js",
+  "precache-manifest.87b29a1c364f415eb8bf8c48135a9357.js": "/Yogi-FM/build/precache-manifest.87b29a1c364f415eb8bf8c48135a9357.js",
   "service-worker.js": "/Yogi-FM/build/service-worker.js"
 }

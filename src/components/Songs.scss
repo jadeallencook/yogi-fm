@@ -38,6 +38,7 @@ div.Songs {
         padding: 15px;
         display: grid;
         grid-template-columns: 75% 25%;
+        text-transform: capitalize;
         div {
             overflow: hidden;
             white-space: nowrap;

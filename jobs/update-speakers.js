@@ -12,28 +12,56 @@ function extract(string, start, end) {
     return string;
 }
 
-speakers.map(key => {
-    speaker = environment[key];
-    const link = `https://www.youtube.com/playlist?list=${speaker.playlist}`;
-    let html = '';
-    new Promise(res => {
-        new FetchStream(link).on('data', chunk => {
+function filter(string, speaker) {
+    speaker = speaker.toLowerCase();
+    string = string.trim();
+    string = string.toLowerCase();
+    string = string
+        .replace(`${speaker} :`, '')
+        .replace(`${speaker} -`, '')
+        .replace(`${speaker} |`, '')
+        .replace(`${speaker}:`, '')
+        .replace(`${speaker}-`, '')
+        .replace(`${speaker}|`, '')
+        .replace('&#39;', '\'')
+        .replace('&#39;', '\'')
+        .replace('&amp;', '&')
+        .replace('&quot;', '"')
+        .replace('&quot;', '"')
+        .replace('.flv', '"')
+        .trim();
+    return string;
+}
+
+function scrape(url) {
+    return new Promise(res => {
+        let html = '';
+        new FetchStream(url).on('data', chunk => {
             chunk = chunk.toString();
             html += chunk;
-            if (chunk.indexOf('</html>') !== -1) res();
+            if (chunk.indexOf('</html>') !== -1) res(html);
         });
-    }).then(() => {
+    });
+}
+
+function write(speaker, num) {
+    fs.writeFile('./src/environments/speakers.environment.json', JSON.stringify(environment), function (err) {
+        if (err) return console.log(err);
+        else console.log(`${num} video(s)\t\t${speaker.name}`);
+    });
+}
+
+speakers.map(key => {
+    scrape(`https://www.youtube.com/playlist?list=${environment[key].playlist}`).then((html) => {
+        const speaker = environment[key];
         const dom = new DomParser().parseFromString(html);
         data = {};
         dom.getElementsByClassName('pl-video-title-link').map((node, i) => {
             let title = node.innerHTML.trim();
-            title = title.trim();
+            title = filter(title, speaker.name);
             data[extract(node.getAttribute('href'), 'v=', '&amp')] = title;
         });
         environment[key].videos = data;
-        fs.writeFile('./src/environments/speakers.environment.json', JSON.stringify(environment), function (err) {
-            if (err) return console.log(err);
-            else console.log(`SUCCESS:\t${Object.keys(data).length} \tlecture video(s) added!`);
-        });
+        write(speaker, Object.keys(data).length);
     });
 });
