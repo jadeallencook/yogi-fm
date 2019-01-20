@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Yogi-FM/build/precache-manifest.620a5b4e09e2d1d9ef0184bf8cd65331.js"
+  "/Yogi-FM/build/precache-manifest.578fa8ecc0d791727b8a5b55f7a242b0.js"
 );
 
 workbox.clientsClaim();

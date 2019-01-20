@@ -52,6 +52,15 @@ class App extends Component {
   }
 
   play(id, next) {
+    if ('ga' in window) {
+      window.ga(
+        'send', 
+        'event', 
+        (speakers[this.state.songs]) ? 'Lecture' : 'Song', 
+        (speakers[this.state.songs]) ? speakers[this.state.songs].name : music[this.state.songs].name, 
+        id
+      );
+    }
     if (music[this.state.songs]) {
       const video = document.getElementById('music-video');
       video.setAttribute('src', video.getAttribute('src').replace(this.state.music, id));
