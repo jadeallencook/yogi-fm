@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/Yogi-FM/build/static/js/runtime~main.5160589c.js"
   },
   {
-    "revision": "4d3e69e880cf5ab1c82e",
-    "url": "/Yogi-FM/build/static/js/main.4d3e69e8.chunk.js"
+    "revision": "ecad7c4df9ac08ed6935",
+    "url": "/Yogi-FM/build/static/js/main.ecad7c4d.chunk.js"
   },
   {
     "revision": "095cd1a59fe26a4b67d9",
     "url": "/Yogi-FM/build/static/js/1.095cd1a5.chunk.js"
   },
   {
-    "revision": "4d3e69e880cf5ab1c82e",
+    "revision": "ecad7c4df9ac08ed6935",
     "url": "/Yogi-FM/build/static/css/main.777ae8bf.chunk.css"
   },
   {
-    "revision": "c523f2ba52c7961d88df14dd6464ccb0",
+    "revision": "e01e167299970cfcfca730902f30004e",
     "url": "/Yogi-FM/build/index.html"
   }
 ];
