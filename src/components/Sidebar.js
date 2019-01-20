@@ -44,6 +44,9 @@ render() {
                     )
                 })
             }
+            <br />
+            <span className="footer"><b>Yogi FM</b> | Copyright 2019</span>
+            <span className="footer">Developed By <b><a href="https://github.com/jadeallencook" target="_blank">@jadeallencook</a></b></span>
         </div>
     )
 }
