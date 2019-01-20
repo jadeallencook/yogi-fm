@@ -1,11 +1,11 @@
 {
     "drugs": {
-        "title": "Drug & Psychedelics",
-        "speakers": ["terence-mckenna", "timothy-leary", "aldous-huxley"]
+        "title": "Drugs & Psychedelics",
+        "speakers": ["terence-mckenna", "timothy-leary", "aldous-huxley", "burroughs"]
     },
     "east": {
         "title": "Far East",
-        "speakers": ["osho", "sadhguru"]
+        "speakers": ["osho", "thich", "sadhguru", "bruce-lee"]
     },
     "self": {
         "title": "Self Discovery",

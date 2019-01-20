@@ -8,6 +8,11 @@ body {
   font-family: $roboto;
 }
 
+::-webkit-scrollbar {
+  width: 0px;  /* remove scrollbar space */
+  background: transparent;  /* optional: just make scrollbar invisible */
+}
+
 h1,
 h2 {
   margin: 0px;
