@@ -56,12 +56,12 @@ class App extends Component {
       window.ga(
         'send', 
         'event', 
-        (speakers[this.state.songs]) ? 'Lecture' : 'Song', 
-        (speakers[this.state.songs]) ? speakers[this.state.songs].name : music[this.state.songs].name, 
+        (speakers[this.state.songs] || next) ? 'Lecture' : 'Song', 
+        (speakers[this.state.speaker]) ? speakers[this.state.speaker].name : music[this.state.songs].name, 
         id
       );
     }
-    if (music[this.state.songs]) {
+    if (music[this.state.songs] && !next) {
       const video = document.getElementById('music-video');
       video.setAttribute('src', video.getAttribute('src').replace(this.state.music, id));
     } else {
@@ -69,11 +69,11 @@ class App extends Component {
       video.setAttribute('src', video.getAttribute('src').replace(this.state.lecture, id));
     }
     this.setState({
-      speaker: (speakers[this.state.songs]) ? this.state.songs : this.state.speaker,
-      lecture: (speakers[this.state.songs] || next) ? id : this.state.lecture,
+      speaker: this.state.speaker,
+      lecture: (next) ? id : this.state.lecture,
       songs: this.state.songs,
-      music: (music[this.state.songs]) ? id : this.state.music,
-      genre: (music[this.state.songs]) ? this.state.songs : this.state.genre
+      music: (music[this.state.songs] && !next) ? id : this.state.music,
+      genre: (music[this.state.songs] && !next) ? this.state.songs : this.state.genre
     });
   }
 
