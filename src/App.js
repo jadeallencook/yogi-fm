@@ -22,13 +22,27 @@ class App extends Component {
   */
   constructor() {
     super();
+    let hash = window.location.hash;
+    hash = hash.replace('#', '');
+    hash = hash.split('/');
+    const passed = (hash.length === 4);
+    console.log(hash);
+    const speaker = (passed && speakers[hash[0]]) ? hash[0] : 'alan-watts';
+    const lecture = (passed && speakers[hash[0]] && speakers[hash[0]].videos[hash[1]]) ? hash[1] : 'XHBKM7mBHUM';
+    const genre = (passed && music[hash[2]]) ? hash[2] : 'classic-jazz';
+    const song = (passed && music[hash[2]] && music[hash[2]].videos[hash[3]]) ? hash[3] : 'QUMuDWDVd20';
+    window.location.hash = `${speaker}/${lecture}/${genre}/${song}`;
     this.state = {
-      speaker: 'alan-watts',
-      lecture: 'XHBKM7mBHUM',
+      speaker: speaker,
+      lecture: lecture,
       songs: false,
-      genre: 'classic-jazz',
-      music: 'QUMuDWDVd20'
+      genre: genre,
+      music: song
     }
+  }
+
+  componentDidUpdate() {
+    window.location.hash = `${this.state.speaker}/${this.state.lecture}/${this.state.genre}/${this.state.music}`;
   }
 
   open(section) {
