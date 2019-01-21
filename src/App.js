@@ -52,12 +52,24 @@ class App extends Component {
   }
 
   play(id, next) {
+    const lecture = (
+      next || (
+        speakers[this.state.songs] && 
+        speakers[this.state.songs].videos[id].length
+      )
+    );
     if ('ga' in window) {
       window.ga(
         'send', 
         'event', 
-        (speakers[this.state.songs] || next) ? 'Lecture' : 'Song', 
-        (speakers[this.state.speaker]) ? speakers[this.state.speaker].name : music[this.state.songs].name, 
+        (lecture) ? 'lecture' : 'song', 
+        (lecture) ? 
+          (lecture && !next) ? 
+            this.state.songs : 
+            this.state.speaker
+          : (!lecture) ? 
+          this.state.songs : 
+          this.state.genre,
         id
       );
     }
@@ -69,11 +81,11 @@ class App extends Component {
       video.setAttribute('src', video.getAttribute('src').replace(this.state.lecture, id));
     }
     this.setState({
-      speaker: (next) ? this.state.speaker : (speakers[this.state.songs]) ? this.state.songs : this.state.speaker,
-      lecture: (next) ? id : (speakers[this.state.songs]) ? id : this.state.lecture,
+      speaker: (lecture && !next) ? this.state.songs : this.state.speaker,
+      lecture: (lecture) ? id : this.state.lecture,
       songs: this.state.songs,
-      music: (music[this.state.songs] && !next) ? id : this.state.music,
-      genre: (music[this.state.songs] && !next) ? this.state.songs : this.state.genre
+      music: (!lecture) ? id : this.state.music,
+      genre: (!lecture) ? this.state.songs : this.state.genre
     });
   }
 
@@ -102,7 +114,7 @@ class App extends Component {
           random={this.random.bind(this)} />
         { 
           (this.state.songs) 
-          ? <Songs speaker={this.state.songs} play={this.play.bind(this)} /> 
+          ? <Songs options={this.state} play={this.play.bind(this)} /> 
           : <Browse open={this.open.bind(this)} options={this.state} /> 
         }
       </div>

@@ -45,6 +45,9 @@ div.Songs {
             margin-right: 50px;
         }
     }
+    div.active {
+        background-color: $grey;
+    }
     div.song {
         cursor: pointer;
         border-top: $grey solid thin;

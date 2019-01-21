@@ -5,8 +5,8 @@ import './Songs.scss';
 
 class Songs extends Component {
     render() {
-        const lecture = (speakers[this.props.speaker])
-        const section = (lecture) ? speakers[this.props.speaker] : music[this.props.speaker];
+        const lecture = (speakers[this.props.options.songs]);
+        const section = (lecture) ? speakers[this.props.options.songs] : music[this.props.options.songs];
         return (
             <div className="Songs">
                 {
@@ -36,7 +36,12 @@ class Songs extends Component {
                         return(
                             <div 
                                 key={key} 
-                                className="song animated fadeInUp"
+                                className={`song animated fadeInUp ${
+                                    (
+                                        key === this.props.options.lecture ||
+                                        key === this.props.options.music
+                                    ) ? 'active' : ''
+                                }`}
                                 style={{
                                     animationDelay: `${(i*100)}ms`
                                 }}
