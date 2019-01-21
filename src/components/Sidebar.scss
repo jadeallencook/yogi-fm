@@ -55,3 +55,16 @@ div.Sidebar {
         }
     }
 }
+
+@media only screen and (max-device-width: 480px) {
+    div.Sidebar {
+        height: 50px;
+        padding: 0px 15px;
+        width: 100%;
+        overflow: hidden;
+        h2 {
+            padding: 0px;
+            margin: 10px 0px;
+        }
+    }
+}

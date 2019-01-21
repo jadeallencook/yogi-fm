@@ -14,6 +14,7 @@ div.Player {
         width: 50px;
         height: 50px;
         float: left;
+
         iframe {
             width: 100%;
             height: 100%;
@@ -30,15 +31,26 @@ div.Player {
         text-align: center;
         position: fixed;
         margin-top: 10px;
+
+        div {
+            display: none;
+        }
+
         i {
             margin: 0px 30px;
             font-size: 1em;
             cursor: pointer;
         }
+
+        i.mobile {
+            display: none;
+        }
+
         i:hover {
             opacity: 0.5;
         }
     }
+
     span {
         position: absolute;
         text-transform: capitalize;
@@ -49,8 +61,65 @@ div.Player {
         font-weight: 100;
         letter-spacing: .10em;
         display: block;
+        white-space: nowrap;
+        overflow: hidden;
+
         b {
             font-weight: bold;
+        }
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+    div.Player {
+        >div {
+            iframe {
+                display: none;
+            }
+        }
+
+        span {
+            width: 80%;
+            left: 10%;
+        }
+
+        div.controls {
+            margin-top: 0px;
+            margin-left: -15px;
+            i.fa-play {
+                display: none;
+            }
+
+            i {
+                display: inline-block;
+                margin-top: -5px;
+            }
+
+            div {
+                display: inline-block;
+                height: 30px;
+                border-radius: 100%;
+                overflow: hidden;
+                width: 30px;
+                .mobile-video {
+                    display: inline-block;
+                    float: none;
+                    background-color: $darkgrey;
+
+                    >div {
+                        height: 100%;
+                        width: 100%;
+
+                        iframe {
+                            height: 30px;
+                            border-radius: 100%;
+                            overflow: hidden;
+                            width: 30px;
+                            display: block;
+                        }
+                    }
+                }
+            }
         }
     }
 }

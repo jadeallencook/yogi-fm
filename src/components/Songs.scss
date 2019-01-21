@@ -54,3 +54,32 @@ div.Songs {
         background-color: $grey;
     }
 }
+
+@media only screen and (max-device-width: 480px) {
+    div.Songs {
+        padding: 50px 0px 125px 0px;
+        >div.cover {
+            padding: 15px;
+            display: block;
+            min-height: 125px;
+            div.image {
+                float: left;
+                height: 100px;
+                width: 100px;
+            }
+            div.bio {
+                margin-left: 0px;
+            }
+        }
+        div.song,
+        div.titles {
+            grid-template-columns: 1fr;
+            div {
+                margin-right: 15px;
+            }
+            div:nth-child(2) {
+                display: none;
+            }
+        }
+    }
+}

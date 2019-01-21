@@ -53,6 +53,9 @@ class Player extends Component {
                             });
                         }}></i>
                     }
+                    {
+                        <YouTube id="mobile-video" className="mobile-video" videoId={this.props.options.lecture} controls={0} onReady={this.lvol} />
+                    }
                     <i className="fa fa-forward" onClick={() => {
                         const videos = speakers[this.props.options.speaker].videos;
                         const keys = Object.keys(videos);

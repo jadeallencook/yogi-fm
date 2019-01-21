@@ -1,22 +1,31 @@
+@import '../global.style.scss';
 
-    @import '../global.style.scss';
-    
+div.Banner {
+    background-color: $darkgrey;
+    height: 40vw;
+    text-align: center;
+    font-weight: normal;
+    background-image: url('https://jadeallencook.github.io/Yogi-FM/build/assets/images/banner.jpg');
+    background-size: cover;
+    background-position: center center;
+    padding-top: 15%;
+    font-size: 1.5em;
+    box-sizing: border-box;
+    text-shadow: 2px 2px 25px #363636;
+
+    h2 {
+        margin: -5px;
+        font-size: 4em;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
     div.Banner {
-        background-color: $darkgrey;
-        height: 40vw;
-        text-align: center;
-        font-weight: normal;
-        background-image: url('https://jadeallencook.github.io/Yogi-FM/build/assets/images/banner.jpg');
-        background-size: cover;
-        background-position: center center;
-        padding-top: 15%;
-        font-size: 1.5em;
-        box-sizing: border-box;
-        text-shadow: 2px 2px 25px #363636;
-
+        height: auto;
+        padding-top: 30%;
+        padding-bottom: 20%;
         h2 {
-            margin: -5px;
-            font-size: 4em;
+            font-size: 2.5em;
         }
     }
-    
+}
