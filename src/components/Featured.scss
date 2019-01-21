@@ -44,6 +44,27 @@ div.Featured {
     }
 }
 
+@media only screen and (max-device-width: 480px) {
+    div.Featured {
+        >div {
+            div.collection {
+                grid-template-columns: 1fr 1fr;
+                >div {
+                    margin: 0px;
+                    padding-bottom: 15px;
+                    >div {
+                        margin: 0px auto 5px auto;
+                        display: block;
+                    }
+                    >span {
+                        margin-left: 5%;
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media screen and (min-width: 1300px) {
     div.Featured {
         >div {
