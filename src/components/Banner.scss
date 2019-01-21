@@ -19,6 +19,13 @@ div.Banner {
     }
 }
 
+@media screen and (min-width: 1300px) {
+    div.Banner {
+        height: 20vw;
+        padding-top: 6%;
+    }
+  }
+
 @media only screen and (max-device-width: 480px) {
     div.Banner {
         height: auto;

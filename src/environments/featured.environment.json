@@ -10,5 +10,9 @@
     "self": {
         "title": "Self Discovery",
         "speakers": ["alan-watts", "ram-dass", "joseph-campbell", "eckhart-tolle"]
+    },
+    "relationships": {
+        "title": "Relationships",
+        "speakers": ["kim-eng", "mr-rogers"]
     }
 }

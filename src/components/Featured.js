@@ -38,6 +38,7 @@ class Featured extends Component {
                 <Section selection={featured.self} open={this.props.open} />
                 <Section selection={featured.drugs} open={this.props.open} />
                 <Section selection={featured.east} open={this.props.open} />
+                <Section selection={featured.relationships} open={this.props.open} />
             </div>
         )
     }
