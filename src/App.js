@@ -94,13 +94,17 @@ class App extends Component {
     const lecture = Object.keys(speakers[speaker].videos)[Math.floor(Math.random()*Object.keys(speakers[speaker].videos).length)];
     const genre = Object.keys(music)[Math.floor(Math.random()*Object.keys(music).length)];
     const song = Object.keys(music[genre].videos)[Math.floor(Math.random()*Object.keys(music[genre].videos).length)];
+    let video = document.getElementById('music-video');
+    video.setAttribute('src', video.getAttribute('src').replace(this.state.music, song));
+    video = document.getElementById('speaker-video');
+    video.setAttribute('src', video.getAttribute('src').replace(this.state.lecture, lecture));
     this.setState({
       songs: false,
       speaker: speaker,
       lecture: lecture,
       music: song,
       genre: genre
-    })
+    });
   }
 
   render() {
