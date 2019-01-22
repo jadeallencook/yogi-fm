@@ -26,7 +26,6 @@ class App extends Component {
     hash = hash.replace('#', '');
     hash = hash.split('/');
     const passed = (hash.length === 4);
-    console.log(hash);
     const speaker = (passed && speakers[hash[0]]) ? hash[0] : 'alan-watts';
     const lecture = (passed && speakers[hash[0]] && speakers[hash[0]].videos[hash[1]]) ? hash[1] : 'XHBKM7mBHUM';
     const genre = (passed && music[hash[2]]) ? hash[2] : 'classic-jazz';
@@ -73,19 +72,16 @@ class App extends Component {
       )
     );
     if ('ga' in window) {
-      window.ga(
-        'send', 
-        'event', 
-        (lecture) ? 'lecture' : 'song', 
-        (lecture) ? 
-          (lecture && !next) ? 
-            this.state.songs : 
-            this.state.speaker
-          : (!lecture) ? 
+      const type = (lecture) ? 'lecture' : 'song';
+      const speaker = (lecture) ? 
+        (lecture && !next) ? 
           this.state.songs : 
-          this.state.genre,
-        id
-      );
+          this.state.speaker
+        : (!lecture) ? 
+          this.state.songs : 
+          this.state.genre;
+      console.log(`${type} (${id}) played by ${speaker}`);
+      window['ga']('send', 'event', type, speaker, id);
     }
     if (music[this.state.songs] && !next) {
       const video = document.getElementById('music-video');
