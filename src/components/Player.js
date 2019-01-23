@@ -64,11 +64,14 @@ class Player extends Component {
                         this.props.play(keys[index], true);
                     }}></i>
                 </div>
-                {
-                    (this.props.options.speaker) 
-                    ? <span><b>{speakers[this.props.options.speaker].name}:</b> {speakers[this.props.options.speaker].videos[this.props.options.lecture]}</span>
-                    : <span>Click on a speaker to get started...</span>
-                }
+                <div className="marquee">
+                    {
+                        (this.props.options.speaker) 
+                        ? <span><b>{speakers[this.props.options.speaker].name}:</b> {speakers[this.props.options.speaker].videos[this.props.options.lecture]}</span>
+                        : <span>Click on a speaker to get started...</span>
+                    }
+                    <span className="mobile">Be patient on mobile, the video is loading...</span>
+                </div>
                 <YouTube id="music-video" className="music-video" videoId={this.props.options.music} controls={0} onReady={this.mvol} />
             </div>
         )
