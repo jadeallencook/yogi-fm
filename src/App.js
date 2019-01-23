@@ -80,8 +80,11 @@ class App extends Component {
         : (!lecture) ? 
           this.state.songs : 
           this.state.genre;
-      console.log(`${type} (${id}) played by ${speaker}`);
-      window['ga']('send', 'event', type, speaker, id);
+      window['ga']('event', type, speaker, id, {
+        hitCallback: () => {
+          console.log(`${type} (${id}) played by ${speaker}`);
+        }
+      });
     }
     if (music[this.state.songs] && !next) {
       const video = document.getElementById('music-video');
