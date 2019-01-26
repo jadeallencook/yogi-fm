@@ -9,6 +9,11 @@ class Sidebar extends Component {
             <div className="Sidebar animated slideInLeft">
                 <h2 onClick={this.props.home}>Yogi FM</h2>
                 <span className="link" onClick={this.props.home}>Home</span>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="hosted_button_id" value="RKQ42R5GQ42RA" />
+                    <input type="submit" border="0" name="submit" value="Donate" />
+                </form>
                 <span className="link" onClick={this.props.random}>Random</span>
                 <br />
                 <span className="title">SPEAKERS</span>

@@ -9,11 +9,20 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 0px;  /* remove scrollbar space */
-  background: transparent;  /* optional: just make scrollbar invisible */
+  width: 0px;
+  background: transparent;
 }
 
 h1,
 h2 {
   margin: 0px;
+}
+
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
