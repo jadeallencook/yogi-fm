@@ -26,3 +26,8 @@ h2 {
   -ms-user-select: none;
   user-select: none;
 }
+
+*:active {
+  outline: none;
+  border: none;
+}

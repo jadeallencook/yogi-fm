@@ -17,7 +17,32 @@ class Songs extends Component {
                         }}></div>
                         <div className="bio">
                             <h2>{section.name}</h2>
-                            <span>{section.bio}</span>
+                            <span className="years">{section.years}</span>
+                            <div className="books">
+                            {
+                                (section.books.length > 0 ) ? function(a) {
+                                    // randomize book results
+                                    for (let i = a.length - 1; i > 0; i--) {
+                                        const j = Math.floor(Math.random() * (i + 1));
+                                        [a[i], a[j]] = [a[j], a[i]];
+                                    }
+                                    return a;
+                                }(section.books).map((book, i) => {
+                                    return (
+                                        <a 
+                                            className="book animated fadeIn" 
+                                            key={book.title} 
+                                            style={{
+                                                backgroundImage: `url(${book.image})`,
+                                                animationDelay: `${i * 100}ms`
+                                            }}
+                                            href={book.link}
+                                            target="_blank"
+                                        ></a>
+                                    )
+                                }) : null
+                            }
+                            </div>
                         </div>
                     </div> 
                     : 
@@ -36,14 +61,14 @@ class Songs extends Component {
                         return(
                             <div 
                                 key={key} 
-                                className={`song animated fadeInUp ${
+                                className={`song animated fadeIn ${
                                     (
                                         key === this.props.options.lecture ||
                                         key === this.props.options.music
                                     ) ? 'active' : ''
                                 }`}
                                 style={{
-                                    animationDelay: `${(i*100)}ms`
+                                    animationDelay: `${(i*50)}ms`
                                 }}
                                 onClick={() => {
                                     this.props.play(key);

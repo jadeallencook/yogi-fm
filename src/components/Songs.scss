@@ -19,6 +19,7 @@ div.Songs {
         width: 100%;
         grid-template-columns: 200px 1fr;
         padding: 25px;
+        overflow: hidden;
         box-sizing: border-box;
         div.image {
             height: 200px;
@@ -29,8 +30,27 @@ div.Songs {
         div.bio {
             margin-left: 15px;
         }
-        span {
-            font-size: 0.75em;
+        span.years {
+            color: $extralightgrey;
+        }
+        div.books {
+            margin-top: 15px;
+            width: 440px;
+            overflow-y: scroll;
+            white-space: nowrap;
+            a {
+                display: inline-block;
+                margin-right: 15px;
+                height: 138px;
+                background-size: cover;
+                background-position: center center;
+                width: 95px;
+                background-color: $darkgrey;
+                cursor: pointer;
+            }
+            a:hover {
+                opacity: 0.5;
+            }
         }
     }
     div.song,
@@ -72,6 +92,13 @@ div.Songs {
             }
             div.bio {
                 margin-left: 0px;
+            }
+            div.books {
+                margin-top: 65px;
+                a {
+                    height: 100px;
+                    width: 65px;
+                }
             }
         }
         div.song,
