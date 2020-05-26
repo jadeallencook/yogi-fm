@@ -26,10 +26,10 @@ class App extends Component {
     hash = hash.replace('#', '');
     hash = hash.split('/');
     const passed = (hash.length === 4);
-    const speaker = (passed && speakers[hash[0]]) ? hash[0] : 'alan-watts';
-    const lecture = (passed && speakers[hash[0]] && speakers[hash[0]].videos[hash[1]]) ? hash[1] : 'XHBKM7mBHUM';
+    const speaker = (passed && speakers[hash[0]]) ? hash[0] : 'ram-dass';
+    const lecture = (passed && speakers[hash[0]] && speakers[hash[0]].videos[hash[1]]) ? hash[1] : 'Ir5ydNXpJlA';
     const genre = (passed && music[hash[2]]) ? hash[2] : 'classic-jazz';
-    const song = (passed && music[hash[2]] && music[hash[2]].videos[hash[3]]) ? hash[3] : 'QUMuDWDVd20';
+    const song = (passed && music[hash[2]] && music[hash[2]].videos[hash[3]]) ? hash[3] : 'WSqFnMy_WYU';
     window.location.hash = `${speaker}/${lecture}/${genre}/${song}`;
     this.state = {
       speaker: speaker,
