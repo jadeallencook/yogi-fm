@@ -1,4 +1,9 @@
 @import './global.style.scss';
 
 .App {
+    display: grid;
+    grid-template-columns: 200px 1fr 380px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
