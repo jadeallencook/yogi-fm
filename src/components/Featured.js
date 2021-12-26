@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import './Featured.scss';
+import AppContext from '../context/AppContext';
 
-const Section = () => {
+const Section = ({ group }) => {
+  const { speakers } = useContext(AppContext);
   return (
     <div>
-      <span className='title'>{this.props.selection.title}</span>
+      <span className='title'>{group.text}</span>
       <div className='collection'>
-        {this.props.selection.speakers.map((key) => {
+        {group.speakers.map((key) => {
           const speaker = speakers[key];
-          return (
+          return !speaker ? null : (
             <div key={key}>
               <div
                 style={{
-                  backgroundImage: `url(${speaker.image})`,
+                  backgroundImage: `url(${speaker.avatar.url})`,
                 }}
                 onClick={() => {
                   this.props.open(key);
                 }}
               />
-              <span className='name'>{speaker.name}</span>
-              <span className='years'>{speaker.years}</span>
+              <span className='name'>{speaker.name[0].text}</span>
+              <span className='years'>{speaker.dob}</span>
             </div>
           );
         })}
@@ -29,12 +31,13 @@ const Section = () => {
 };
 
 const Featured = () => {
+  const { featured } = useContext(AppContext);
+
   return (
     <div className='Featured'>
-      <Section selection={featured.self} open={this.props.open} />
-      <Section selection={featured.drugs} open={this.props.open} />
-      <Section selection={featured.east} open={this.props.open} />
-      <Section selection={featured.relationships} open={this.props.open} />
+      {featured.map((group, index) => {
+        return <Section group={group} key={`featured-${index}`} />;
+      })}
     </div>
   );
 };

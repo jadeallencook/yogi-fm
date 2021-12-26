@@ -2,18 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { useAllPrismicDocumentsByType } from '@prismicio/react';
 import './App.scss';
 import sortSpeakers from './utils/sortSpeakers';
+import sortFeatured from './utils/sortFeatured';
 import AppContext from './context/AppContext';
 
 import Sidebar from './components/Sidebar';
-// import Browse from './components/Browse';
+import Browse from './components/Browse';
 import Player from './components/Player';
 // import Songs from './components/Songs';
 
 const App = () => {
   let [speakers] = useAllPrismicDocumentsByType('speaker');
+  let [featured] = useAllPrismicDocumentsByType('featured');
   speakers = sortSpeakers(speakers);
+  featured = sortFeatured(featured);
   const [speaker, setSpeaker] = useState('YcQIHxAAACAAVZeR');
   const [lecture, setLecture] = useState(undefined);
+
+  const context = {
+    speakers,
+    speaker,
+    setSpeaker,
+    lecture,
+    setLecture,
+    featured,
+  };
 
   useEffect(
     () => {
@@ -24,13 +36,11 @@ const App = () => {
     [speakers]
   );
 
-  return speakers && lecture ? (
-    <AppContext.Provider
-      value={{ speakers, speaker, setSpeaker, lecture, setLecture }}
-    >
+  return speakers && lecture && featured ? (
+    <AppContext.Provider value={context}>
       <div className='App'>
         <Sidebar />
-        <div />
+        <Browse />
         <Player />
         {/* {null ? (
         <Songs options={null} play={null} />

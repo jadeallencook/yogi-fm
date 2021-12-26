@@ -1,32 +1,20 @@
+import React, { useContext } from 'react';
+import './Banner.scss';
+import AppContext from '../context/AppContext';
 
-    import React, { Component } from 'react';
-    import speakers from '../environments/speakers.environment.json';
-    import music from '../environments/music.environment.json';
-    import './Banner.scss';
+const Banner = () => {
+  const { speaker, speakers } = useContext(AppContext);
+  return (
+    <div className='Banner'>
+      You're listening to
+      <h2 className='animated flipInX' style={{ animationDelay: '100ms' }}>
+        {speakers[speaker].name[0].text}
+      </h2>
+      <p className='animated fadeIn'>
+        "{speakers[speaker].quotes[0].quote[0].text}"
+      </p>
+    </div>
+  );
+};
 
-    class Banner extends Component {
-        render() {
-            return (this.props.options.speaker) 
-            ? <div className="Banner">
-                You're listening to
-                <h2 className="animated flipInX" style={{ animationDelay: '100ms' }}>{
-                    (this.props.options.speaker) 
-                    ? speakers[this.props.options.speaker].name
-                    : null
-                }</h2>
-                {
-                    (this.props.options.music) 
-                    ? `with ${music[this.props.options.genre].name.toLowerCase()}...`
-                    : 'try choosing some music!'
-                }
-            </div>
-            : <div className="Banner">
-                Welcome to
-                <h2>Yogi FM</h2>
-                click a speaker to get started...
-            </div>
-        }
-    }
-
-    export default Banner;
-    
+export default Banner;
