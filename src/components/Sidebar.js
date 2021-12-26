@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Sidebar.scss';
+import AppContext from '../context/AppContext';
 
-const Sidebar = ({ speakers, speaker, setSpeaker }) => {
+const Sidebar = () => {
+  const { speakers, setSpeaker } = useContext(AppContext);
   return (
     <div className='Sidebar animated slideInLeft'>
       <h2 onClick={null}>Yogi FM</h2>

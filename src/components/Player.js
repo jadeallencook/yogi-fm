@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Player.scss';
+import AppContext from '../context/AppContext';
 
-const Player = ({ speakers, speaker, lecture }) => {
+const Player = () => {
+  const { lecture } = useContext(AppContext);
   const lectureId = lecture.link.embed_url.split('=')[1];
 
   return (
