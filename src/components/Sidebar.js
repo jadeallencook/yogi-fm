@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 import './Sidebar.scss';
 import AppContext from '../context/AppContext';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
-  const { speakers, setSpeaker } = useContext(AppContext);
+  const { speakers } = useContext(AppContext);
   return (
     <div className='Sidebar animated slideInLeft'>
-      <h2 onClick={null}>Yogi FM</h2>
+      <h2>Yogi FM</h2>
       <span className='link' onClick={null}>
-        Home
+        <Link to='/'>Home</Link>
       </span>
       <form
         action='https://www.paypal.com/cgi-bin/webscr'
@@ -19,35 +20,18 @@ const Sidebar = () => {
         <input type='hidden' name='hosted_button_id' value='RKQ42R5GQ42RA' />
         <input type='submit' border='0' name='submit' value='Donate' />
       </form>
-      <span className='link' onClick={null}>
-        Random
-      </span>
       <br />
       <span className='title'>SPEAKERS</span>
       {Object.keys(speakers).map((id, index) => {
         const { name } = speakers[id];
         return (
-          <span className='link' key={id} onClick={() => setSpeaker(id)}>
-            {name[0].text}
+          <span className='link' key={id}>
+            <Link key={id} to={`/speaker/${id}`}>
+              {name[0].text}
+            </Link>
           </span>
         );
       })}
-      <br />
-      <span className='title'>MUSIC</span>
-      {/* {Object.keys(music).map((key) => {
-        const genre = music[key];
-        return (
-          <span
-            className='link'
-            key={key}
-            onClick={() => {
-              this.props.open(key);
-            }}
-          >
-            {genre.name}
-          </span>
-        );
-      })} */}
       <br />
       <span className='footer'>
         <b>Yogi FM</b> | Copyright 2019

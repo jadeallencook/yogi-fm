@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import './Featured.scss';
 import AppContext from '../context/AppContext';
+import { Link } from 'react-router-dom';
 
 const Section = ({ group }) => {
   const { speakers } = useContext(AppContext);
@@ -11,18 +12,18 @@ const Section = ({ group }) => {
         {group.speakers.map((key) => {
           const speaker = speakers[key];
           return !speaker ? null : (
-            <div key={key}>
+            <Link to={`/speaker/${key}`} key={key}>
               <div
                 style={{
                   backgroundImage: `url(${speaker.avatar.url})`,
                 }}
-                onClick={() => {
-                  this.props.open(key);
-                }}
               />
               <span className='name'>{speaker.name[0].text}</span>
-              <span className='years'>{speaker.dob}</span>
-            </div>
+              <span className='years'>
+                {new Date(speaker.dob).getFullYear()}-
+                {!speaker.dod ? 'Now' : new Date(speaker.dod).getFullYear()}
+              </span>
+            </Link>
           );
         })}
       </div>

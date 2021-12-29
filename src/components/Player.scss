@@ -1,13 +1,54 @@
 @import '../global.style.scss';
 
 div.Player {
-    background-color: $grey;
-    box-sizing: border-box;
-    padding: 15px;
-    text-align: center;
+  background-color: $grey;
+  box-sizing: border-box;
+  padding: 15px;
+  text-align: center;
+  > div > iframe {
+    height: 366px;
+    width: 100%;
+    margin-top: 10px;
+  }
+  > div.about {
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: $large) {
+  div.Player {
     > div > iframe {
-        height: 197px;
-        width: 100%;
-        margin-top: 10px;
+      height: 310px;
     }
+  }
+}
+
+@media only screen and (max-width: $medium) {
+  div.Player {
+    > div > iframe {
+      height: 254px;
+    }
+  }
+}
+
+@media only screen and (max-width: $small) {
+  div.Player {
+    > div > iframe {
+      height: 197px;
+    }
+  }
+}
+
+@media only screen and (max-width: $mobile) {
+  div.Player.mobile-player-open {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  div.Player.mobile-player-closed {
+    display: none;
+  }
 }

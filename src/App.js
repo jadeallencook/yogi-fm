@@ -4,11 +4,13 @@ import './App.scss';
 import sortSpeakers from './utils/sortSpeakers';
 import sortFeatured from './utils/sortFeatured';
 import AppContext from './context/AppContext';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Sidebar from './components/Sidebar';
+import MobileMenu from './components/MobileMenu';
 import Browse from './components/Browse';
 import Player from './components/Player';
-// import Songs from './components/Songs';
+import Songs from './components/Songs';
 
 const App = () => {
   let [speakers] = useAllPrismicDocumentsByType('speaker');
@@ -17,6 +19,7 @@ const App = () => {
   featured = sortFeatured(featured);
   const [speaker, setSpeaker] = useState('YcQIHxAAACAAVZeR');
   const [lecture, setLecture] = useState(undefined);
+  const [isMobilePlayerOpen, setIsMobilePlayerOpen] = useState(false);
 
   const context = {
     speakers,
@@ -25,11 +28,13 @@ const App = () => {
     lecture,
     setLecture,
     featured,
+    isMobilePlayerOpen,
+    setIsMobilePlayerOpen,
   };
 
   useEffect(
     () => {
-      if (speakers) {
+      if (speakers && !lecture) {
         setLecture(speakers[speaker].videos[0]);
       }
     },
@@ -39,14 +44,15 @@ const App = () => {
   return speakers && lecture && featured ? (
     <AppContext.Provider value={context}>
       <div className='App'>
-        <Sidebar />
-        <Browse />
-        <Player />
-        {/* {null ? (
-        <Songs options={null} play={null} />
-      ) : (
-        <Browse open={() => null} options={null} />
-      )} */}
+        <BrowserRouter>
+          <MobileMenu />
+          <Sidebar />
+          <Routes>
+            <Route path='/' element={<Browse />} />
+            <Route path='/speaker/:id' element={<Songs />} />
+          </Routes>
+          <Player />
+        </BrowserRouter>
       </div>
     </AppContext.Provider>
   ) : null;

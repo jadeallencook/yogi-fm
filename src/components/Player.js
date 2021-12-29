@@ -3,11 +3,18 @@ import './Player.scss';
 import AppContext from '../context/AppContext';
 
 const Player = () => {
-  const { lecture } = useContext(AppContext);
+  const { lecture, speaker: id, speakers, isMobilePlayerOpen } = useContext(
+    AppContext
+  );
   const lectureId = lecture.link.embed_url.split('=')[1];
+  const speaker = speakers[id];
 
   return (
-    <div className='Player animated slideInRight'>
+    <div
+      className={`Player animated slideInRight ${
+        isMobilePlayerOpen ? 'mobile-player-open' : 'mobile-player-closed'
+      }`}
+    >
       <div>
         <iframe
           id='speaker-video'
@@ -17,6 +24,14 @@ const Player = () => {
           frameBorder='0'
           allowFullScreen={false}
         />
+      </div>
+      <div className='about'>
+        <h3>{speaker.name[0].text}</h3>
+        <p>
+          {speaker.biography[0]
+            ? speaker.biography[0].text
+            : 'There is not yet a biography for this speaker.'}
+        </p>
       </div>
     </div>
   );

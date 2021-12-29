@@ -11,7 +11,9 @@ const Banner = () => {
         {speakers[speaker].name[0].text}
       </h2>
       <p className='animated fadeIn'>
-        "{speakers[speaker].quotes[0].quote[0].text}"
+        {speakers[speaker].quotes[0].quote[0]
+          ? `"${speakers[speaker].quotes[0].quote[0].text}"`
+          : 'Enjoy your lecture!'}
       </p>
     </div>
   );
