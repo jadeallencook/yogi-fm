@@ -9,6 +9,7 @@
     "@prismicio/react": "^2.0.2",
     "dom-parser": "^0.1.5",
     "fetch": "^1.1.0",
+    "gh-pages": "^3.2.3",
     "history": "5",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
