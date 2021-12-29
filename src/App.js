@@ -1,142 +1,61 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAllPrismicDocumentsByType } from '@prismicio/react';
 import './App.scss';
-
-import speakers from './environments/speakers.environment.json';
-import music from './environments/music.environment.json';
+import sortSpeakers from './utils/sortSpeakers';
+import sortFeatured from './utils/sortFeatured';
+import AppContext from './context/AppContext';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Sidebar from './components/Sidebar';
+import MobileMenu from './components/MobileMenu';
 import Browse from './components/Browse';
 import Player from './components/Player';
 import Songs from './components/Songs';
 
-class App extends Component {
-  /*
-    Lectures {
-      speaker: key
-      lecture: id
-    }
-    Music {
-      genre: key
-      music: id
-    }
-  */
-  constructor() {
-    super();
-    let hash = window.location.hash;
-    hash = hash.replace('#', '');
-    hash = hash.split('/');
-    const passed = (hash.length === 4);
-    const speaker = (passed && speakers[hash[0]]) ? hash[0] : 'ram-dass';
-    const lecture = (passed && speakers[hash[0]] && speakers[hash[0]].videos[hash[1]]) ? hash[1] : 'Ir5ydNXpJlA';
-    const genre = (passed && music[hash[2]]) ? hash[2] : 'classic-jazz';
-    const song = (passed && music[hash[2]] && music[hash[2]].videos[hash[3]]) ? hash[3] : 'WSqFnMy_WYU';
-    window.location.hash = `${speaker}/${lecture}/${genre}/${song}`;
-    this.state = {
-      speaker: speaker,
-      lecture: lecture,
-      songs: false,
-      genre: genre,
-      music: song
-    }
-  }
+const App = () => {
+  let [speakers] = useAllPrismicDocumentsByType('speaker');
+  let [featured] = useAllPrismicDocumentsByType('featured');
+  speakers = sortSpeakers(speakers);
+  featured = sortFeatured(featured);
+  const [speaker, setSpeaker] = useState('YcQIHxAAACAAVZeR');
+  const [lecture, setLecture] = useState(undefined);
+  const [isMobilePlayerOpen, setIsMobilePlayerOpen] = useState(false);
 
-  componentDidUpdate() {
-    window.location.hash = `${this.state.speaker}/${this.state.lecture}/${this.state.genre}/${this.state.music}`;
-  }
+  const context = {
+    speakers,
+    speaker,
+    setSpeaker,
+    lecture,
+    setLecture,
+    featured,
+    isMobilePlayerOpen,
+    setIsMobilePlayerOpen,
+  };
 
-  open(section) {
-    this.setState({
-      songs: section,
-      speaker: this.state.speaker,
-      lecture: this.state.lecture,
-      music: this.state.music,
-      genre: this.state.genre
-    });
-  }
+  useEffect(
+    () => {
+      if (speakers && !lecture) {
+        setLecture(speakers[speaker].videos[0]);
+      }
+    },
+    [speakers]
+  );
 
-  home() {
-    this.setState({
-      songs: false,
-      speaker: this.state.speaker,
-      lecture: this.state.lecture,
-      music: this.state.music,
-      genre: this.state.genre
-    });
-  }
-
-  play(id, next) {
-    const lecture = (
-      next || (
-        speakers[this.state.songs] && 
-        speakers[this.state.songs].videos[id].length
-      )
-    );
-    if ('ga' in window) {
-      const type = (lecture) ? 'lecture' : 'song';
-      const speaker = (lecture) ? 
-        (lecture && !next) ? 
-          this.state.songs : 
-          this.state.speaker
-        : (!lecture) ? 
-          this.state.songs : 
-          this.state.genre;
-      window['ga']('event', type, speaker, id, {
-        hitCallback: () => {
-          console.log(`${type} (${id}) played by ${speaker}`);
-        }
-      });
-    }
-    if (music[this.state.songs] && !next) {
-      const video = document.getElementById('music-video');
-      video.setAttribute('src', video.getAttribute('src').replace(this.state.music, id));
-    } else {
-      const video = document.getElementById('speaker-video');
-      video.setAttribute('src', video.getAttribute('src').replace(this.state.lecture, id));
-    }
-    this.setState({
-      speaker: (lecture && !next) ? this.state.songs : this.state.speaker,
-      lecture: (lecture) ? id : this.state.lecture,
-      songs: this.state.songs,
-      music: (!lecture) ? id : this.state.music,
-      genre: (!lecture) ? this.state.songs : this.state.genre
-    });
-  }
-
-  random() {
-    const speaker = Object.keys(speakers)[Math.floor(Math.random()*Object.keys(speakers).length)];
-    const lecture = Object.keys(speakers[speaker].videos)[Math.floor(Math.random()*Object.keys(speakers[speaker].videos).length)];
-    const genre = Object.keys(music)[Math.floor(Math.random()*Object.keys(music).length)];
-    const song = Object.keys(music[genre].videos)[Math.floor(Math.random()*Object.keys(music[genre].videos).length)];
-    let video = document.getElementById('music-video');
-    video.setAttribute('src', video.getAttribute('src').replace(this.state.music, song));
-    video = document.getElementById('speaker-video');
-    video.setAttribute('src', video.getAttribute('src').replace(this.state.lecture, lecture));
-    this.setState({
-      songs: false,
-      speaker: speaker,
-      lecture: lecture,
-      music: song,
-      genre: genre
-    });
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <Player options={this.state} play={this.play.bind(this)} />
-        <Sidebar 
-          lecture={this.state.lecture} 
-          home={this.home.bind(this)} 
-          open={this.open.bind(this)}
-          random={this.random.bind(this)} />
-        { 
-          (this.state.songs) 
-          ? <Songs options={this.state} play={this.play.bind(this)} /> 
-          : <Browse open={this.open.bind(this)} options={this.state} /> 
-        }
+  return speakers && lecture && featured ? (
+    <AppContext.Provider value={context}>
+      <div className='App'>
+        <BrowserRouter>
+          <MobileMenu />
+          <Sidebar />
+          <Routes>
+            <Route path='/' element={<Browse />} />
+            <Route path='/speaker/:id' element={<Songs />} />
+          </Routes>
+          <Player />
+        </BrowserRouter>
       </div>
-    );
-  }
-}
+    </AppContext.Provider>
+  ) : null;
+};
 
 export default App;

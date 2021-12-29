@@ -1,0 +1,29 @@
+@import '../global.style.scss';
+
+div.MobileMenu {
+  display: none;
+}
+
+@media only screen and (max-width: $mobile) {
+  div.MobileMenu {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    z-index: 9999;
+    > a {
+      display: grid;
+      align-content: center;
+      text-align: center;
+      border-radius: 100%;
+      color: $white;
+      margin-bottom: 15px;
+      text-decoration: none;
+      height: 50px;
+      width: 50px;
+      background-color: $darkgrey;
+      border: solid thick $grey;
+      font-size: 2em;
+    }
+  }
+}

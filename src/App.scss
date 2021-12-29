@@ -1,4 +1,33 @@
 @import './global.style.scss';
 
-.App {
+div.App {
+  display: grid;
+  grid-template-columns: 200px 1fr 680px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+@media only screen and (max-width: $large) {
+  div.App {
+    grid-template-columns: 200px 1fr 580px;
+  }
+}
+
+@media only screen and (max-width: $medium) {
+  div.App {
+    grid-template-columns: 200px 1fr 480px;
+  }
+}
+
+@media only screen and (max-width: $small) {
+  div.App {
+    grid-template-columns: 200px 1fr 380px;
+  }
+}
+
+@media only screen and (max-width: $mobile) {
+  div.App {
+    display: block;
+  }
 }

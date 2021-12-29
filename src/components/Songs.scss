@@ -1,115 +1,117 @@
 @import '../global.style.scss';
 
 div.Songs {
-    box-sizing: border-box;
-    padding: 0px 0px 125px 200px;
-    overflow-y: scroll;
-    position: absolute;
-    height: 100%;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  > div.music-cover {
+    padding: 25px 0px;
+    h2 {
+      margin-left: 15px;
+      font-size: 4em;
+    }
+  }
+  > div.cover {
+    display: grid;
     width: 100%;
-    >div.music-cover {
-        padding: 25px 0px;
-        h2 {
-            margin-left: 15px;
-            font-size: 4em;
-        }
+    grid-template-columns: 200px 1fr;
+    padding: 25px;
+    overflow: hidden;
+    box-sizing: border-box;
+    div.image {
+      height: 200px;
+      width: 200px;
+      background-size: cover;
+      margin-right: 15px;
     }
-    >div.cover {
-        display: grid;
-        width: 100%;
-        grid-template-columns: 200px 1fr;
-        padding: 25px;
-        overflow: hidden;
-        box-sizing: border-box;
-        div.image {
-            height: 200px;
-            width: 200px;
-            background-size: cover;
-            margin-right: 15px;
-        }
-        div.bio {
-            margin-left: 15px;
-        }
-        span.years {
-            color: $extralightgrey;
-        }
-        div.books {
-            margin-top: 15px;
-            width: 440px;
-            overflow-y: scroll;
-            white-space: nowrap;
-            a {
-                display: inline-block;
-                margin-right: 15px;
-                height: 138px;
-                background-size: cover;
-                background-position: center center;
-                width: 95px;
-                background-color: $darkgrey;
-                cursor: pointer;
-            }
-            a:hover {
-                opacity: 0.5;
-            }
-        }
+    div.bio {
+      margin-left: 15px;
     }
-    div.song,
-    div.titles {
-        padding: 15px;
-        display: grid;
-        grid-template-columns: 75% 25%;
-        text-transform: capitalize;
-        div {
-            overflow: hidden;
-            white-space: nowrap;
-            margin-right: 50px;
-        }
+    span.years {
+      color: $extralightgrey;
     }
-    div.active {
-        background-color: $grey;
-    }
-    div.song {
+    div.books {
+      margin-top: 15px;
+      width: 440px;
+      overflow-y: scroll;
+      white-space: nowrap;
+      a {
+        display: inline-block;
+        margin-right: 15px;
+        height: 138px;
+        background-size: cover;
+        background-position: center center;
+        width: 95px;
+        background-color: $darkgrey;
         cursor: pointer;
-        border-top: $grey solid thin;
-    }
-    div.song:hover {
+      }
+      a:hover {
         opacity: 0.5;
-        background-color: $grey;
+      }
     }
+  }
+  div.song,
+  div.titles {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 75% 25%;
+    text-transform: capitalize;
+    div {
+      overflow: hidden;
+      white-space: nowrap;
+      margin-right: 50px;
+    }
+  }
+  div.active {
+    background-color: $grey;
+  }
+  div.song {
+    cursor: pointer;
+    border-top: $grey solid thin;
+  }
+  div.song:hover {
+    opacity: 0.5;
+    background-color: $grey;
+  }
 }
 
 @media only screen and (max-device-width: 480px) {
-    div.Songs {
-        padding: 50px 0px 125px 0px;
-        >div.cover {
-            padding: 15px;
-            display: block;
-            min-height: 125px;
-            div.image {
-                float: left;
-                height: 100px;
-                width: 100px;
-            }
-            div.bio {
-                margin-left: 0px;
-            }
-            div.books {
-                margin-top: 65px;
-                a {
-                    height: 100px;
-                    width: 65px;
-                }
-            }
+  div.Songs {
+    padding: 50px 0px 125px 0px;
+    > div.cover {
+      padding: 15px;
+      display: block;
+      min-height: 125px;
+      div.image {
+        float: left;
+        height: 100px;
+        width: 100px;
+      }
+      div.bio {
+        margin-left: 0px;
+      }
+      div.books {
+        margin-top: 65px;
+        a {
+          height: 100px;
+          width: 65px;
         }
-        div.song,
-        div.titles {
-            grid-template-columns: 1fr;
-            div {
-                margin-right: 15px;
-            }
-            div:nth-child(2) {
-                display: none;
-            }
-        }
+      }
     }
+    div.song,
+    div.titles {
+      grid-template-columns: 1fr;
+      div {
+        margin-right: 15px;
+      }
+      div:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $mobile) {
+  div.Songs.mobile-player-open {
+    display: none;
+  }
 }

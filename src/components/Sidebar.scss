@@ -1,87 +1,80 @@
 @import '../global.style.scss';
 
 div.Sidebar {
-    background-color: $darkgrey;
-    position: absolute;
-    z-index: 2;
-    height: 100%;
+  background-color: $darkgrey;
+  box-sizing: border-box;
+  padding: 0px 15px 85px 15px;
+  overflow-y: scroll;
+
+  h2 {
+    margin: 25px 0px;
+  }
+
+  iframe {
+    position: fixed;
+    left: 0px;
     width: 200px;
-    box-sizing: border-box;
-    padding: 0px 15px 85px 15px;
-    overflow-y: scroll;
+    height: 125px;
+    bottom: 80px;
+  }
 
-    h2 {
-        cursor: pointer;
-        margin: 25px 0px;
-    }
+  span.title {
+    font-family: $opensans;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.75em;
+    margin-bottom: 5px;
+  }
 
-    iframe {
-        position: fixed;
-        left: 0px;
-        width: 200px;
-        height: 125px;
-        bottom: 80px;
-    }
+  span {
+    display: block;
+    font-size: 0.95em;
+  }
 
-    span.title {
-        font-family: $opensans;
-        text-transform: uppercase;
-        letter-spacing: .25em;
-        font-size: 0.75em;
-        margin-bottom: 5px;
+  form {
+    input {
+      padding: 0px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95em;
+      margin-top: -2px;
+      margin-bottom: 5px;
+      margin-left: 0;
+      background: none;
+      color: $white;
     }
+    input:hover {
+      opacity: 0.5;
+    }
+  }
 
-    span {
-        display: block;
-        font-size: 0.95em;
+  span.link {
+    text-transform: capitalize;
+    margin-bottom: 4px;
+    > a {
+      text-decoration: none;
+      color: $white;
     }
+  }
 
-    form {
-        input {
-            padding: 0px;
-            border: none;
-            cursor: pointer;
-            font-size: .95em;
-            margin-top: -2px;
-            margin-bottom: 5px;
-            background: none;
-            color: $white;
-        }
-        input:hover {
-            opacity: 0.5;
-        }
-    }
+  span.link:hover {
+    opacity: 0.5;
+    cursor: pointer;
+  }
 
-    span.link {
-        text-transform: capitalize;
-        margin-bottom: 4px;
+  span.footer {
+    font-size: 0.75em;
+    margin-bottom: 5px;
+    display: block;
+    a {
+      text-decoration: none;
+      color: $white;
     }
-
-    span.link:hover {
-        opacity: 0.5;
-        cursor: pointer;
-    }
-
-    span.footer {
-        font-size: 0.75em;
-        margin-bottom: 5px;
-        display: block;
-        a {
-            text-decoration: none;
-            color: $white;
-        }
-    }
+  }
 }
 
-@media only screen and (max-device-width: 480px) {
-    div.Sidebar {
-        height: 50px;
-        padding: 0px 15px;
-        width: 100%;
-        overflow: hidden;
-        h2 {
-            padding: 0px;
-            margin: 10px 0px;
-        }
-    }
+@media only screen and (max-width: $mobile) {
+  div.Sidebar {
+    display: none;
+  }
 }

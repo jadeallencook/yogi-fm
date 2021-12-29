@@ -1,192 +1,54 @@
 @import '../global.style.scss';
 
 div.Player {
-    background-color: $grey;
-    position: fixed;
-    bottom: 0px;
+  background-color: $grey;
+  box-sizing: border-box;
+  padding: 15px;
+  text-align: center;
+  > div > iframe {
+    height: 366px;
     width: 100%;
-    z-index: 9999;
-    box-sizing: border-box;
-    padding: 15px;
-    text-align: center;
-
-    >div:hover {
-        height: 200px;
-        width: 35%;
-    }
-
-    >div {
-        width: 50px;
-        height: 50px;
-        float: left;
-
-        iframe {
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    >div:last-child {
-        float: right;
-    }
-
-    div.controls {
-        display: block;
-        width: 30%;
-        left: 35%;
-        text-align: center;
-        position: fixed;
-        margin-top: 10px;
-
-        div {
-            display: none;
-        }
-
-        i {
-            margin: 0px 30px;
-            font-size: 1em;
-            cursor: pointer;
-        }
-
-        i.mobile {
-            display: none;
-        }
-
-        i:hover {
-            opacity: 0.5;
-        }
-    }
-
-    div.marquee {
-        position: absolute;
-        text-transform: capitalize;
-        width: 26%;
-        left: 37%;
-        overflow: hidden;
-        margin-top: 40px;
-        font-size: 0.75em;
-        font-weight: 100;
-        letter-spacing: .10em;
-        display: block;
-        white-space: nowrap;
-
-        span {
-            position: absolute;
-            left: 100%;
-            overflow: hidden;
-            -moz-animation: marquee 15s linear infinite;
-            -webkit-animation: marquee 15s linear infinite;
-            animation: marquee 15s linear infinite;
-
-            b {
-                font-weight: bold;
-            }
-        }
-        
-        span.mobile {
-            display: none;
-        }
-    }
+    margin-top: 10px;
+  }
+  > div.about {
+    text-align: left;
+  }
 }
 
-@-moz-keyframes marquee {
-    0% {
-        left: 100%;
+@media only screen and (max-width: $large) {
+  div.Player {
+    > div > iframe {
+      height: 310px;
     }
-
-    100% {
-        left: -100%;
-    }
+  }
 }
 
-@-webkit-keyframes marquee {
-    0% {
-        left: 100%;
+@media only screen and (max-width: $medium) {
+  div.Player {
+    > div > iframe {
+      height: 254px;
     }
-
-    100% {
-        left: -100%;
-    }
+  }
 }
 
-@keyframes marquee {
-    0% {
-        left: 100%;
+@media only screen and (max-width: $small) {
+  div.Player {
+    > div > iframe {
+      height: 197px;
     }
-
-    100% {
-        left: -100%;
-    }
+  }
 }
 
-@media only screen and (max-device-width: 480px) {
-    div.Player {
-        >div {
-            iframe {
-                display: none;
-            }
-        }
-
-        span {
-            width: 80%;
-            left: 10%;
-        }
-
-        div.marquee {
-            width: 80%;
-            left: 10%;
-            span {
-                animation: none;
-                left: 0px;
-                display: none;
-            }
-            span.mobile {
-                display: block;
-                width: 100%;
-                text-transform: none;
-            }
-        }
-
-        div.controls {
-            margin-top: 0px;
-            margin-left: -15px;
-            width: 100%;
-            left: 15px;
-            i.fa-play {
-                display: none;
-            }
-
-            i {
-                display: inline-block;
-                margin-top: -5px;
-            }
-
-            div {
-                display: inline-block;
-                height: 30px;
-                border-radius: 100%;
-                overflow: hidden;
-                width: 30px;
-
-                .mobile-video {
-                    display: inline-block;
-                    float: none;
-                    background-color: $darkgrey;
-
-                    >div {
-                        height: 100%;
-                        width: 100%;
-
-                        iframe {
-                            height: 30px;
-                            border-radius: 100%;
-                            overflow: hidden;
-                            width: 30px;
-                            display: block;
-                        }
-                    }
-                }
-            }
-        }
-    }
+@media only screen and (max-width: $mobile) {
+  div.Player.mobile-player-open {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  div.Player.mobile-player-closed {
+    display: none;
+  }
 }
