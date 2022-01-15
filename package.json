@@ -2,7 +2,6 @@
   "name": "yogi-fm",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jadeallencook.github.io/Yogi-FM/build/",
   "dependencies": {
     "@prismicio/client": "^6.0.0-beta.5",
     "@prismicio/helpers": "^2.0.0-beta.8",
