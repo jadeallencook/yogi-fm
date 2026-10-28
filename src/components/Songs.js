@@ -13,7 +13,7 @@ class Songs extends Component {
                     (lecture) ?
                     <div className="cover animated fadeIn">
                         <div className="image" style={{
-                            backgroundImage: `url(${section.image})`
+                            backgroundImage: `url(${process.env.PUBLIC_URL}/${section.image})`
                         }}></div>
                         <div className="bio">
                             <h2>{section.name}</h2>

@@ -15,7 +15,7 @@ class Section extends Component {
                             return (
                                 <div key={key}>
                                     <div style={{
-                                        backgroundImage: `url(${speaker.image})`
+                                        backgroundImage: `url(${process.env.PUBLIC_URL}/${speaker.image})`
                                     }} onClick={() => {
                                         this.props.open(key);
                                     }}></div>
