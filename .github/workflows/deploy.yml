@@ -1,0 +1,45 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+# Only one deploy at a time; a newer push cancels an in-flight one.
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: write # push the built site to the gh-pages branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # CI=true makes lint warnings fail the build.
+      - name: Build
+        run: npm run build
+        env:
+          CI: true
+
+      # GitHub Pages is configured to serve the gh-pages branch at yogifm.com.
+      # public/CNAME is copied into the build, so the custom domain is kept.
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          commit_message: 'deploy: ${{ github.sha }}'

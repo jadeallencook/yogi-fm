@@ -38,6 +38,8 @@ class Songs extends Component {
                                             }}
                                             href={book.link}
                                             target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={book.title}
                                         ></a>
                                     )
                                 }) : null
