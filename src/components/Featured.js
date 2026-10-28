@@ -1,46 +1,47 @@
-import React, { useContext } from 'react';
+import React, { Component } from 'react';
 import './Featured.scss';
-import AppContext from '../context/AppContext';
-import { Link } from 'react-router-dom';
+import featured from '../environments/featured.environment.json';
+import speakers from '../environments/speakers.environment.json';
 
-const Section = ({ group }) => {
-  const { speakers } = useContext(AppContext);
-  return (
-    <div>
-      <span className='title'>{group.text}</span>
-      <div className='collection'>
-        {group.speakers.map((key) => {
-          const speaker = speakers[key];
-          return !speaker ? null : (
-            <Link to={`/speaker/${key}`} key={key}>
-              <div
-                style={{
-                  backgroundImage: `url(${speaker.avatar.url})`,
-                }}
-              />
-              <span className='name'>{speaker.name[0].text}</span>
-              <span className='years'>
-                {new Date(speaker.dob).getFullYear()}-
-                {!speaker.dod ? 'Now' : new Date(speaker.dod).getFullYear()}
-              </span>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+class Section extends Component {
+    render() {
+        return (
+            <div>
+                <span className="title">{this.props.selection.title}</span>
+                <div className="collection">
+                    {
+                        this.props.selection.speakers.map(key => {
+                            const speaker = speakers[key];
+                            return (
+                                <div key={key}>
+                                    <div style={{
+                                        backgroundImage: `url(${process.env.PUBLIC_URL}/${speaker.image})`
+                                    }} onClick={() => {
+                                        this.props.open(key);
+                                    }}></div>
+                                    <span className="name">{speaker.name}</span>
+                                    <span className="years">{speaker.years}</span>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+        )
+    }
+}
 
-const Featured = () => {
-  const { featured } = useContext(AppContext);
-
-  return (
-    <div className='Featured'>
-      {featured.map((group, index) => {
-        return <Section group={group} key={`featured-${index}`} />;
-      })}
-    </div>
-  );
-};
+class Featured extends Component {
+    render() {
+        return (
+            <div className="Featured">
+                <Section selection={featured.self} open={this.props.open} />
+                <Section selection={featured.drugs} open={this.props.open} />
+                <Section selection={featured.east} open={this.props.open} />
+                <Section selection={featured.relationships} open={this.props.open} />
+            </div>
+        )
+    }
+}
 
 export default Featured;
