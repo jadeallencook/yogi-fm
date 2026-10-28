@@ -7,14 +7,16 @@ on:
 
 # Only one deploy at a time; a newer push cancels an in-flight one.
 concurrency:
-  group: deploy
+  group: pages
   cancel-in-progress: true
 
 permissions:
-  contents: write # push the built site to the gh-pages branch
+  contents: read
+  pages: write # publish to GitHub Pages
+  id-token: write # verify the deployment came from this workflow
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,11 +37,21 @@ jobs:
         env:
           CI: true
 
-      # GitHub Pages is configured to serve the gh-pages branch at yogifm.com.
-      # public/CNAME is copied into the build, so the custom domain is kept.
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          commit_message: 'deploy: ${{ github.sha }}'
+          path: ./build
+
+  # Requires Settings → Pages → Source: "GitHub Actions".
+  # The yogifm.com custom domain is kept in the Pages settings.
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
