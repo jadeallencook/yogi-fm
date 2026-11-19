@@ -36,16 +36,19 @@ import { SITE_NAME, FOUNDED_YEAR } from '../lib/site';
     </a>
   ))}
 
-  <!-- Donations via Buy Me a Coffee (opens in a new tab). -->
-  <div class="donate">
-    <a href="https://buymeacoffee.com/jadeallencook" target="_blank" rel="noopener noreferrer">
-      <i class="fa fa-heart" aria-hidden="true"></i>
-      Support {SITE_NAME}
-    </a>
-  </div>
+  <!-- Pinned to the bottom of the sidebar while the links above scroll (Sidebar.scss). -->
+  <div class="bottom">
+    <!-- Donations via Buy Me a Coffee (opens in a new tab). -->
+    <div class="donate">
+      <a href="https://buymeacoffee.com/jadeallencook" target="_blank" rel="noopener noreferrer">
+        <i class="fa fa-heart" aria-hidden="true"></i>
+        Support {SITE_NAME}
+      </a>
+    </div>
 
-  <span class="footer"><b>{SITE_NAME}</b> {FOUNDED_YEAR}-{new Date().getFullYear()}</span>
-  <span class="footer">
-    Developed By <b><a href="https://github.com/jadeallencook" rel="noopener noreferrer" target="_blank">@jadeallencook</a></b>
-  </span>
+    <span class="footer"><b>{SITE_NAME}</b> {FOUNDED_YEAR}-{new Date().getFullYear()}</span>
+    <span class="footer">
+      Developed By <b><a href="https://github.com/jadeallencook" rel="noopener noreferrer" target="_blank">@jadeallencook</a></b>
+    </span>
+  </div>
 </div>

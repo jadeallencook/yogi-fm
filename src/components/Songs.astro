@@ -1,7 +1,7 @@
 ---
 // Detail view for a speaker (cover, years, books) or a music genre, plus its video list.
 import '../styles/Songs.scss';
-import { asset, wikipediaUrl, formatYears, formatDuration, type Speaker, type Genre } from '../lib/data';
+import { asset, wikipediaUrl, formatYears, formatDuration, findDuplicateTitles, type Speaker, type Genre } from '../lib/data';
 // Video lengths (npm run fetch-durations). Imported here, not in data.ts, so they're only
 // used at build time and don't add to the player's client bundle.
 import durations from '../environments/durations.environment.json';
@@ -14,6 +14,14 @@ type Props =
 const props = Astro.props;
 const { kind, slug, collection } = props;
 const lectureCount = Object.keys(collection.videos).length;
+// Dev server only: rows whose title another row also has (see DevWarnings.astro).
+const duplicateIds = new Set(
+  import.meta.env.DEV
+    ? findDuplicateTitles()
+        .filter((d) => d.slug === slug && d.kind === (kind === 'lecture' ? 'speaker' : 'music'))
+        .flatMap((d) => d.videos.map((v) => v.id))
+    : [],
+);
 ---
 
 <div class="Songs" data-collection={slug} data-kind={kind}>
@@ -143,7 +151,7 @@ const lectureCount = Object.keys(collection.videos).length;
     )}
     {Object.entries(collection.videos).map(([id, title], i) => (
       <div
-        class="song animated fadeIn"
+        class:list={['song animated fadeIn', { duplicate: duplicateIds.has(id) }]}
         style={`animation-delay: ${Math.min(i, 20) * 40}ms`}
         data-play={id}
         role="button"
@@ -156,6 +164,7 @@ const lectureCount = Object.keys(collection.videos).length;
           <span class="bars"><i></i><i></i><i></i></span>
         </span>
         <div class="title"><span data-title>{title}</span></div>
+        {duplicateIds.has(id) && <span class="dup-tag">Duplicate title</span>}
         {Object.hasOwn(durations, id) && (
           <span class="length">{formatDuration((durations as Record<string, number>)[id])}</span>
         )}

@@ -3,11 +3,16 @@
 // the speaker page; its play button and "now playing" badge are driven by player.ts
 // ([data-speaker-tile], [data-play-speaker]).
 import '../styles/Featured.scss';
-import { featured, featuredOrder, speakers, speakerUrl, asset, formatYears, hasVideos } from '../lib/data';
+import { featured, featuredOrder, speakers, speakerUrl, asset, formatYears, formatTotalLength, hasVideos } from '../lib/data';
+import durations from '../environments/durations.environment.json';
 
 const count = (key: string) => {
-  const n = Object.keys(speakers[key].videos).length;
-  return n ? `${n} lecture${n === 1 ? '' : 's'}` : '';
+  const ids = Object.keys(speakers[key].videos);
+  if (!ids.length) return '';
+  // Total length from durations.environment.json (videos without a length are skipped).
+  const seconds = ids.reduce((sum, id) => sum + ((durations as Record<string, number>)[id] ?? 0), 0);
+  const total = formatTotalLength(seconds);
+  return `${ids.length} lecture${ids.length === 1 ? '' : 's'}${total ? ` · ${total}` : ''}`;
 };
 ---
 

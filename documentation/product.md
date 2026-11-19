@@ -6,7 +6,7 @@ Yogi FM (https://yogifm.com, tagline "Broadcasting Awareness") collects lectures
 
 - **Browse speakers** from the sidebar, or from the home page's groups (Self Discovery, Drugs & Psychedelics, Far East, Visionaries, Mind & Body, Relationships; 3 speakers each). Hovering a tile shows a play button that starts that speaker right away, and the playing speaker's tile is marked "Now playing".
 - **Open a speaker page**, which shows a portrait, life years, lecture count, Play/Shuffle/Full screen buttons, a short Wikipedia bio ("Read more" for the rest), Amazon affiliate books (shuffled on every render, with titles), and the lecture list.
-- **Open a music genre** (Classical, Jazz, Lo-Fi, Tibetan, etc.) and pick a background track.
+- **Open a music genre** (Classical, Jazz, Lofi, House, Tibetan, etc.) and pick a background track.
 - **Play both at once.** Two hidden YouTube players run side by side: the lecture at volume 100 and the music at volume 15.
 - **Use the footer player controls** (previous, play/pause, next) to step through the current speaker's lectures. A marquee shows the speaker and lecture title. The arrow above play/pause opens a **full-screen player** (desktop): both videos large, the controls, and the lecture list of the playing speaker; clicking a speaker in the sidebar shows theirs.
 - **Use the home banner**, which shows the playing speaker, lecture and music with Play/Pause, Full screen and Shuffle buttons.

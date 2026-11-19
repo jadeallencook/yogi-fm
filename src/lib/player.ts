@@ -91,11 +91,22 @@ function saveVolume() {
   }
 }
 
-/** Same rules as the React app: all four parts must be present and valid, or fall back. */
+/** `/speakers/<slug>/` or a lecture page `/speakers/<slug>/<videoId>/`, else null. */
+function speakerPath(path = location.pathname): { slug: string; video?: string } | null {
+  const match = /^\/speakers\/([^/]+)(?:\/([^/]+))?\/?$/.exec(path);
+  return match ? { slug: decodeURIComponent(match[1]), video: match[2] && decodeURIComponent(match[2]) } : null;
+}
+
+/**
+ * Same rules as the React app: all four parts must be present and valid, or fall back.
+ * Without a #hash, a lecture page (/speakers/<slug>/<videoId>/, e.g. a shared link)
+ * selects its lecture, with the default music.
+ */
 function readHash(): State {
   const parts = window.location.hash.replace('#', '').split('/');
-  const passed = parts.length === 4;
-  const [s, l, rawGenre, m] = parts;
+  const fromPage = parts.length !== 4 ? speakerPath() : null;
+  const passed = parts.length === 4 || !!fromPage?.video;
+  const [s, l, rawGenre, m] = fromPage?.video ? [fromPage.slug, fromPage.video, '', ''] : parts;
   const g = genreAliases[rawGenre] ?? rawGenre;
   // Speakers/genres with no videos (yet) can't be played; fall back to the defaults.
   const speaker = passed && Object.hasOwn(speakers, s) && hasVideos(speakers[s]) ? s : defaults.speaker;
@@ -127,8 +138,18 @@ const isMobile = window.matchMedia('only screen and (max-device-width: 480px)').
 
 function writeHash() {
   const hash = `#${state.speaker}/${state.lecture}/${state.genre}/${state.music}`;
+  // On a speaker's page, the address is the playing lecture's own page whenever it's
+  // that speaker's lecture, so a copied link gets that lecture's link preview (see
+  // src/pages/speakers/[slug]/[video].astro); otherwise it's the plain speaker page.
+  const page = speakerPath();
+  const path = !page
+    ? location.pathname
+    : page.slug === state.speaker
+      ? `/speakers/${state.speaker}/${state.lecture}/`
+      : `/speakers/${page.slug}/`;
+  const url = `${path}${location.search}${hash}`;
   // Keep Astro's router state in history.state.
-  history.replaceState(history.state, '', `${location.pathname}${location.search}${hash}`);
+  if (url !== `${location.pathname}${location.search}${location.hash}`) history.replaceState(history.state, '', url);
 }
 
 function render() {
@@ -168,7 +189,11 @@ function render() {
   };
   setText('speaker', speaker.name);
   setText('lecture', speaker.videos[state.lecture]);
-  setText('genre', genre.name);
+  document.querySelectorAll<HTMLElement>('[data-banner-genre]').forEach((button) => {
+    const selected = button.dataset.bannerGenre === state.genre;
+    button.classList.toggle('selected', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
   setText('label', playing ? 'Now playing' : 'Press play to listen to');
   document.querySelector('.Banner')?.classList.toggle('playing', playing);
   document.querySelector('.Player')?.classList.toggle('playing', playing);
@@ -518,7 +543,9 @@ function fadeEdges(list: HTMLElement) {
 
 /** Sidebar: mark the link of the page you're on (the sidebar persists across navigation). */
 function markActiveLink() {
-  const path = location.pathname.replace(/\/?$/, '/');
+  // A lecture page (/speakers/<slug>/<videoId>/) marks its speaker's link.
+  const page = speakerPath();
+  const path = page ? `/speakers/${page.slug}/` : location.pathname.replace(/\/?$/, '/');
   document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]').forEach((link) => {
     const active = link.getAttribute('href') === path;
     link.classList.toggle('active', active);
@@ -705,6 +732,32 @@ function updateProgress() {
   const dur = document.querySelector('[data-time="duration"]');
   if (cur) cur.textContent = formatTime(current);
   if (dur) dur.textContent = formatTime(duration);
+}
+
+/** Seconds the back/forward buttons jump in the lecture. */
+const JUMP_SECONDS = 15;
+
+/** The last jump, so quick repeated taps add up (YouTube reports the old time briefly after seekTo). */
+let lastJump = { to: 0, at: 0 };
+
+/**
+ * Jump back/forward in the lecture. Only once it has started (a cued video would start
+ * playing on seekTo); keeps it paused if it was paused. Past the end it just ends, so
+ * the usual "ended" handling moves on to the next lecture.
+ */
+function jump(by: number) {
+  if (!lecturePlayer?.getDuration) return;
+  const state = lecturePlayer.getPlayerState();
+  const duration = lecturePlayer.getDuration() || 0;
+  if (!duration || state === -1 || state === 5) return; // unstarted / cued
+  const now = performance.now();
+  const reported = lecturePlayer.getCurrentTime() || 0;
+  const recent = now - lastJump.at < 1500 && Math.abs(reported - lastJump.to) > 2;
+  const from = recent ? lastJump.to + (playing ? (now - lastJump.at) / 1000 : 0) : reported;
+  const to = Math.min(duration, Math.max(0, from + by));
+  lastJump = { to, at: now };
+  lecturePlayer.seekTo(to, true);
+  updateProgress();
 }
 
 function setupProgressAndVolume() {
@@ -947,6 +1000,14 @@ function activate(target: HTMLElement) {
     render();
     return true;
   }
+  // Home banner genre pills: switch the background music to that genre's first track
+  // (it starts if something is playing, otherwise it's just selected).
+  const bannerGenre = target.closest<HTMLElement>('[data-banner-genre]')?.dataset.bannerGenre;
+  if (bannerGenre && Object.hasOwn(music, bannerGenre) && hasVideos(music[bannerGenre])) {
+    if (bannerGenre !== state.genre) playMusic(bannerGenre, firstVideo(music[bannerGenre]), playing);
+    return true;
+  }
+
   const queueGenre = target.closest<HTMLElement>('[data-queue-genre]')?.dataset.queueGenre;
   if (queueGenre && Object.hasOwn(music, queueGenre)) {
     musicTarget = queueGenre;
@@ -989,6 +1050,8 @@ function activate(target: HTMLElement) {
   if (control === 'toggle' || control === 'video') playing ? pause() : play();
   else if (control === 'prev') skip(-1);
   else if (control === 'next') skip(1);
+  else if (control === 'back') jump(-JUMP_SECONDS);
+  else if (control === 'forward') jump(JUMP_SECONDS);
   else if (control === 'expand') setExpanded(!expanded);
   else if (target.closest('[data-random]')) random();
   else return false;

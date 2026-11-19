@@ -31,7 +31,7 @@ Edit mode can add videos, but not speakers. To add one:
 3. Add videos in edit mode (`npm run dev:edit`), then run `npm run check-videos`.
 4. Optionally feature them on the home page. Groups must stay at exactly 3.
 
-**Nov 2026:** added 14 speakers this way: Pema Chödrön, Ajahn Brahm, John O'Donohue, bell hooks (her lowercase styling), Carl Jung, Rupert Spira, Stanislav Grof, Allen Ginsberg, Robert Anton Wilson, Carl Sagan, Rupert Sheldrake, Jon Kabat-Zinn, B.K.S. Iyengar and Gabor Maté. Carl Jung and Carl Sagan were removed again the same month (too few lectures available). Years come from Wikidata (P569/P570). They have no videos or books yet. **John O'Donohue has no photo**: his article has no lead image, so add a photo you're allowed to use, plus an `imageCredit` if it needs attribution.
+**Nov 2026:** added 14 speakers this way: Pema Chödrön, Ajahn Brahm, John O'Donohue, bell hooks (her lowercase styling), Carl Jung, Rupert Spira, Stanislav Grof, Allen Ginsberg, Robert Anton Wilson, Carl Sagan, Rupert Sheldrake, Jon Kabat-Zinn, B.K.S. Iyengar and Gabor Maté. Carl Jung and Carl Sagan were removed again the same month (too few lectures available). On 2026-11-19 every speaker still without lectures was removed too: Pema Chödrön, John O'Donohue, Rupert Spira, Stanislav Grof, Robert Anton Wilson, Rupert Sheldrake and Jon Kabat-Zinn (entries with bios, years and photo credits saved in `jobs/removed-speakers/2026-11-19.json`; photos are in git history). Eckhart Tolle replaced Kabat-Zinn in Mind & Body. Years come from Wikidata (P569/P570). They have no videos or books yet.
 
 ## Portraits (`npm run fetch-portraits`)
 
@@ -70,6 +70,10 @@ The user's own Alan Watts titles are the reference ("Zen & Meditation", "You Are
 
 The Nov 2026 cleanup changed 243 titles across all speakers; the old titles are in `jobs/title-backups/2026-11-18-title-cleanup.json` (`{ slug: { videoId: oldTitle } }`).
 
+### Duplicates
+
+No list should hold the same lecture twice. Edit mode refuses the same video ID or the same title (see [editing.md](editing.md)). The same lecture is often uploaded more than once on YouTube (different IDs), so compare YouTube's original titles (oEmbed) and lengths before deleting. Matching titles can also be different lectures that need distinct titles. The Nov 19 2026 cleanup is in `jobs/title-backups/2026-11-19-duplicates.json`: a shorter Joseph Campbell "Parzival" clip was removed, and the second Alan Watts "Philosophy of the Tao" was renamed "Philosophy of the Tao Part 2", because it's a different lecture; a 10-min Alan Watts "Zen Bones" clip was removed in favor of the 57-min episode. `npm run build` also fails on duplicate titles in a list (`findDuplicateTitles()` in `src/lib/data.ts`), so hand edits to the JSON are caught too. The dev server doesn't crash on them: a dismissible warning at the top of every page (`src/components/DevWarnings.astro`, dev only, loaded like EditorTools so production never includes it) lists each one with its row numbers, and the rows themselves get an orange edge and a "Duplicate title" tag. One video in several speakers' lists is fine when they share a talk: `GXR7fQZi_VA` (Maryland 1990) is under Ram Dass, McKenna and Leary, each titled "with" the other two.
+
 ## durations.environment.json (`npm run fetch-durations`)
 
 `{ "<videoId>": seconds }` for every lecture and music video, from the YouTube Data API v3 (`videos.list`, `part=contentDetails`, 50 IDs per request). It's a separate file so the hand-edited titles in speakers/music JSON are never rewritten, and a video listed under several speakers has one entry.
@@ -84,9 +88,11 @@ The Nov 2026 cleanup changed 243 titles across all speakers; the old titles are 
 { "classic-jazz": { "playlist": "PLkj…", "name": "Jazz", "videos": { "<youtubeId>": "Title" } } }
 ```
 
-The slugs don't always match the names (`classic-jazz` → "Jazz", `jazz-vibes` → "Hip-Hop").
+Genres are kept in **alphabetical order by name** (key order is the sidebar order, so new genres go in their alphabetical spot; sorted 2026-11-19). The slugs don't always match the names (`classic-jazz` → "Jazz", `jazz-vibes` → "Hip-Hop").
 
-**Renaming a slug** changes its page URL and breaks old shared `#speaker/lecture/genre/song` links. Add the old slug to `genreAliases` in `src/lib/data.ts` so those links still resolve. Done so far: `indian` → `sitar` (2026-11-18).
+**Renaming a slug** changes its page URL and breaks old shared `#speaker/lecture/genre/song` links. Add the old slug to `genreAliases` in `src/lib/data.ts` so those links still resolve, and a `redirects` entry in `astro.config.mjs` for the old `/music/<slug>/` page. Done so far: `indian` → `sitar` (2026-11-18), `trance` → `house` ("Trance" → "House", 2026-11-19; its entry in `jobs/removed-videos/` was updated so `--restore` still finds it). "Lo-Fi" was renamed "Lofi" (name only; slug `lofi`).
+
+**Adding a genre:** add `{ "playlist": "", "name": "…", "videos": {} }` to `music.environment.json` (in its alphabetical spot by name; key order is the sidebar order), then add tracks in edit mode and run `npm run fetch-durations`. `ambient` ("Ambient") was added this way on 2026-11-19 with no playlist yet.
 
 Some titles contain raw HTML entities from the old scraper (e.g. `Sitar &amp; Tabla Legends…`), and they show up literally on the page. They should be cleaned up in the data.
 
@@ -95,7 +101,7 @@ Some titles contain raw HTML entities from the old scraper (e.g. `Sitar &amp; Ta
 Home-page groups: `{ "<group>": { "title", "description", "speakers": [slugs] } }`. `description` is the one line shown under the title. `featuredOrder` in `src/lib/data.ts` sets which groups render and in what order: Self Discovery, Drugs & Psychedelics, Far East, **Visionaries**, **Mind & Body**, Relationships. Visionaries and Mind & Body were added in Nov 2026 so every speaker appears on the home page (Bruce Lee and Buckminster Fuller had been in no group).
 
 - **Exactly 3 speakers per group, the most prominent ones; a speaker is in at most one group.** Not everyone is featured; the rest are in the sidebar (the user's rules). `checkFeatured()` in `src/lib/data.ts` (`FEATURED_PER_GROUP = 3`) enforces this when the module loads: a wrong count, a duplicate, an unknown slug, or a group missing from `featuredOrder` makes `npm run build`/`dev` fail with a clear message (e.g. `group "body" has 4 speakers; it needs exactly 3`).
-- Current groups: Self Discovery (Alan Watts, Ram Dass, Krishnamurti), Drugs & Psychedelics (Leary, McKenna, Huxley), Far East (Thich Nhat Hanh, Osho, Sadhguru), Visionaries (Buckminster Fuller, Joseph Campbell, Allen Ginsberg), Mind & Body (Bruce Lee, Jon Kabat-Zinn, B.K.S. Iyengar), Relationships (Mr. Rogers, bell hooks, Gabor Maté). John O'Donohue isn't featured until he has a photo.
+- Current groups: Self Discovery (Alan Watts, Ram Dass, Krishnamurti), Drugs & Psychedelics (Leary, McKenna, Huxley), Far East (Thich Nhat Hanh, Osho, Sadhguru), Visionaries (Buckminster Fuller, Joseph Campbell, Allen Ginsberg), Mind & Body (Bruce Lee, Eckhart Tolle, B.K.S. Iyengar), Relationships (Mr. Rogers, bell hooks, Gabor Maté). John O'Donohue isn't featured until he has a photo.
 - On wide screens groups sit two per row, so an even number of groups keeps the grid tidy.
 - Featured.scss lays groups out in a responsive grid (`auto-fit`, min 440px per group) with 3 tiles each that stretch to fill the column, so every tile is always visible.
 

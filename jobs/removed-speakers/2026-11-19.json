@@ -1,0 +1,145 @@
+{
+  "note": "Speakers with no lectures, removed 2026-11-19. To bring one back, put its entry back in speakers.environment.json at about the same index; its portrait is in git history (public/assets/images/<slug>.jpg).",
+  "removed": {
+    "john-odonohue": {
+      "index": 10,
+      "entry": {
+        "playlist": "",
+        "years": "1956-2008",
+        "name": "John O'Donohue",
+        "image": "",
+        "bio": "John O'Donohue (1 January 1956 – 4 January 2008) was an Irish poet, author, priest, and Hegelian philosopher. He was a native Irish speaker, and as an author is best known for popularising Celtic spirituality.",
+        "wikipedia": "John O'Donohue",
+        "books": [],
+        "videos": {},
+        "quotes": {}
+      }
+    },
+    "jon-kabat-zinn": {
+      "index": 11,
+      "entry": {
+        "playlist": "",
+        "years": "1944-Now",
+        "name": "Jon Kabat-Zinn",
+        "image": "assets/images/jon-kabat-zinn.jpg",
+        "bio": "Jon Kabat-Zinn (born Jon Kabat, June 5, 1944) is an American professor emeritus of medicine and the creator of the Stress Reduction Clinic and the Center for Mindfulness in Medicine, Health Care, and Society at the University of Massachusetts Medical School. Kabat-Zinn was a student of Zen Buddhist teachers such as Philip Kapleau, Thich Nhat Hanh, and Seung Sahn, and is a founding member of Cambridge Zen Center. His practice of hatha yoga, Vipassanā and appreciation of the teachings of Soto Zen and Advaita Vedanta led him to integrate their teachings with scientific findings. He teaches mindfulness, which he says can help people cope with stress, anxiety, pain, and illness. The program he created, mindfulness-based stress reduction (MBSR), is offered by medical centers, hospitals, and health maintenance organizations, and is described in his book Full Catastrophe Living.",
+        "wikipedia": "Jon Kabat-Zinn",
+        "books": [],
+        "videos": {},
+        "quotes": {},
+        "imageCredit": {
+          "author": "ExperienceLifeMag",
+          "authorUrl": "https://www.youtube.com/channel/UCh7TeIEjURG2L9y3NurtsEg",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Jon_Kabat-Zinn_(2018).png"
+        }
+      }
+    },
+    "pema-chodron": {
+      "index": 17,
+      "entry": {
+        "playlist": "",
+        "years": "1936-Now",
+        "name": "Pema Chödrön",
+        "image": "assets/images/pema-chodron.jpg",
+        "bio": "Pema Chödrön (born Deirdre Blomfield-Brown, July 14, 1936) is an American-born Tibetan Buddhist. She is an ordained nun, former acharya of Shambhala Buddhism and disciple of Chögyam Trungpa Rinpoche. Chödrön has written several dozen books and audiobooks, and was principal teacher at Gampo Abbey in Nova Scotia. She retired in 2020.",
+        "wikipedia": "Pema Chödrön",
+        "books": [],
+        "videos": {},
+        "quotes": {},
+        "imageCredit": {
+          "author": "Flickr user 64954998@N00",
+          "authorUrl": "https://www.flickr.com/people/64954998@N00",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Pema_chodron_2007_cropped.jpg"
+        }
+      }
+    },
+    "robert-anton-wilson": {
+      "index": 19,
+      "entry": {
+        "playlist": "",
+        "years": "1932-2007",
+        "name": "Robert Anton Wilson",
+        "image": "assets/images/robert-anton-wilson.jpg",
+        "bio": "Robert Anton Wilson (born Robert Edward Wilson; January 18, 1932 – January 11, 2007) was an American writer, futurist, psychologist, and self-described agnostic mystic. Recognized within Discordianism as an Episkopos, pope and saint, Wilson helped publicize Discordianism through his writings and interviews. In 1999 he described his work as an \"attempt to break down conditioned associations, to look at the world in a new way, with many models recognized as models or maps, and no one model elevated to the truth\". Wilson's goal was \"to try to get people into a state of generalized agnosticism, not agnosticism about God alone but agnosticism about everything.\"",
+        "wikipedia": "Robert Anton Wilson",
+        "books": [],
+        "videos": {},
+        "quotes": {},
+        "imageCredit": {
+          "author": "frankenstoen",
+          "authorUrl": null,
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Robert_Anton_Wilson.jpg"
+        }
+      }
+    },
+    "rupert-sheldrake": {
+      "index": 20,
+      "entry": {
+        "playlist": "",
+        "years": "1942-Now",
+        "name": "Rupert Sheldrake",
+        "image": "assets/images/rupert-sheldrake.jpg",
+        "bio": "Alfred Rupert Sheldrake (born 28 June 1942) is an English author and parapsychology researcher. He proposed the concept of morphic resonance, a conjecture that lacks mainstream acceptance and has been widely criticized as pseudoscience. He has worked as a biochemist at Cambridge University, a Harvard scholar, a researcher at the Royal Society, and a plant physiologist for ICRISAT in India. Other work by Sheldrake encompasses paranormal subjects such as precognition, empirical research into telepathy, and the psychic staring effect. He has been described as a New Age author.",
+        "wikipedia": "Rupert Sheldrake",
+        "books": [],
+        "videos": {},
+        "quotes": {},
+        "imageCredit": {
+          "author": "Zereshk",
+          "authorUrl": "https://commons.wikimedia.org/wiki/User:Zereshk",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Sheldrake_TASC2008.JPG"
+        }
+      }
+    },
+    "rupert-spira": {
+      "index": 21,
+      "entry": {
+        "playlist": "",
+        "years": "1960-Now",
+        "name": "Rupert Spira",
+        "image": "assets/images/rupert-spira.jpg",
+        "bio": "Rupert Spira (born 1960) is an English philosopher, author and potter, based in Oxford, UK. He is a proponent of nonduality and what he terms 'the Direct Path'.",
+        "wikipedia": "Rupert Spira",
+        "books": [],
+        "videos": {},
+        "quotes": {},
+        "imageCredit": {
+          "author": "Awareness",
+          "authorUrl": null,
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Rupert_Spira.jpg"
+        }
+      }
+    },
+    "stanislav-grof": {
+      "index": 23,
+      "entry": {
+        "playlist": "",
+        "years": "1931-Now",
+        "name": "Stanislav Grof",
+        "image": "assets/images/stanislav-grof.jpg",
+        "bio": "Stanislav Grof (born July 1, 1931) is a Czech-born American psychiatrist. Grof is one of the principal developers of transpersonal psychology and research into the use of non-ordinary states of consciousness for purposes of psychological healing, deep self-exploration, and obtaining growth and insights into the human psyche.",
+        "wikipedia": "Stanislav Grof",
+        "books": [],
+        "videos": {},
+        "quotes": {},
+        "imageCredit": {
+          "author": "Anton Nosik",
+          "authorUrl": "https://en.wikipedia.org/wiki/en:Anton_Nossik",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Stanislav_Grof_by_Anton_Nossik_crop.JPG"
+        }
+      }
+    }
+  }
+}

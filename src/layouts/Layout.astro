@@ -6,16 +6,32 @@ import '../styles/index.scss';
 import Sidebar from '../components/Sidebar.astro';
 import Player from '../components/Player.astro';
 import { SITE_NAME, SITE_TAGLINE } from '../lib/site';
+import { speakers } from '../lib/data';
 
 interface Props {
   title?: string;
   description?: string;
+  /** Link-preview card under public/ (1200x630; see jobs/make-og-images.py). */
+  image?: string;
+  imageAlt?: string;
+  /** Title shown in link previews, if it should differ from <title> (no "| Yogi FM"). */
+  shareTitle?: string;
 }
 
+// Defaults (home page and fallbacks), worded for link previews and search results.
+const speakerCount = Object.keys(speakers).length;
+const defaultTitle = `${SITE_NAME}: Lectures by Alan Watts, Ram Dass & Krishnamurti, with Background Music`;
+const defaultDescription = `Listen free to lectures from Alan Watts, Ram Dass, Krishnamurti and ${speakerCount - 3} more spiritual teachers, with background music you choose: jazz, lofi, sitar, ambient and more.`;
+
 const {
-  title = `${SITE_NAME} | ${SITE_TAGLINE}`,
-  description = 'Lectures from Alan Watts, Ram Dass, Krishnamurti and more, with background music.',
+  title = defaultTitle,
+  description = defaultDescription,
+  image = 'og/default.jpg',
+  imageAlt = `${SITE_NAME}: ${SITE_TAGLINE}`,
+  shareTitle = title,
 } = Astro.props;
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL(image, Astro.site);
 
 // Edit mode (`npm run dev:edit`). Imported behind the literal dev-only condition (not a
 // static import) so production builds don't even emit the editor's script file.
@@ -23,6 +39,8 @@ const EditorTools =
   import.meta.env.DEV && import.meta.env.PUBLIC_EDIT_MODE === 'true'
     ? (await import('../components/EditorTools.astro')).default
     : null;
+// Dev server only: content problems shown in the page instead of crashing it.
+const DevWarnings = import.meta.env.DEV ? (await import('../components/DevWarnings.astro')).default : null;
 ---
 
 <!doctype html>
@@ -32,15 +50,30 @@ const EditorTools =
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content={description} />
+    {/* Link previews (iMessage, Slack, X, Facebook, …). Crawlers don't run JS or see the
+        #hash, so every shareable thing has its own page: speakers, genres and lectures
+        (/speakers/<slug>/<videoId>/). See "Link previews" in documentation/architecture.md. */}
     <meta property="og:site_name" content={SITE_NAME} />
-    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content={shareTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={shareTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={pageUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,900" rel="stylesheet" />
     <title>{title}</title>
@@ -65,6 +98,7 @@ const EditorTools =
       {EditorTools && <EditorTools />}
       <!-- Only this element is replaced on navigation (see src/lib/player.ts). -->
       <div data-page>
+        {DevWarnings && <DevWarnings />}
         <slot />
       </div>
     </div>

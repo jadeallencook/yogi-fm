@@ -13,6 +13,7 @@ Yogi FM (yogifm.com) collects YouTube lectures from spiritual speakers (Alan Wat
 - `npm run check-videos`: checks every video (oEmbed plus the real YouTube player in headless Chrome). It's a dry run by default; `-- --delete` removes unavailable speaker videos (saved to `jobs/removed-videos/` for `--restore`). See `documentation/data.md`.
 - `npm run fetch-portraits`: fills in missing speaker photos from freely licensed Wikimedia Commons images, with credit (see `documentation/data.md`).
 - `npm run fetch-durations`: saves every video's length to `durations.environment.json` (YouTube Data API; needs `YOUTUBE_API_KEY` in the git-ignored `.env`). See `documentation/data.md`.
+- `python3 -I jobs/make-og-images.py`: regenerates the link-preview cards in `public/og/` (local only, Pillow; re-run after adding speakers/genres). See "Link previews" in `documentation/architecture.md`.
 - `npm run fetch-bios`: refreshes speaker bios from Wikipedia (uses each speaker's `wikipedia` title; `-- --dry-run --show` to preview). See `documentation/data.md`.
 - `npm run update`: YouTube scraper jobs. **Don't run them.** They're broken and overwrite data; see `documentation/data.md`.
 
@@ -38,17 +39,20 @@ Read the relevant doc before working in an area, and keep it updated when things
 ## Gotchas
 
 - Navigation replaces only `[data-page]` (custom `astro:before-swap` in `src/lib/player.ts`). Never move or re-render the player's iframes, because that stops playback. Page content must live inside the layout's `<slot />`.
+- Link previews can't see the URL hash, so each lecture has a page (`/speakers/<slug>/<videoId>/`) and the player keeps the address on it while that speaker plays (see "Link previews" in `documentation/architecture.md`).
 - Player state is in the URL hash. Update it with `history.replaceState(history.state, …)` so Astro's router state is kept.
 - Edit mode must never reach production. Gate edit UI on `EDIT_MODE` (`src/lib/edit-mode.ts`, which also requires `DEV`), keep server code in `integrations/content-editor.mjs` (dev server only), never statically import `EditorTools.astro` or give it a `<style>`, and keep editor CSS `?inline`. After editor changes, run `PUBLIC_EDIT_MODE=true npm run build` and check that `dist/` has no editor code (commands in `documentation/editing.md`).
 - Analytics is Umami with auto-track **off** (the hash changes on every track); send page views/events through `src/lib/analytics.ts`. See `documentation/deployment.md`.
 - Anything added to `<head>` at runtime is removed on the next client-side navigation (Astro's head swap). Put runtime `<style>`/elements in `<body>` (outside `[data-page]`).
 - Astro's ClientRouter turns every `<form>` submit into a navigation, and its listener runs before page scripts. Client-handled forms need `data-astro-reload` (and/or a capture-phase listener).
+- The player's click/keyboard handlers check `e.target instanceof HTMLElement`. Inline SVG icons inside controls need `pointer-events: none` on the `<svg>`, or clicks on them are ignored.
 - The Astro dev toolbar is disabled on purpose. It covers the player controls and blocks their clicks.
 - The SCSS is global and its selectors depend on the exact markup copied from the React app. Check the matching `src/styles/*.scss` before changing a component's element structure.
 
 ## Conventions
 
 - The site name, tagline and URL live in `src/lib/site.ts`. Never hard-code "Yogi FM" in components.
+- No two videos in one list may share a title (case/punctuation ignored). Edit mode refuses it, `npm run build` fails on it, and the dev server shows it in the page instead of crashing (`findDuplicateTitles()` in `src/lib/data.ts`, `DevWarnings.astro`).
 - Home page groups (`featured.environment.json`) have exactly 3 speakers each, the most prominent ones, and no speaker in two groups; the build fails otherwise. Not every speaker is featured.
 - Lecture titles follow the user's Alan Watts style (Title Case, just the topic, no speaker name/years/"full lecture"); see "Lecture title style" in `documentation/data.md`.
 - Adding a speaker: follow the checklist in `documentation/data.md` (portraits only from freely licensed Commons images, with credit).

@@ -29,12 +29,15 @@ import '../styles/Player.scss';
       <i class="fa fa-chevron-up" aria-hidden="true"></i>
     </button>
     <i class="fa fa-backward" data-control="prev" role="button" tabindex="0" aria-label="Previous lecture"></i>
+    <!-- Jump back/forward 15 seconds in the lecture (inline SVG: a ring with an arrow and "15" inside). -->
+    <i class="jump" data-control="back" role="button" tabindex="0" aria-label="Back 15 seconds" title="Back 15 seconds"><svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M12 3a9 9 0 1 1-6.36 2.64" /><path d="M14.2 .9 11.6 3l2.6 2.3" /></g><text x="12" y="15.4">15</text></svg></i>
     <i class="fa fa-play" data-control="toggle" role="button" tabindex="0" aria-label="Play"></i>
     <!-- Phones: the lecture player, invisible over its thumbnail; tapping plays/pauses. -->
     <div class="mobile-thumb" data-thumb="lecture" data-control="video" role="button" tabindex="0" aria-label="Play or pause the lecture">
       <div id="mobile-video" class="mobile-video"></div>
       <i class="fa fa-play state" aria-hidden="true"></i>
     </div>
+    <i class="jump" data-control="forward" role="button" tabindex="0" aria-label="Forward 15 seconds" title="Forward 15 seconds"><svg viewBox="0 0 24 24" aria-hidden="true"><g transform="matrix(-1 0 0 1 24 0)"><path d="M12 3a9 9 0 1 1-6.36 2.64" /><path d="M14.2 .9 11.6 3l2.6 2.3" /></g><text x="12" y="15.4">15</text></svg></i>
     <i class="fa fa-forward" data-control="next" role="button" tabindex="0" aria-label="Next lecture"></i>
   </div>
   <!-- Lecture progress: drag or click to seek (player.ts). -->

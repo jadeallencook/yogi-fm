@@ -1,0 +1,23 @@
+---
+// One page per lecture (/speakers/<slug>/<videoId>/), so a shared link gets that
+// lecture's link preview (crawlers never see the #hash). It's the speaker page; the
+// player loads this lecture when the URL has no #state (readHash() in player.ts), and
+// keeps the address on this page while you play the speaker's lectures (writeHash()).
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../../layouts/Layout.astro';
+import Songs from '../../../components/Songs.astro';
+import { speakers } from '../../../lib/data';
+import { lectureMeta } from '../../../lib/meta';
+
+export const getStaticPaths = (() =>
+  Object.entries(speakers).flatMap(([slug, speaker]) =>
+    Object.keys(speaker.videos).map((video) => ({ params: { slug, video } })),
+  )) satisfies GetStaticPaths;
+
+const { slug, video } = Astro.params;
+const speaker = speakers[slug];
+---
+
+<Layout {...lectureMeta(slug, speaker, video)}>
+  <Songs kind="lecture" slug={slug} collection={speaker} />
+</Layout>

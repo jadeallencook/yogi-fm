@@ -84,9 +84,56 @@ function checkFeatured() {
 }
 checkFeatured();
 
+/** Titles compared for duplicates: case, punctuation and spacing ignored (same as integrations/content-editor.mjs). */
+export const titleKey = (title: string) =>
+  title.toLowerCase().replace(/&/g, 'and').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+
+export interface DuplicateTitle {
+  kind: 'speaker' | 'music';
+  slug: string;
+  /** Speaker or genre name. */
+  name: string;
+  title: string;
+  /** The videos sharing the title, with their 1-based positions in the list. */
+  videos: { id: string; position: number }[];
+}
+
+/**
+ * No two lectures (or tracks) in the same list may share a title (the same lecture is
+ * often uploaded more than once). Edit mode refuses them; this also catches hand edits
+ * to the JSON and adds made by an edit server started before that check existed.
+ */
+export function findDuplicateTitles(): DuplicateTitle[] {
+  const found: DuplicateTitle[] = [];
+  for (const [kind, lists] of [['speaker', speakers], ['music', music]] as const) {
+    for (const [slug, list] of Object.entries(lists)) {
+      const groups = new Map<string, DuplicateTitle>();
+      Object.entries(list.videos).forEach(([id, title], i) => {
+        const key = titleKey(title);
+        const group = groups.get(key) ?? { kind, slug, name: list.name, title, videos: [] };
+        group.videos.push({ id, position: i + 1 });
+        groups.set(key, group);
+      });
+      for (const group of groups.values()) if (group.videos.length > 1) found.push(group);
+    }
+  }
+  return found;
+}
+
+// The dev server shows duplicates in the page instead (DevWarnings.astro, marked rows
+// in Songs.astro), so a bad edit never takes it down. `npm run build` still fails.
+if (!import.meta.env.DEV) {
+  const duplicates = findDuplicateTitles();
+  if (duplicates.length) {
+    const lines = duplicates.map((d) => `${d.kind} "${d.slug}": "${d.title}" (${d.videos.map((v) => `#${v.position} ${v.id}`).join(', ')})`);
+    throw new Error(`Duplicate titles (src/environments/*.environment.json); remove one or rename it:\n- ${lines.join('\n- ')}`);
+  }
+}
+
 /** Renamed genre slugs (old -> new), so old shared `#…/<genre>/…` links still resolve. */
 export const genreAliases: Record<string, string> = {
   indian: 'sitar',
+  trance: 'house',
 };
 
 /** First video of a speaker/genre, used when a requested video doesn't exist (anymore). */
@@ -128,6 +175,15 @@ export const formatDuration = (seconds: number) => {
   const m = Math.floor((total % 3600) / 60);
   const s = String(total % 60).padStart(2, '0');
   return h ? `${h}:${String(m).padStart(2, '0')}:${s}` : `${m}:${s}`;
+};
+
+/** Total listening time, rounded: "3 hrs", "1 hr", or under an hour "45 mins" (home tiles). */
+export const formatTotalLength = (seconds: number) => {
+  const mins = Math.round(seconds / 60);
+  if (mins < 1) return '';
+  if (mins < 60) return `${mins} min${mins === 1 ? '' : 's'}`;
+  const hrs = Math.round(seconds / 3600);
+  return `${hrs} hr${hrs === 1 ? '' : 's'}`;
 };
 
 export const speakerUrl = (slug: string) => `/speakers/${slug}/`;

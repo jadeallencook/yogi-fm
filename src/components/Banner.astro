@@ -1,8 +1,8 @@
 ---
 import '../styles/Banner.scss';
-import { speakers, music, defaults } from '../lib/data';
+import { speakers, music, defaults, hasVideos } from '../lib/data';
 // Server-rendered with the defaults; render() in player.ts swaps in the live selection
-// ([data-now]) and the play state (.playing, [data-banner-toggle]).
+// ([data-now], the .selected genre) and the play state (.playing, [data-banner-toggle]).
 const speaker = speakers[defaults.speaker];
 ---
 
@@ -14,10 +14,21 @@ const speaker = speakers[defaults.speaker];
     </span>
     <h2 class="animated flipInX" style="animation-delay: 100ms" data-now="speaker">{speaker.name}</h2>
     <span class="lecture" data-now="lecture">{speaker.videos[defaults.lecture]}</span>
-    <span class="genre">
-      <i class="fa fa-music" aria-hidden="true"></i>
-      <span data-now="genre">{music[defaults.genre].name}</span>
-    </span>
+    {/* Every playable genre (alphabetical, like the sidebar); click one to switch the
+        background music. The current one is .selected (player.ts). */}
+    <div class="genres" role="group" aria-label="Background music">
+      {Object.entries(music).filter(([, genre]) => hasVideos(genre)).map(([slug, genre]) => (
+        <button
+          type="button"
+          class:list={['genre', { selected: slug === defaults.genre }]}
+          data-banner-genre={slug}
+          aria-pressed={slug === defaults.genre ? 'true' : 'false'}
+        >
+          <i class="fa fa-music" aria-hidden="true"></i>
+          <span>{genre.name}</span>
+        </button>
+      ))}
+    </div>
     <div class="actions">
       <button type="button" class="primary" data-control="toggle" data-banner-toggle>
         <i class="fa fa-play" aria-hidden="true"></i>

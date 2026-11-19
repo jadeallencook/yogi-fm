@@ -1,5 +1,8 @@
 @use 'global' as *;
 
+/* Room left at the bottom for the player bar, which covers the sidebar there. */
+$sidebar-bar: 80px;
+
 /*
  * Sidebar: quiet grey links that light up on hover, the current page marked with a
  * blue bar (.active), and the playing speaker/genre with equalizer bars (.current,
@@ -12,7 +15,7 @@ div.Sidebar {
     height: 100%;
     width: 200px;
     box-sizing: border-box;
-    padding: 0px 10px 95px 10px;
+    padding: 0px 10px $sidebar-bar 10px;
     overflow-y: scroll;
 
     h2 {
@@ -160,8 +163,33 @@ div.Sidebar {
         margin-top: 18px;
     }
 
+    /* Support + credits stay pinned at the bottom (just above the player bar) while the
+       links scroll underneath; the fade on top shows there's more to scroll. */
+    div.bottom {
+        position: sticky;
+        /* 0, not $sidebar-bar: sticky already stops at the sidebar's bottom padding. */
+        bottom: 0px;
+        z-index: 1;
+        margin: 22px -10px 0px -10px;
+        padding: 6px 10px 10px 10px;
+        background-color: $darkgrey;
+        /* Also covers the strip between it and the player bar. */
+        box-shadow: 0 $sidebar-bar 0 0 $darkgrey;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            bottom: 100%;
+            height: 28px;
+            background: linear-gradient(to bottom, rgba(11, 10, 10, 0), $darkgrey);
+            pointer-events: none;
+        }
+    }
+
     div.donate {
-        margin: 22px 8px 14px 8px;
+        margin: 8px 8px 14px 8px;
 
         a {
             display: inline-flex;
@@ -243,6 +271,9 @@ div.Sidebar {
         padding: 0px 15px;
         width: 100%;
         overflow: hidden;
+        div.bottom {
+            position: static;
+        }
         h2 {
             padding: 0px;
             margin: 10px 0px;

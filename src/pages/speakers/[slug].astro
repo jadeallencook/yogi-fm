@@ -3,7 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import Songs from '../../components/Songs.astro';
 import { speakers } from '../../lib/data';
-import { SITE_NAME } from '../../lib/site';
+import { speakerMeta } from '../../lib/meta';
 
 export const getStaticPaths = (() =>
   Object.keys(speakers).map((slug) => ({ params: { slug } }))) satisfies GetStaticPaths;
@@ -12,11 +12,6 @@ const { slug } = Astro.params;
 const speaker = speakers[slug];
 ---
 
-<Layout
-  title={`${speaker.name} | ${SITE_NAME}`}
-  description={speaker.bio
-    ? `${speaker.bio.match(/^.{40,}?[.!?](?=\s+[A-Z]|$)/)?.[0] ?? speaker.bio} Listen to lectures by ${speaker.name} on ${SITE_NAME}.`
-    : `Listen to lectures by ${speaker.name} (${speaker.years}) with background music.`}
->
+<Layout {...speakerMeta(slug, speaker)}>
   <Songs kind="lecture" slug={slug} collection={speaker} />
 </Layout>

@@ -92,7 +92,7 @@ div.Player {
 
         /* Prev/next: muted icons that light up and grow a little on hover. */
         i {
-            margin: 0px 26px;
+            margin: 0px 18px;
             font-size: 0.95em;
             vertical-align: middle;
             cursor: pointer;
@@ -155,6 +155,36 @@ div.Player {
 
         i.mobile {
             display: none;
+        }
+
+        /* Back/forward 15 s: an inline SVG ring + arrow (mirrored for forward) with "15" inside. */
+        i.jump {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+
+            svg {
+                display: block;
+                width: 100%;
+                height: 100%;
+                overflow: visible;
+                /* Clicks must land on the <i>: the click handler only accepts HTMLElements. */
+                pointer-events: none;
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 1.8;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            text {
+                fill: currentColor;
+                stroke: none;
+                font-family: $roboto;
+                font-size: 8.5px;
+                font-weight: bold;
+                text-anchor: middle;
+            }
         }
     }
 
@@ -609,6 +639,11 @@ div.Player.expanded {
             font-size: 0.8em;
         }
 
+        i.jump {
+            width: 26px;
+            height: 26px;
+        }
+
         /* Collapse arrow: a small round button left of the controls. */
         button.expand {
             top: 50%;
@@ -1036,9 +1071,9 @@ div.Player.expanded {
 @media only screen and (max-device-width: 480px) {
     div.Player {
         display: grid;
-        grid-template-columns: 112px minmax(0, 1fr) auto auto auto;
+        grid-template-columns: 96px minmax(0, 1fr) auto auto auto auto auto;
         align-items: center;
-        column-gap: 10px;
+        column-gap: 4px;
         padding: 12px 12px calc(10px + env(safe-area-inset-bottom)) 12px;
         text-align: left;
         border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -1067,8 +1102,8 @@ div.Player.expanded {
                 position: relative;
                 grid-column: 1;
                 grid-row: 1;
-                width: 112px;
-                height: 63px;
+                width: 96px;
+                height: 54px;
                 border-radius: 6px;
                 overflow: hidden;
                 background-color: $darkgrey;
@@ -1080,8 +1115,8 @@ div.Player.expanded {
 
                 iframe {
                     display: block;
-                    width: 112px;
-                    height: 63px;
+                    width: 96px;
+                    height: 54px;
                     border: 0;
                     opacity: 0;
                     pointer-events: none;
@@ -1110,24 +1145,38 @@ div.Player.expanded {
             }
 
             i[data-control="prev"],
-            i[data-control="next"] {
+            i[data-control="next"],
+            i.jump {
                 grid-row: 1;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 34px;
+                width: 28px;
                 height: 40px;
                 margin: 0px;
                 font-size: 0.95em;
                 color: #cfcfcf;
             }
 
+            i.jump {
+                color: $white;
+
+                svg {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+
             i[data-control="prev"] {
                 grid-column: 3;
             }
 
-            i[data-control="toggle"] {
+            i[data-control="back"] {
                 grid-column: 4;
+            }
+
+            i[data-control="toggle"] {
+                grid-column: 5;
                 grid-row: 1;
                 display: inline-block;
                 width: 40px;
@@ -1137,8 +1186,12 @@ div.Player.expanded {
                 text-align: center;
             }
 
+            i[data-control="forward"] {
+                grid-column: 6;
+            }
+
             i[data-control="next"] {
-                grid-column: 5;
+                grid-column: 7;
             }
         }
 
@@ -1147,6 +1200,7 @@ div.Player.expanded {
             flex-direction: column;
             gap: 2px;
             min-width: 0;
+            margin: 0px 6px;
             grid-column: 2;
             grid-row: 1;
 

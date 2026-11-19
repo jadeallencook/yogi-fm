@@ -10,6 +10,13 @@
  * buttons; player.ts keeps it in sync. A dark glow behind the text keeps it readable
  * on the busy photo, and the bottom fades into the page.
  */
+/* Pill sizes in em of the banner font, shared by the genre pills and the buttons. */
+$pill-font: 0.7em;
+$pill-width: 9em;
+$pill-height: 2.4em;
+/* Genre pills: 75% of the buttons' text, and so of their height. */
+$genre-font: 0.53em;
+
 div.Banner {
     position: relative;
     background-color: $darkgrey;
@@ -102,21 +109,73 @@ div.Banner {
         white-space: nowrap;
     }
 
-    span.genre {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5em;
-        margin-top: 0.8em;
-        padding: 0.3em 0.9em;
-        border-radius: 999px;
-        background-color: rgba(0, 0, 0, 0.45);
-        font-size: 0.65em;
-        letter-spacing: 0.08em;
-        text-shadow: none;
-        backdrop-filter: blur(4px);
+    /* Genre pills: every genre in one centered, wrapping row; the current one is filled
+       (light, with the music icon). A secondary setting, so ~75% the size of the buttons
+       below and quieter (the height scales with the smaller font); auto width. */
+    div.genres {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+        max-width: 46em;
+        margin-top: 0.9em;
 
-        i {
-            opacity: 0.7;
+        button.genre {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45em;
+            box-sizing: border-box;
+            height: $pill-height;
+            padding: 0 0.95em;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: rgba(255, 255, 255, 0.75);
+            font-family: $roboto;
+            font-size: $genre-font;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+            text-shadow: none;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+
+            i {
+                display: none;
+            }
+
+            &:hover {
+                color: $white;
+                border-color: rgba(255, 255, 255, 0.35);
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+
+            &:active {
+                transform: scale(0.96);
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid $blue;
+                outline-offset: 2px;
+            }
+
+            &.selected {
+                border-color: transparent;
+                background-color: rgba(243, 233, 218, 0.95);
+                color: $grey;
+                font-weight: bold;
+                cursor: default;
+
+                i {
+                    display: inline;
+                    opacity: 0.75;
+                }
+            }
         }
     }
 
@@ -130,14 +189,19 @@ div.Banner {
         button {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5em;
-            padding: 0.55em 1.1em;
+            box-sizing: border-box;
+            width: $pill-width;
+            height: $pill-height;
+            padding: 0 1.1em;
+            white-space: nowrap;
             border: none;
             border-radius: 999px;
             background-color: rgba(0, 0, 0, 0.45);
             color: $white;
             font-family: $roboto;
-            font-size: 0.7em;
+            font-size: $pill-font;
             cursor: pointer;
             backdrop-filter: blur(4px);
             transition: background-color 0.15s ease, transform 0.15s ease;
@@ -211,7 +275,7 @@ div.Banner {
         }
 
         /* Phones play only one video with sound, so no background music there. */
-        span.genre {
+        div.genres {
             display: none;
         }
     }

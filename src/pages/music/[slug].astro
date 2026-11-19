@@ -3,7 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import Songs from '../../components/Songs.astro';
 import { music } from '../../lib/data';
-import { SITE_NAME } from '../../lib/site';
+import { genreMeta } from '../../lib/meta';
 
 export const getStaticPaths = (() =>
   Object.keys(music).map((slug) => ({ params: { slug } }))) satisfies GetStaticPaths;
@@ -12,6 +12,6 @@ const { slug } = Astro.params;
 const genre = music[slug];
 ---
 
-<Layout title={`${genre.name} | ${SITE_NAME}`} description={`${genre.name} background music for lectures on ${SITE_NAME}.`}>
+<Layout {...genreMeta(slug, genre)}>
   <Songs kind="music" slug={slug} collection={genre} />
 </Layout>

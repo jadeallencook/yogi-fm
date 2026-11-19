@@ -127,6 +127,11 @@ function stripSpeakerPrefix(title, name) {
   return title.replace(new RegExp(`^${escaped}\\s*[-:|~–—]\\s*`, 'i'), '').trim() || title;
 }
 
+/** Titles compared for duplicates: case, punctuation and spacing ignored (same as titleKey() in src/lib/data.ts). */
+function sameTitleKey(title) {
+  return String(title).toLowerCase().replace(/&/g, 'and').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+}
+
 /** Loads the file for `kind`, runs `change(entry, data)` on the slug's entry, and saves. */
 async function update(kind, slug, change) {
   const file = FILES[kind];
@@ -157,6 +162,10 @@ const routes = {
     const title = cleanTitle(rawTitle);
     return update(kind, slug, (entry) => {
       requireVideo(entry, kind, slug, id);
+      // Like add: no two videos in a list may share a title (ignoring case/punctuation).
+      const key = sameTitleKey(title);
+      const twin = Object.entries(entry.videos).find(([other, existing]) => other !== id && sameTitleKey(existing) === key);
+      if (twin) throw new HttpError(409, `Another video in this list is already called "${twin[1]}" (${twin[0]})`);
       const previous = entry.videos[id];
       entry.videos[id] = title;
       logger.info(`title ${kind} ${slug}/${id}: "${previous}" -> "${title}"`);
@@ -182,15 +191,33 @@ const routes = {
     if (!id) throw new HttpError(400, 'Paste a YouTube link or an 11-character video ID');
     if (!FILES[kind]) throw new HttpError(400, 'kind must be "speaker" or "music"');
 
+    // Quick check first, so a duplicate is rejected without waiting for YouTube.
+    const current = JSON.parse(await readFile(FILES[kind], 'utf8'))[slug];
+    if (current?.videos && Object.hasOwn(current.videos, id)) {
+      throw new HttpError(409, `Already in this list as "${current.videos[id]}"`);
+    }
+
     // Check the video before touching the file (this is the slow part).
     const youtubeTitle = await lookupVideo(id);
 
     return update(kind, slug, (entry) => {
+      // Checked again here: the file may have changed during the lookup.
       if (Object.hasOwn(entry.videos, id)) {
         throw new HttpError(409, `Already in this list as "${entry.videos[id]}"`);
       }
       const fallback = kind === 'speaker' && entry.name ? stripSpeakerPrefix(youtubeTitle, entry.name) : youtubeTitle;
       const title = cleanTitle(rawTitle?.trim() ? rawTitle : fallback);
+      // The same lecture is often uploaded more than once (different video IDs), so a
+      // matching title counts as a duplicate too. A genuinely different video with the
+      // same title can still be added by typing a different title.
+      const key = sameTitleKey(title);
+      const twin = Object.entries(entry.videos).find(([, existing]) => sameTitleKey(existing) === key);
+      if (twin) {
+        throw new HttpError(
+          409,
+          `"${twin[1]}" is already in this list (another upload, ${twin[0]}). If it's a different lecture, type a different title.`,
+        );
+      }
       // Object key order is display order, so rebuild the map to insert at the top.
       entry.videos = position === 'top' ? { [id]: title, ...entry.videos } : { ...entry.videos, [id]: title };
       logger.info(`add ${kind} ${slug}/${id} (${position === 'top' ? 'top' : 'bottom'}): "${title}"`);

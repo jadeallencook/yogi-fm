@@ -12,7 +12,7 @@ An "Edit mode" badge shows top-right. On any speaker or genre page:
 
 - **Edit a title:** hover a row and click **Edit**. The input holds the raw stored title; rows display capitalized only through CSS. **Enter** or **Save** writes it, and **Escape** or **Cancel** discards it.
 - **Delete:** hover a row, click **Delete**, then **Yes, delete** (or **No**). Confirmation happens inside the row, with no browser dialog. Deleting the last video in a list is allowed: the page then shows "No lectures yet" and the player skips that list until you add one. Deletion can't be undone from the page. The dev server log prints the deleted ID and title, and git has the previous version.
-- **Add:** use the dashed form above the list. Paste a YouTube link (watch, youtu.be, embed, shorts, live, or music.youtube) or an 11-character ID. Leave the title blank to use YouTube's title; for speakers a leading "Speaker Name -" or "Name:" is stripped. Choose top (the default) or bottom (key order is display order) and click **Add**. The server checks the video with YouTube oEmbed first. It refuses videos that are removed, private or not embeddable, and duplicates in the same list. The new row appears in place, without a page reload.
+- **Add:** use the dashed form above the list. Paste a YouTube link (watch, youtu.be, embed, shorts, live, or music.youtube) or an 11-character ID. Leave the title blank to use YouTube's title; for speakers a leading "Speaker Name -" or "Name:" is stripped. Choose top (the default) or bottom (key order is display order) and click **Add**. The server checks the video with YouTube oEmbed first. It refuses videos that are removed, private or not embeddable, and duplicates in the same list: the same video ID (checked before the YouTube lookup, so it's instant), or the same title (ignoring case, punctuation and spacing), because the same lecture is often uploaded more than once under different IDs. If it really is a different lecture with the same name, type a different title in the form. The new row appears in place, without a page reload.
 
 **No page reloads.** Edits, deletes and adds update the page in place, and playback continues. The integration's Vite plugin (`content-editor:skip-browser-reload`) cancels the browser hot update for each file the editor just wrote: one write cancels one update, within 5 s. The server-side (SSR) environment still updates, so the next navigation or reload renders the new data. Changes to the JSON made by hand in a code editor still reload the page as usual. On the client, `editor.ts` updates the row, the in-memory content (the same `speakers`/`music` module objects `player.ts` uses), and then dispatches `content:changed`; the player re-renders the marquee, thumbnail tooltips and active rows. If a link's hash points at a video that was deleted, it falls back to that list's first video.
 
@@ -32,9 +32,9 @@ An "Edit mode" badge shows top-right. On any speaker or genre page:
 
 | Route | Body | Does |
 |---|---|---|
-| `/__editor/title` | `{ kind, slug, id, title }` | Sets `videos[id]` |
+| `/__editor/title` | `{ kind, slug, id, title }` | Sets `videos[id]`; 409 if another video in the list already has that title (normalized like add) |
 | `/__editor/delete` | `{ kind, slug, id }` | Removes `videos[id]` (may empty the list) |
-| `/__editor/add` | `{ kind, slug, video, title?, position? }` | Checks oEmbed (only the video ID is sent to YouTube), then inserts at `top` or `bottom` (`bottom` if `position` is omitted; the form always sends it, defaulting to `top`); 409 for a duplicate, 422 if not embeddable |
+| `/__editor/add` | `{ kind, slug, video, title?, position? }` | Checks oEmbed (only the video ID is sent to YouTube), then inserts at `top` or `bottom` (`bottom` if `position` is omitted; the form always sends it, defaulting to `top`); 409 for a duplicate (same ID, or same title after normalizing), 422 if not embeddable |
 
 Every change is logged in the dev server output (title old → new, deleted titles, added titles).
 
