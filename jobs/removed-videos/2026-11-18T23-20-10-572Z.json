@@ -1,0 +1,608 @@
+{
+  "createdAt": "2026-11-18T23:20:10.573Z",
+  "removed": [
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "0CXqgLIPjwg",
+      "title": "how to get your mind back",
+      "index": 0,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "s42V8BGBvTk",
+      "title": "jesus, his religion",
+      "index": 1,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "2RFZQjLMV6Y",
+      "title": "how to contact your higher self",
+      "index": 2,
+      "reason": "embedding not allowed (often age-restricted)",
+      "source": "player 150"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "JaE1QiYQPog",
+      "title": "a simple solution to the confusion in your mind",
+      "index": 3,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "etYmg1_k-Dk",
+      "title": "the joker - alan watts",
+      "index": 4,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "wPOsUYA1Auc",
+      "title": "be comfortable under any circumstances",
+      "index": 5,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "v7vFOU8e0wU",
+      "title": "reality & illusion...",
+      "index": 6,
+      "reason": "embedding not allowed (often age-restricted)",
+      "source": "player 150"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "cwsn9N3U59c",
+      "title": "the web of life",
+      "index": 7,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "bGUNkFf4_6k",
+      "title": "the cosmic network - alan watts",
+      "index": 8,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "-TjCZRutOKY",
+      "title": "the art of meditation",
+      "index": 9,
+      "reason": "embedding not allowed (often age-restricted)",
+      "source": "player 150"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "-Syu3CFK16M",
+      "title": "returning to the inner self",
+      "index": 10,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "aJMP0BPeKVs",
+      "title": "the ultimate lecture 3 5 hours   alan watts",
+      "index": 11,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "ESZ0D7UVaQY",
+      "title": "great lecture:  veil of thoughts [full] (wisdom)",
+      "index": 12,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "dcBqwlNPC1s",
+      "title": "voiding the pain and suffering",
+      "index": 13,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "V8a3WGgs8Ds",
+      "title": "alan watts transform your current life into a dream life",
+      "index": 14,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "fxRo8qHjJaw",
+      "title": "most epic speech of all time",
+      "index": 15,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "BHynrDx5oDI",
+      "title": "back to life alan watts live everyday",
+      "index": 16,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "sUkDY5yzYb8",
+      "title": "alan watts how to take control of your life",
+      "index": 17,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "5IR5Ps4SqXo",
+      "title": "alan watts + examples of spiritual philosophies + positive energy binaural beats",
+      "index": 18,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "Q9IVWWop6Oc",
+      "title": "obliterate obstacles in your life + 963 hz for perfect state + calming tones",
+      "index": 19,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "kpTAHapIHG4",
+      "title": "how to take full control + spiritual transformation, healing and calming tones",
+      "index": 20,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "EyrPE9kTZZk",
+      "title": "the reason that everything happens",
+      "index": 21,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "bT-HkZ60QAE",
+      "title": "alan watts  how everything happens in this world",
+      "index": 22,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "lo4fXS6SHBQ",
+      "title": "how to discover your life purpose",
+      "index": 23,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "WaKsHaGoCiY",
+      "title": "alan watts a deeper understanding of life",
+      "index": 24,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "mD_JG4Xt3Cw",
+      "title": "alan watts how to forward and not look back",
+      "index": 25,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "GVOIEA7bOvw",
+      "title": "how to master meditation",
+      "index": 26,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "SOs4dsHXCk0",
+      "title": "alan watts the art of buddha and zen",
+      "index": 27,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "oMyYKj1Q3yI",
+      "title": "alan watts the creepy confusion in your mind",
+      "index": 28,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "8tS4LRDm7Ts",
+      "title": "how to see clearly",
+      "index": 29,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "IW6j4uJrhkE",
+      "title": "how to make sense of the unimaginable",
+      "index": 30,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "hTaTOTLcAUA",
+      "title": "how to become masters of the situation of life",
+      "index": 31,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "KQ1v_pgUdTU",
+      "title": "how to become aware of the polarity of life",
+      "index": 32,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "rpGKjekYewE",
+      "title": "how to answer life's questions",
+      "index": 33,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "esc6tSEaXqM",
+      "title": "how becoming fully aware of yourself will change everything",
+      "index": 34,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "eI-xWDXgWpA",
+      "title": "how to use your mind to open your third eye",
+      "index": 35,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "kKV15U4Totc",
+      "title": "how to control your dreams",
+      "index": 36,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "zgzJQWF91Lo",
+      "title": "how to create love",
+      "index": 37,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "htNZR5OXrac",
+      "title": "why you must accept your evil side",
+      "index": 38,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "qrY9GL0PJqA",
+      "title": "why the world is a lie",
+      "index": 39,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "N74aBER9vpU",
+      "title": "stop chasing what you think will make you happy",
+      "index": 40,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "U8B6OcZuyIw",
+      "title": "how to stop pointless desires",
+      "index": 41,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "5N1VO6LJT8M",
+      "title": "alan watts understanding the basics of buddhism",
+      "index": 42,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "CZpQHuM06gA",
+      "title": "how to make your mind work for you",
+      "index": 43,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "lEgWgAuwKqE",
+      "title": "how to become powerful in life",
+      "index": 44,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "YD7luiP0XW4",
+      "title": "the answer to your suffering",
+      "index": 45,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "3MNQXhA-Pso",
+      "title": "alan watts the art of attracting your soul mate",
+      "index": 46,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "KxK1G7NASGA",
+      "title": "the reality that is in your mind",
+      "index": 47,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "wICxXKzE8k8",
+      "title": "how to use your mind to open your third eye",
+      "index": 48,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "TBJ8gwGudj4",
+      "title": "reality instead of what should be",
+      "index": 49,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "43pmdx6dLLY",
+      "title": "how to live your whole life in zen",
+      "index": 50,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "QOeKME84SwM",
+      "title": "how to get rid of fear",
+      "index": 51,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "5iOrehMQUC4",
+      "title": "how to be a master",
+      "index": 52,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "fA4PXWC2Vzs",
+      "title": "why nothing is as it seems",
+      "index": 53,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "_Cfyc3_ToEE",
+      "title": "how to avoid things that don't matter",
+      "index": 54,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "IwBwRsLIaxo",
+      "title": "how to accept yourself (great talk)",
+      "index": 55,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "zjxlf_r6JUg",
+      "title": "find magic in everyday life",
+      "index": 56,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "alan-watts",
+      "id": "6XsR4vh9_fw",
+      "title": "how to become a powerful person",
+      "index": 57,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "eckhart-tolle",
+      "id": "A1B-_qhG_rM",
+      "title": "[deleted video]",
+      "index": 0,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "eckhart-tolle",
+      "id": "X0Yw6wNNx7E",
+      "title": "transcending neediness",
+      "index": 1,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "eckhart-tolle",
+      "id": "_GX1AmOg_5I",
+      "title": "[deleted video]",
+      "index": 2,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "eckhart-tolle",
+      "id": "2wNO3hlo7Yc",
+      "title": "what's a day like in the life of eckhart?",
+      "index": 3,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "eckhart-tolle",
+      "id": "rWFVi1cPUZo",
+      "title": "where do our thoughts come from?",
+      "index": 4,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "eckhart-tolle",
+      "id": "_AYXT-etgVM",
+      "title": "how do i overcome self-criticism of my appearance?",
+      "index": 5,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "music",
+      "slug": "classic-jazz",
+      "id": "AgmGvyEVg_E",
+      "title": "Medley: Spartacus Love Theme / Nardis - Bill Evans",
+      "index": 5,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "music",
+      "slug": "japanese",
+      "id": "WTi_iWUXReU",
+      "title": "Beautiful Japanese Music ❀ Japanese Instrumental Music Traditional ❀ Relaxing Music",
+      "index": 7,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "music",
+      "slug": "trance",
+      "id": "98gzyShsNaQ",
+      "title": "Christian Löffler - Young Alaska (Ki Records) [Full Album]",
+      "index": 2,
+      "reason": "private",
+      "source": "oembed 403"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import 'font-awesome/css/font-awesome.min.css';
+import 'animate.css/animate.min.css';
+import '../styles/index.scss';
+import Sidebar from '../components/Sidebar.astro';
+import Player from '../components/Player.astro';
+import { SITE_NAME, SITE_TAGLINE } from '../lib/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${SITE_NAME} | ${SITE_TAGLINE}`,
+  description = 'Lectures from Alan Watts, Ram Dass, Krishnamurti and more, with background music.',
+} = Astro.props;
+
+// Edit mode (`npm run dev:edit`). Imported behind the literal dev-only condition (not a
+// static import) so production builds don't even emit the editor's script file.
+const EditorTools =
+  import.meta.env.DEV && import.meta.env.PUBLIC_EDIT_MODE === 'true'
+    ? (await import('../components/EditorTools.astro')).default
+    : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content={description} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,900" rel="stylesheet" />
+    <title>{title}</title>
+    <ClientRouter fallback="swap" />
+  </head>
+  <body>
+    <div class="App">
+      <Player />
+      <Sidebar />
+      {EditorTools && <EditorTools />}
+      <!-- Only this element is replaced on navigation (see src/lib/player.ts). -->
+      <div data-page>
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>

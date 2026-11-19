@@ -3,8 +3,10 @@
     "years": "",
     "name": "",
     "image": "",
+    "imageCredit": null,
     "bio": "",
-    "books": {},
+    "wikipedia": "",
+    "books": [],
     "videos": {},
     "quotes": {}
 }

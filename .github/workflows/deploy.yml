@@ -31,20 +31,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # CI=true makes lint warnings fail the build.
       - name: Build
         run: npm run build
-        env:
-          CI: true
 
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build
+          path: ./dist
 
   # Requires Settings → Pages → Source: "GitHub Actions".
-  # The yogifm.com custom domain is kept in the Pages settings.
+  # The yogifm.com custom domain is set in Settings → Pages (Actions deploys
+  # ignore public/CNAME); see documentation/deployment.md.
   deploy:
     needs: build
     runs-on: ubuntu-latest

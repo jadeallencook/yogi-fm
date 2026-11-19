@@ -1,0 +1,922 @@
+@use 'global' as *;
+
+div.Player {
+    background-color: $grey;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    z-index: 9999;
+    box-sizing: border-box;
+    padding: 15px;
+    text-align: center;
+
+    >div:hover {
+        height: 200px;
+        width: 35%;
+    }
+
+    >div {
+        width: 50px;
+        height: 50px;
+        float: left;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    >div:last-child {
+        float: right;
+    }
+
+    /* Lecture/music boxes: thumbnail by default, live player on hover. The iframe is
+       only made transparent (never display:none or moved) so playback continues. */
+    >div.video {
+        /* 16:9 like YouTube thumbnails/videos, so nothing is cropped or letterboxed. */
+        width: 89px;
+        height: 50px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: $darkgrey;
+        background-size: cover;
+        background-position: center center;
+        transition: width 0.2s ease, height 0.2s ease, border-radius 0.2s ease;
+
+        iframe {
+            display: block;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        i.badge {
+            position: absolute;
+            right: 3px;
+            bottom: 3px;
+            font-size: 0.65em;
+            padding: 3px 4px;
+            border-radius: 3px;
+            background-color: rgba(0, 0, 0, 0.65);
+            pointer-events: none;
+        }
+    }
+
+    >div.video:hover {
+        width: 356px;
+        height: 200px;
+        border-radius: 0px;
+        cursor: default;
+
+        iframe {
+            opacity: 1;
+        }
+
+        i.badge {
+            display: none;
+        }
+    }
+
+    div.controls {
+        display: block;
+        width: 30%;
+        left: 35%;
+        text-align: center;
+        position: fixed;
+        margin-top: 4px;
+
+        div {
+            display: none;
+        }
+
+        /* Prev/next: muted icons that light up and grow a little on hover. */
+        i {
+            margin: 0px 26px;
+            font-size: 0.95em;
+            vertical-align: middle;
+            cursor: pointer;
+            color: $extralightgrey;
+            transition: color 0.15s ease, transform 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        i:hover {
+            color: $white;
+            transform: scale(1.12);
+        }
+
+        i:active {
+            transform: scale(0.92);
+        }
+
+        i:focus {
+            outline: none;
+        }
+
+        i:focus-visible {
+            outline: 2px solid $blue;
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        /* Play/pause: the main action, a white circle with a dark icon. */
+        i[data-control="toggle"] {
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            border-radius: 50%;
+            background-color: $white;
+            color: $grey;
+            font-size: 0.85em;
+            margin-top: -4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+            &.fa-play {
+                /* The triangle's visual center sits left of its box. */
+                text-indent: 2px;
+            }
+
+            &:hover {
+                color: $grey;
+                transform: scale(1.08);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+            }
+
+            &:active {
+                transform: scale(0.94);
+            }
+
+            &:focus-visible {
+                border-radius: 50%;
+            }
+        }
+
+        i.mobile {
+            display: none;
+        }
+    }
+
+    div.marquee {
+        position: absolute;
+        width: 26%;
+        left: 37%;
+        overflow: hidden;
+        margin-top: 46px;
+        font-size: 0.75em;
+        font-weight: 100;
+        letter-spacing: .10em;
+        display: block;
+        white-space: nowrap;
+
+        /* Two identical .item copies; moving the track by -50% (one copy) loops seamlessly.
+           --marquee-duration is set from the text width in player.ts (constant speed). */
+        div.track {
+            display: inline-flex;
+            animation: marquee var(--marquee-duration, 20s) linear infinite;
+            will-change: transform;
+        }
+
+        span.item {
+            flex-shrink: 0;
+        }
+
+        span.part {
+            padding-right: 4em;
+
+            i {
+                margin-right: 0.6em;
+                opacity: 0.6;
+            }
+
+            b {
+                font-weight: bold;
+            }
+
+            /* Music titles are raw YouTube titles; lecture titles are shown as written. */
+            &.music {
+                text-transform: capitalize;
+            }
+        }
+
+        span.mobile {
+            display: none;
+        }
+    }
+
+    /* Fade the text in/out at the edges, and pause so it can be read on hover. */
+    div.marquee {
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+        mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    }
+
+    div.marquee:hover div.track {
+        animation-play-state: paused;
+    }
+}
+
+/* The desktop bar's extra parts; hidden by default (phones), shown in the block below. */
+div.Player {
+    section.info,
+    section.progress {
+        display: none;
+    }
+}
+
+/*
+ * Desktop bar (not the full-screen player): a grid with what's playing on each side.
+ *
+ *   [thumb] Speaker        ◀◀  ❚❚  ▶▶         Genre [thumb]
+ *           Lecture title  0:12 ━━━━━━ 58:31    Track title
+ *           🔈 ━━━━                                  ━━━━ 🔈
+ *
+ * The thumbnails sit absolutely over fixed-width spacer columns so hovering (which expands them
+ * to the live player) doesn't reflow the bar. The marquee is only used on phones and
+ * in full screen.
+ */
+@media screen and (min-device-width: 481px) {
+    div.Player:not(.expanded) {
+        display: grid;
+        grid-template-columns: 89px minmax(0, 1fr) minmax(300px, 520px) minmax(0, 1fr) 89px;
+        grid-template-rows: auto auto;
+        column-gap: 16px;
+        row-gap: 6px;
+        align-items: center;
+        padding: 12px 16px 10px 16px;
+        text-align: left;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+        > div.video {
+            position: absolute;
+            float: none;
+            bottom: calc(50% - 25px);
+            width: 89px;
+            height: 50px;
+            z-index: 1;
+        }
+
+        > div.video:hover {
+            width: 356px;
+            height: 200px;
+            border-radius: 6px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Placed from the bar's edges (= its 16px side padding), not by grid area:
+           columns 1 and 5 are just fixed 89px spacers for them. */
+        > div.video[data-thumb="lecture"] {
+            left: 16px;
+        }
+
+        > div.video[data-thumb="music"] {
+            left: auto;
+            right: 16px;
+        }
+
+        > div.controls,
+        > div.controls:hover {
+            grid-column: 3;
+            grid-row: 1;
+            position: relative;
+            left: auto;
+            width: auto;
+            height: auto;
+            margin-top: 0px;
+            float: none;
+            text-align: center;
+
+            /* The up-arrow tab sits on the bar's top edge (padding 12px + its 16px). */
+            button.expand {
+                top: -28px;
+            }
+        }
+
+        > div.marquee {
+            display: none;
+        }
+
+        section.info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-width: 0;
+            grid-row: 1 / 3;
+
+            a.who {
+                align-self: flex-start;
+                max-width: 100%;
+                color: $white;
+                font-weight: bold;
+                font-size: 0.9em;
+                text-decoration: none;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            span.what {
+                font-size: 0.8em;
+                color: #b8b8b8;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        section.info.lecture {
+            grid-column: 2;
+        }
+
+        /* Mirror image on the right: text and slider aligned to the thumbnail. */
+        section.info.music {
+            grid-column: 4;
+            align-items: flex-end;
+            text-align: right;
+
+            a.who {
+                align-self: flex-end;
+            }
+
+            /* Music titles are raw YouTube titles, so they're capitalized. */
+            span.what {
+                max-width: 100%;
+                text-transform: capitalize;
+            }
+        }
+
+        /* Volume under each title: mute button + slider. */
+        section.info div.level {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 3px;
+
+            button {
+                width: 16px;
+                padding: 0px;
+                border: none;
+                background: none;
+                color: $extralightgrey;
+                font-size: 0.75em;
+                cursor: pointer;
+                text-align: center;
+
+                &:hover {
+                    color: $white;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+
+                &:focus-visible {
+                    outline: 2px solid $blue;
+                    outline-offset: 2px;
+                    border-radius: 3px;
+                }
+            }
+
+            input {
+                width: 110px;
+            }
+
+            &.muted {
+                button {
+                    color: #d65a4a;
+                }
+
+                input {
+                    opacity: 0.4;
+                }
+            }
+        }
+
+        section.progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            grid-column: 3;
+            grid-row: 2;
+
+            span.time {
+                flex-shrink: 0;
+                min-width: 38px;
+                font-size: 0.7em;
+                color: $extralightgrey;
+                font-variant-numeric: tabular-nums;
+
+                &:first-child {
+                    text-align: right;
+                }
+            }
+
+            input {
+                flex: 1;
+            }
+        }
+    }
+
+}
+
+/* Seek and volume sliders: a thin track filled up to --p (set in player.ts). */
+div.Player input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    margin: 0px;
+    border-radius: 2px;
+    background: linear-gradient(to right, #e6e6e6 var(--p, 0%), rgba(255, 255, 255, 0.18) var(--p, 0%));
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: $white;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: opacity 0.15s ease;
+    }
+
+    &::-moz-range-thumb {
+        width: 12px;
+        height: 12px;
+        border: none;
+        border-radius: 50%;
+        background: $white;
+        opacity: 0;
+    }
+
+    &::-moz-range-track {
+        background: transparent;
+    }
+
+    &:hover,
+    &:focus-visible {
+        background: linear-gradient(to right, $blue var(--p, 0%), rgba(255, 255, 255, 0.18) var(--p, 0%));
+
+        &::-webkit-slider-thumb {
+            opacity: 1;
+        }
+
+        &::-moz-range-thumb {
+            opacity: 1;
+        }
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:disabled {
+        cursor: default;
+        opacity: 0.5;
+    }
+}
+
+/* The up-arrow tab above play/pause: sticks out of the bar's top edge. */
+div.Player div.controls button.expand {
+    position: absolute;
+    left: 50%;
+    top: -35px; /* bar padding (15px) + controls margin (4px) + its own height */
+    transform: translateX(-50%);
+    width: 44px;
+    height: 16px;
+    padding: 0px;
+    border: none;
+    border-radius: 8px 8px 0px 0px;
+    background-color: $grey;
+    color: $extralightgrey;
+    cursor: pointer;
+    line-height: 16px;
+    transition: color 0.15s ease;
+
+    i {
+        margin: 0px;
+        font-size: 9px;
+        color: inherit;
+        vertical-align: top;
+        line-height: 16px;
+    }
+
+    &:hover {
+        color: $white;
+
+        i {
+            transform: none;
+        }
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $blue;
+        outline-offset: 2px;
+    }
+}
+
+div.Player aside.queue {
+    display: none;
+}
+
+/*
+ * Full-screen player (.Player.expanded, toggled in player.ts). The same elements are
+ * re-laid out with CSS only (never moved), so the iframes keep playing. It covers the
+ * page beside the 200px sidebar:
+ *
+ *   [ lecture video (16:9)  ]  [ music video ]
+ *   [  ˅  ◀◀  ❚❚  ▶▶        ]  [ lecture list ]
+ *   [  marquee              ]  [   (scrolls)  ]
+ */
+div.Player.expanded {
+    $pad: 32px;
+    /* Right column (music video + list) narrows on smaller screens. */
+    --side: clamp(260px, 28vw, 380px);
+    --music-h: calc(var(--side) * 9 / 16);
+    /* Main column; the lecture video fits it, and the viewport height minus the controls. */
+    --main: calc(100vw - 200px - var(--side) - #{$pad * 3});
+    --lw: min(var(--main), calc((100vh - 230px) * 16 / 9));
+    --lh: calc(var(--lw) * 9 / 16);
+    --left: calc(#{$pad} + (var(--main) - var(--lw)) / 2);
+    /* Video + controls + marquee (~110px) are centered vertically. */
+    --top: max(#{$pad}, calc((100vh - var(--lh) - 150px) / 2));
+    /* Absolutely positioned children, not the desktop bar's grid. */
+    display: block;
+
+    top: 0px;
+    left: 200px;
+    right: 0px;
+    bottom: 0px;
+    width: auto;
+    padding: 0px;
+    background-color: $darkgrey;
+    animation: player-expand 0.25s ease both;
+
+    > div.video,
+    > div.video:hover {
+        position: absolute;
+        float: none;
+        border-radius: 8px;
+        cursor: default;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        transition: none;
+
+        iframe {
+            opacity: 1;
+        }
+
+        i.badge {
+            display: none;
+        }
+    }
+
+    > div.video[data-thumb="lecture"] {
+        top: var(--top);
+        left: var(--left);
+        width: var(--lw);
+        height: var(--lh);
+    }
+
+    > div.video[data-thumb="music"] {
+        top: $pad;
+        right: $pad;
+        width: var(--side);
+        height: var(--music-h);
+    }
+
+    div.controls,
+    div.controls:hover {
+        position: absolute;
+        top: calc(var(--top) + var(--lh) + 34px);
+        left: var(--left);
+        width: var(--lw);
+        height: auto;
+        margin-top: 0px;
+        font-size: 1.25em;
+
+        i[data-control="toggle"] {
+            width: 48px;
+            height: 48px;
+            line-height: 48px;
+            font-size: 0.8em;
+        }
+
+        /* Collapse arrow: a small round button left of the controls. */
+        button.expand {
+            top: 50%;
+            left: 0px;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            border-radius: 50%;
+            background-color: $grey;
+
+            i {
+                font-size: 11px;
+                line-height: 32px;
+            }
+        }
+    }
+
+    section.progress {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: absolute;
+        top: calc(var(--top) + var(--lh) + 100px);
+        left: var(--left);
+        width: var(--lw);
+
+        span.time {
+            flex-shrink: 0;
+            min-width: 44px;
+            font-size: 0.75em;
+            color: $extralightgrey;
+            font-variant-numeric: tabular-nums;
+
+            &:first-child {
+                text-align: right;
+            }
+        }
+
+        input {
+            flex: 1;
+        }
+    }
+
+    div.marquee {
+        top: calc(var(--top) + var(--lh) + 140px);
+        left: var(--left);
+        width: var(--lw);
+        margin-top: 0px;
+        font-size: 0.85em;
+    }
+
+    aside.queue {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: calc(#{$pad} + var(--music-h) + 24px);
+        right: $pad;
+        bottom: $pad;
+        width: var(--side);
+        text-align: left;
+        background-color: $grey;
+        border-radius: 8px;
+        overflow: hidden;
+        animation: player-expand 0.35s ease both;
+
+        div.header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+            div.image {
+                flex-shrink: 0;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background-color: $lightgrey;
+                background-size: cover;
+                background-position: center top;
+                filter: grayscale(1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $extralightgrey;
+            }
+
+            span {
+                display: block;
+            }
+
+            span.name {
+                font-weight: 900;
+                font-size: 1.05em;
+            }
+
+            span.count {
+                font-size: 0.75em;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: $extralightgrey;
+                margin-top: 3px;
+            }
+        }
+
+        /* Fades at the top/bottom edge, only where there's more to scroll to
+           (player.ts sets .fade-top / .fade-bottom from the scroll position). */
+        div.list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 6px 0px;
+            --fade-top: 0px;
+            --fade-bottom: 0px;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade-top), #000 calc(100% - var(--fade-bottom)), transparent 100%);
+
+            &.fade-top {
+                --fade-top: 48px;
+            }
+
+            &.fade-bottom {
+                --fade-bottom: 48px;
+            }
+        }
+
+        div.row {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 9px 16px;
+            font-size: 0.85em;
+            line-height: 1.35;
+            cursor: pointer;
+            color: #cfcfcf;
+            transition: background-color 0.1s ease;
+
+            span.num {
+                flex-shrink: 0;
+                width: 22px;
+                text-align: right;
+                font-size: 0.85em;
+                color: $extralightgrey;
+            }
+
+            i.now {
+                display: none;
+                flex-shrink: 0;
+                width: 22px;
+                text-align: right;
+                font-size: 0.85em;
+                color: $blue;
+            }
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.06);
+                color: $white;
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &:focus-visible {
+                background-color: rgba(255, 255, 255, 0.08);
+                box-shadow: inset 2px 0 0 $blue;
+            }
+
+            &.active {
+                color: $white;
+                font-weight: bold;
+
+                span.num {
+                    display: none;
+                }
+
+                i.now {
+                    display: inline-block;
+                }
+            }
+
+            /* Genre lists show raw YouTube titles; lecture titles are shown as written. */
+            div.list[data-kind="music"] & {
+                text-transform: capitalize;
+            }
+
+            &.unavailable {
+                opacity: 0.35;
+                text-decoration: line-through;
+            }
+
+            &.empty {
+                cursor: default;
+                color: $extralightgrey;
+
+                &:hover {
+                    background: none;
+                }
+            }
+        }
+    }
+}
+
+@keyframes player-expand {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    div.Player div.marquee div.track {
+        animation: none;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+    div.Player {
+        >div {
+            iframe {
+                display: none;
+            }
+        }
+
+        /* Thumbnail boxes are desktop-only; mobile plays via the round player in .controls. */
+        >div.video {
+            background: none !important;
+
+            i.badge {
+                display: none;
+            }
+        }
+
+        span {
+            width: 80%;
+            left: 10%;
+        }
+
+        div.marquee {
+            width: 80%;
+            left: 10%;
+            div.track {
+                display: none;
+            }
+            span.mobile {
+                display: block;
+                width: 100%;
+                text-transform: none;
+            }
+        }
+
+        div.controls button.expand {
+            display: none;
+        }
+
+        div.controls {
+            margin-top: 0px;
+            margin-left: -15px;
+            width: 100%;
+            left: 15px;
+            i.fa-play {
+                display: none;
+            }
+
+            i {
+                display: inline-block;
+                margin-top: -5px;
+            }
+
+            div {
+                display: inline-block;
+                height: 30px;
+                border-radius: 100%;
+                overflow: hidden;
+                width: 30px;
+
+                .mobile-video {
+                    display: inline-block;
+                    float: none;
+                    background-color: $darkgrey;
+
+                    >div {
+                        height: 100%;
+                        width: 100%;
+
+                        iframe {
+                            height: 30px;
+                            border-radius: 100%;
+                            overflow: hidden;
+                            width: 30px;
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

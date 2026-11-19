@@ -1,0 +1,137 @@
+/* Edit-mode UI. Injected by src/lib/editor.ts (?inline), so it never ships in builds. */
+.edit-mode-badge {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 10000;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #348dd6;
+  color: #fff;
+  font-size: 0.75em;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+/* Shared control look (rows are capitalized via CSS; editor controls are not). */
+div.Songs [data-editor] button,
+div.Songs [data-editor] input,
+div.Songs [data-editor] select {
+  padding: 4px 10px;
+  border: 1px solid #7e7e7e;
+  border-radius: 4px;
+  background: #0b0a0a;
+  color: #fff;
+  font: inherit;
+  font-size: 0.85em;
+  text-transform: none;
+}
+
+div.Songs [data-editor] button {
+  cursor: pointer;
+}
+
+div.Songs [data-editor] button[type='submit'] {
+  border-color: #348dd6;
+  background: #348dd6;
+}
+
+div.Songs [data-editor] button.danger {
+  border-color: #c62828;
+  background: #c62828;
+}
+
+div.Songs [data-editor] button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+div.Songs [data-editor] input {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+div.Songs [data-editor] [hidden] {
+  display: none !important;
+}
+
+/* --- Row actions (Edit / Delete), shown on hover or keyboard focus --- */
+div.Songs div.song {
+  position: relative;
+}
+
+div.Songs .edit-actions {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  display: none;
+  gap: 6px;
+  align-items: center;
+}
+
+div.Songs div.song:hover .edit-actions,
+div.Songs .edit-actions:focus-within,
+div.Songs .edit-actions.confirming {
+  display: flex;
+}
+
+div.Songs .edit-actions[hidden] {
+  display: none !important;
+}
+
+div.Songs .delete-confirm {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding-left: 10px;
+  background: #282828;
+  border-radius: 4px;
+  font-size: 0.85em;
+  text-transform: none;
+}
+
+/* --- Inline title editor --- */
+div.Songs form.edit-title-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: -4px 0;
+}
+
+div.Songs form.edit-title-form input {
+  flex: 1;
+  min-width: 0;
+  border-color: #348dd6;
+}
+
+/* --- Add form (above the list) --- */
+div.Songs form.add-video-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 0 15px 15px;
+  padding: 12px;
+  border: 1px dashed #348dd6;
+  border-radius: 6px;
+}
+
+div.Songs form.add-video-form input[name='video'] {
+  flex: 2 1 260px;
+}
+
+div.Songs form.add-video-form input[name='title'] {
+  flex: 3 1 260px;
+}
+
+/* --- Status / errors --- */
+div.Songs .edit-status {
+  color: #ff8a80;
+  font-size: 0.85em;
+  text-transform: none;
+}
+
+div.Songs .edit-status.ok {
+  color: #9be29b;
+}

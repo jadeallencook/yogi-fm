@@ -1,0 +1,213 @@
+@use 'global' as *;
+
+/*
+ * The banner keeps one shape (2:1, close to banner.jpg's 16:10) at every width
+ * instead of switching heights at breakpoints, which used to crop it into a thin
+ * strip on wide screens. Text is centered and sized in container units (cqi) of
+ * .Browse (see Browse.scss), so it scales with the content area, not the window.
+ *
+ * It shows what's playing (speaker, lecture, music) with play/full-screen/shuffle
+ * buttons; player.ts keeps it in sync. A dark glow behind the text keeps it readable
+ * on the busy photo, and the bottom fades into the page.
+ */
+div.Banner {
+    position: relative;
+    background-color: $darkgrey;
+    aspect-ratio: 2 / 1;
+    /* Cap on big screens: banner.jpg is only 960x600, and a huge banner pushes the
+       speakers out of view. Past the cap it crops to ~3:1 at most. */
+    max-height: min(55vh, 600px);
+    min-height: 300px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
+    text-align: center;
+    font-weight: normal;
+    background-size: cover;
+    background-position: center center;
+    font-size: clamp(1rem, min(2.2cqi, 3.2vh), 1.75rem);
+    box-sizing: border-box;
+    overflow: hidden;
+
+    /* Readability: darken the middle, and fade the bottom into the page color. */
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 55% 60% at 50% 50%, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0) 75%),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0) 65%, $lightgrey 100%);
+        pointer-events: none;
+    }
+
+    div.content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 100%;
+        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    /* "Press play to listen to" / "Now playing", like the home page group titles. */
+    span.label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6em;
+        font-family: $opensans;
+        font-size: 0.6em;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+
+        span.bars {
+            display: none;
+            align-items: flex-end;
+            gap: 2px;
+            height: 0.9em;
+
+            i {
+                width: 3px;
+                height: 40%;
+                border-radius: 1px;
+                background-color: $blue;
+                animation: banner-bars 0.9s ease-in-out infinite alternate;
+
+                &:nth-child(2) {
+                    animation-delay: -0.3s;
+                }
+
+                &:nth-child(3) {
+                    animation-delay: -0.6s;
+                }
+            }
+        }
+    }
+
+    h2 {
+        margin: 0.15em 0 0.1em 0;
+        font-size: clamp(2.5rem, min(9cqi, 12vh), 7rem);
+        line-height: 1.05;
+        text-transform: capitalize;
+    }
+
+    span.lecture {
+        max-width: 36em;
+        font-size: 0.9em;
+        line-height: 1.3;
+        opacity: 0.9;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    span.genre {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        margin-top: 0.8em;
+        padding: 0.3em 0.9em;
+        border-radius: 999px;
+        background-color: rgba(0, 0, 0, 0.45);
+        font-size: 0.65em;
+        letter-spacing: 0.08em;
+        text-shadow: none;
+        backdrop-filter: blur(4px);
+
+        i {
+            opacity: 0.7;
+        }
+    }
+
+    div.actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 1.1em;
+
+        button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5em;
+            padding: 0.55em 1.1em;
+            border: none;
+            border-radius: 999px;
+            background-color: rgba(0, 0, 0, 0.45);
+            color: $white;
+            font-family: $roboto;
+            font-size: 0.7em;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: background-color 0.15s ease, transform 0.15s ease;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+
+            &:active {
+                transform: scale(0.96);
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid $blue;
+                outline-offset: 2px;
+            }
+        }
+
+        /* Play/pause: the main action, white like the player's button. */
+        button.primary {
+            background-color: $white;
+            color: $grey;
+            font-weight: bold;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+
+            &:hover {
+                background-color: $white;
+                transform: scale(1.04);
+            }
+        }
+    }
+
+    &.playing span.label span.bars {
+        display: inline-flex;
+    }
+}
+
+@keyframes banner-bars {
+    from {
+        height: 25%;
+    }
+
+    to {
+        height: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    div.Banner span.label span.bars i {
+        animation: none;
+        height: 70%;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+    div.Banner {
+        aspect-ratio: 16 / 10;
+        min-height: 0px;
+
+        span.lecture {
+            max-width: 90vw;
+        }
+
+        /* Phones use the footer controls; the full-screen player is desktop only. */
+        div.actions {
+            display: none;
+        }
+    }
+}

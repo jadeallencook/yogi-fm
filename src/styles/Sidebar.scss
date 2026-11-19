@@ -1,0 +1,251 @@
+@use 'global' as *;
+
+/*
+ * Sidebar: quiet grey links that light up on hover, the current page marked with a
+ * blue bar (.active), and the playing speaker/genre with equalizer bars (.current,
+ * .playing; set in player.ts). Support is a small heart link (Buy Me a Coffee) above the footer.
+ */
+div.Sidebar {
+    background-color: $darkgrey;
+    position: absolute;
+    z-index: 2;
+    height: 100%;
+    width: 200px;
+    box-sizing: border-box;
+    padding: 0px 10px 95px 10px;
+    overflow-y: scroll;
+
+    h2 {
+        cursor: pointer;
+        margin: 25px 8px 18px 8px;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+
+    iframe {
+        position: fixed;
+        left: 0px;
+        width: 200px;
+        height: 125px;
+        bottom: 80px;
+    }
+
+    nav.primary {
+        margin-bottom: 18px;
+    }
+
+    span.title {
+        display: block;
+        margin: 0px 8px 6px 8px;
+        font-family: $opensans;
+        font-size: 0.7em;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: $extralightgrey;
+    }
+
+    /* Links were <span>s in the React app; reset <a>/<button> to look the same. */
+    .link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0px 0px 1px 0px;
+        padding: 5px 8px;
+        border: none;
+        border-radius: 6px;
+        background: none;
+        color: #b3b3b3;
+        font-family: inherit;
+        font-size: 0.9em;
+        text-align: left;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.12s ease, color 0.12s ease;
+
+        i.fa {
+            width: 16px;
+            text-align: center;
+            font-size: 0.95em;
+        }
+
+        span.name {
+            flex: 1;
+            min-width: 0;
+            /* Names are capitalized like on the home page (e.g. "Bell Hooks"). */
+            text-transform: capitalize;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        span.bars {
+            display: none;
+            flex-shrink: 0;
+            align-items: flex-end;
+            gap: 2px;
+            height: 10px;
+
+            i {
+                width: 2px;
+                height: 40%;
+                border-radius: 1px;
+                background-color: $blue;
+            }
+        }
+
+        &:hover {
+            color: $white;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus-visible {
+            color: $white;
+            box-shadow: inset 0 0 0 2px $blue;
+        }
+    }
+
+    /* The page you're on. */
+    .link.active {
+        color: $white;
+        background-color: rgba(255, 255, 255, 0.08);
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0px;
+            top: 6px;
+            bottom: 6px;
+            width: 3px;
+            border-radius: 2px;
+            background-color: $blue;
+        }
+    }
+
+    /* The speaker/genre that's loaded in the player; the bars move while playing. */
+    .link.current {
+        color: $white;
+
+        span.bars {
+            display: inline-flex;
+        }
+    }
+
+    .link.playing span.bars i {
+        animation: sidebar-bars 0.9s ease-in-out infinite alternate;
+
+        &:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: -0.6s;
+        }
+    }
+
+    span.title + .link {
+        margin-top: 0px;
+    }
+
+    .link + span.title {
+        margin-top: 18px;
+    }
+
+    div.donate {
+        margin: 22px 8px 14px 8px;
+
+        a {
+            display: inline-flex;
+            text-decoration: none;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            background: none;
+            color: #cfcfcf;
+            font-family: inherit;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+
+            i {
+                color: #e0607e;
+            }
+
+            &:hover {
+                color: $white;
+                border-color: #e0607e;
+                background-color: rgba(224, 96, 126, 0.1);
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid $blue;
+                outline-offset: 2px;
+            }
+        }
+    }
+
+    span.footer {
+        display: block;
+        margin: 0px 8px 5px 8px;
+        font-size: 0.72em;
+        color: $extralightgrey;
+
+        b {
+            color: #cfcfcf;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: $white;
+        }
+    }
+}
+
+@keyframes sidebar-bars {
+    from {
+        height: 25%;
+    }
+
+    to {
+        height: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    div.Sidebar .link.playing span.bars i {
+        animation: none;
+        height: 70%;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+    div.Sidebar {
+        height: 50px;
+        padding: 0px 15px;
+        width: 100%;
+        overflow: hidden;
+        h2 {
+            padding: 0px;
+            margin: 10px 0px;
+        }
+    }
+}

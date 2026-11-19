@@ -1,0 +1,36 @@
+---
+import '../styles/Banner.scss';
+import { speakers, music, defaults } from '../lib/data';
+// Server-rendered with the defaults; render() in player.ts swaps in the live selection
+// ([data-now]) and the play state (.playing, [data-banner-toggle]).
+const speaker = speakers[defaults.speaker];
+---
+
+<div class="Banner" style="background-image: url(/assets/images/banner.jpg)">
+  <div class="content">
+    <span class="label">
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span data-now="label">Press play to listen to</span>
+    </span>
+    <h2 class="animated flipInX" style="animation-delay: 100ms" data-now="speaker">{speaker.name}</h2>
+    <span class="lecture" data-now="lecture">{speaker.videos[defaults.lecture]}</span>
+    <span class="genre">
+      <i class="fa fa-music" aria-hidden="true"></i>
+      <span data-now="genre">{music[defaults.genre].name}</span>
+    </span>
+    <div class="actions">
+      <button type="button" class="primary" data-control="toggle" data-banner-toggle>
+        <i class="fa fa-play" aria-hidden="true"></i>
+        <span>Play</span>
+      </button>
+      <button type="button" data-control="expand">
+        <i class="fa fa-expand" aria-hidden="true"></i>
+        <span>Full screen</span>
+      </button>
+      <button type="button" data-random>
+        <i class="fa fa-random" aria-hidden="true"></i>
+        <span>Shuffle</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+---
+// Home page groups: 3 speakers each (see featured.environment.json). Each tile links to
+// the speaker page; its play button and "now playing" badge are driven by player.ts
+// ([data-speaker-tile], [data-play-speaker]).
+import '../styles/Featured.scss';
+import { featured, featuredOrder, speakers, speakerUrl, asset, formatYears, hasVideos } from '../lib/data';
+
+const count = (key: string) => {
+  const n = Object.keys(speakers[key].videos).length;
+  return n ? `${n} lecture${n === 1 ? '' : 's'}` : '';
+};
+---
+
+<div class="Featured">
+  {featuredOrder.map((group) => (
+    <section class="group">
+      <header>
+        <h3 class="title">{featured[group].title}</h3>
+        <p class="description">{featured[group].description}</p>
+      </header>
+      <div class="collection">
+        {featured[group].speakers.map((key) => (
+          <div class="tile" data-speaker-tile={key}>
+            <a
+              class="photo"
+              href={speakerUrl(key)}
+              aria-label={speakers[key].name}
+              style={speakers[key].image ? `background-image: url(${asset(speakers[key].image)})` : undefined}
+            ></a>
+            <div class="caption" aria-hidden="true">
+              <span class="name">{speakers[key].name}</span>
+              <span class="meta">
+                <span>{formatYears(speakers[key].years)}</span>
+                {count(key) && <span class="count">{count(key)}</span>}
+              </span>
+            </div>
+            <span class="now" aria-hidden="true">
+              <span class="bars"><i></i><i></i><i></i></span>
+              Now playing
+            </span>
+            {hasVideos(speakers[key]) && (
+              <button type="button" class="play" data-play-speaker={key} aria-label={`Play ${speakers[key].name}`}>
+                <i class="fa fa-play" aria-hidden="true"></i>
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+</div>

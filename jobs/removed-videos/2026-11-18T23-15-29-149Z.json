@@ -1,0 +1,455 @@
+{
+  "createdAt": "2026-11-18T23:15:29.149Z",
+  "removed": [
+    {
+      "kind": "speaker",
+      "slug": "aldous-huxley",
+      "id": "6_TG2bx-TJg",
+      "title": "realizing human potential (lecture)",
+      "index": 2,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "aldous-huxley",
+      "id": "5RX-iUfPJ9I",
+      "title": "speech at uc berkeley, the ultimate revolution 1962",
+      "index": 3,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "bruce-lee",
+      "id": "eWB1jaKZ7HM",
+      "title": "bruce lee full interview",
+      "index": 3,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "buckminster-fuller",
+      "id": "z_GjHf4XLxU",
+      "title": "[deleted video]",
+      "index": 0,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "buckminster-fuller",
+      "id": "N3QzD8QC4ko",
+      "title": "buckminster fuller   werner erhard conversation 7 hour 10 minute",
+      "index": 4,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "joseph-campbell",
+      "id": "TLKUFYAOoRI",
+      "title": "Following your bliss",
+      "index": 0,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "joseph-campbell",
+      "id": "W6xuh8v98r8",
+      "title": "How to live a human life",
+      "index": 2,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "joseph-campbell",
+      "id": "qlLzAD2oWL8",
+      "title": "What purpose do these myths serve regarding consciousness?",
+      "index": 3,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "aYD28m0CrUw",
+      "title": "how to deal with loneliness",
+      "index": 0,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "c1LuNlQ0vj8",
+      "title": "speaking with authenticity",
+      "index": 1,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "3D5BorKyFfY",
+      "title": "people love at their level of consciousness",
+      "index": 2,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "nm2xwVP4sZw",
+      "title": "how do i process old pain?",
+      "index": 3,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "6WFKQmYbt0Y",
+      "title": "conscious aging",
+      "index": 4,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "MVpRMnPc1Oo",
+      "title": "dealing with stress and overwhelm",
+      "index": 5,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "fJVaqYGna6A",
+      "title": "what is the unmanifested yin and yang?",
+      "index": 6,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "EtRaBEhNWgE",
+      "title": "what causes physical pain",
+      "index": 7,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "3SnJzuHCtqk",
+      "title": "do we have a choice in suffering?",
+      "index": 8,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "tzJCh2bwHrM",
+      "title": "is my pain body dissolved or dormant?",
+      "index": 9,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "67SeR3LxtdI",
+      "title": "guided breathing meditation with kim eng",
+      "index": 11,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "drsMSDj7Hn0",
+      "title": "kim eng, can you comment about energy?",
+      "index": 12,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "J1qPCGTa-dE",
+      "title": "life is full of challenges- part 2 - kim eng",
+      "index": 15,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "D9xBC5ZXY4c",
+      "title": "returning inward with kim eng",
+      "index": 16,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "kim-eng",
+      "id": "x4xdru1-h30",
+      "title": "overcoming money management fears",
+      "index": 17,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "mr-rogers",
+      "id": "p-Kp5YeqrlE",
+      "title": "mister rogers on tonight show (1983)",
+      "index": 0,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "mr-rogers",
+      "id": "ICrvu2jJHLU",
+      "title": "unintentional asmr | mr rogers has the most perfect voice for asmr 💤 relaxing fred rogers interview",
+      "index": 2,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "mr-rogers",
+      "id": "4AtLIJjEbh4",
+      "title": "mister rogers - master the mad that you feel",
+      "index": 3,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "mr-rogers",
+      "id": "t5Ze7e7WFWI",
+      "title": "fred rogers meets apollo 15 astronaut al worden",
+      "index": 4,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "mr-rogers",
+      "id": "LDnDs1Rz4ZQ",
+      "title": "mr rogers talks about death. (a wonderful message for today and everyday in our hurting world)",
+      "index": 7,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "mr-rogers",
+      "id": "7E3S3jmZa3o",
+      "title": "did mister rogers ever lose his temper? | the oprah winfrey show | oprah winfrey network",
+      "index": 8,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "ram-dass",
+      "id": "9Ih4Fg6P730",
+      "title": "a conversation with terence mckenna and ram dass (1992)",
+      "index": 13,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "sadhguru",
+      "id": "B-2HpuneR2c",
+      "title": "why yogis preserve their semen? - sadhguru explains brahmacharya",
+      "index": 2,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "sadhguru",
+      "id": "Mtm5gxqfWM8",
+      "title": "sadhguru shuts up rude and arrogant nalsar students..",
+      "index": 5,
+      "reason": "embedding disabled",
+      "source": "oembed 401"
+    },
+    {
+      "kind": "speaker",
+      "slug": "sadhguru",
+      "id": "1e4ltxBZZCA",
+      "title": "sadhguru owns the provoked law students who try to belittle his work and isha | mystics of india",
+      "index": 6,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "sadhguru",
+      "id": "7RS3679o22w",
+      "title": "is ramayan just a fiction or a true story? intense debate between sadhguru and iim students | moi",
+      "index": 7,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "sadhguru",
+      "id": "FCq8-XvqU1Q",
+      "title": "just pay attention to your breath, anything you wish can happen | mystics of india",
+      "index": 10,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "sadhguru",
+      "id": "wa9bjVA1Cn8",
+      "title": "how to respond when someone insults & hurts your feelings.\n\nhow to respond to someone that insults u",
+      "index": 11,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "terence-mckenna",
+      "id": "KRoL2BHdEp4",
+      "title": "the world and its double",
+      "index": 1,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "terence-mckenna",
+      "id": "gAVVHLU8qf8",
+      "title": "psychedelics hit your reset button",
+      "index": 2,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "terence-mckenna",
+      "id": "781-AHUa9v8",
+      "title": "wise old man wisdom (video lecture)",
+      "index": 3,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "terence-mckenna",
+      "id": "9Ih4Fg6P730",
+      "title": "a conversation with terence mckenna and ram dass (1992)",
+      "index": 6,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "terence-mckenna",
+      "id": "OBZBtdaAxcM",
+      "title": "magic & the hermetic tradition (lecture)",
+      "index": 8,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "terence-mckenna",
+      "id": "jTx8s2WujFQ",
+      "title": "unfolding the stone [ft. timothy leary] (lecture)",
+      "index": 12,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "terence-mckenna",
+      "id": "gzNueNguqyg",
+      "title": "who are we?",
+      "index": 14,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "timothy-leary",
+      "id": "JhgJsg2mMeQ",
+      "title": "the psychedelic experience (audiobook,1966)",
+      "index": 7,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "timothy-leary",
+      "id": "Z-yhqJfwyAg",
+      "title": "timothy leary on quantum philosophy",
+      "index": 10,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "timothy-leary",
+      "id": "jTx8s2WujFQ",
+      "title": "terence mckenna - unfolding the stone [ft. timothy leary] (lecture)",
+      "index": 12,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "thich",
+      "id": "QJCdkNXYOa0",
+      "title": "thich nhat hanh teaches about letting go",
+      "index": 2,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "thich",
+      "id": "W3QFc5IX5qo",
+      "title": "zen buddhism - his best talk at google (mindfulness)",
+      "index": 7,
+      "reason": "private",
+      "source": "oembed 403"
+    },
+    {
+      "kind": "speaker",
+      "slug": "burroughs",
+      "id": "T3lcNRg4RKc",
+      "title": "william s. burroughs - comparing cats & dogs (reading from ‘the cat inside’)",
+      "index": 4,
+      "reason": "removed",
+      "source": "oembed 404"
+    },
+    {
+      "kind": "speaker",
+      "slug": "burroughs",
+      "id": "-bE1HIIG30c",
+      "title": "[deleted video]",
+      "index": 7,
+      "reason": "removed",
+      "source": "oembed 404"
+    }
+  ]
+}

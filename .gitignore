@@ -21,3 +21,7 @@ yarn-error.log*
 
 .DS_Store
 /build
+
+# astro
+/dist
+/.astro

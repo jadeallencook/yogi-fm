@@ -1,0 +1,68 @@
+---
+// Footer player. Markup mirrors what react-youtube produced (wrapper <div> > player <div>,
+// which the YouTube IFrame API replaces with an <iframe>) so Player.scss applies unchanged.
+import '../styles/Player.scss';
+---
+
+<div class="Player animated slideInUp" transition:persist="player">
+  <!-- .video boxes show the thumbnail; hovering expands them and reveals the live player. -->
+  <div class="video" data-thumb="lecture">
+    <div id="speaker-video" class="speaker-video"></div>
+    <i class="fa fa-microphone badge" aria-hidden="true"></i>
+  </div>
+  <!-- Desktop bar: what's playing, next to each thumbnail (filled by render() in player.ts).
+       <section>s, not <div>s, so the legacy `> div` rules below don't apply to them. -->
+  <section class="info lecture">
+    <a class="who" data-info-link="lecture" href="/"></a>
+    <span class="what" data-info-title="lecture"></span>
+    <!-- Each video's volume sits under its own title (remembered in this browser). -->
+    <div class="level">
+      <button type="button" data-mute="lecture" aria-label="Mute lecture" title="Mute lecture">
+        <i class="fa fa-volume-up" aria-hidden="true"></i>
+      </button>
+      <input type="range" data-volume="lecture" min="0" max="100" step="1" value="100" aria-label="Lecture volume" />
+    </div>
+  </section>
+  <div class="controls">
+    <!-- Opens/closes the full-screen player (see "Full-screen player" in player.ts). -->
+    <button type="button" class="expand" data-control="expand" aria-label="Open full-screen player" aria-expanded="false">
+      <i class="fa fa-chevron-up" aria-hidden="true"></i>
+    </button>
+    <i class="fa fa-backward" data-control="prev" role="button" tabindex="0" aria-label="Previous lecture"></i>
+    <i class="fa fa-play" data-control="toggle" role="button" tabindex="0" aria-label="Play"></i>
+    <div><div id="mobile-video" class="mobile-video"></div></div>
+    <i class="fa fa-forward" data-control="next" role="button" tabindex="0" aria-label="Next lecture"></i>
+  </div>
+  <!-- Lecture progress: drag or click to seek (player.ts). -->
+  <section class="progress">
+    <span class="time" data-time="current">0:00</span>
+    <input type="range" data-seek min="0" max="1000" step="1" value="0" aria-label="Seek in the lecture" />
+    <span class="time" data-time="duration">0:00</span>
+  </section>
+  <!-- Seamless loop: player.ts fills the track with two identical items and animates it by -50%. -->
+  <div class="marquee">
+    <div class="track" data-marquee></div>
+    <span class="mobile">Be patient on mobile, the video is loading...</span>
+  </div>
+  <!-- Full-screen player only: the lectures of the playing (or last browsed) speaker.
+       An <aside>, not a <div>, so the bar's legacy `> div` rules don't apply to it. -->
+  <aside class="queue" data-queue hidden></aside>
+  <section class="info music">
+    <a class="who" data-info-link="music" href="/"></a>
+    <span class="what" data-info-title="music"></span>
+    <div class="level">
+      <input type="range" data-volume="music" min="0" max="100" step="1" value="15" aria-label="Music volume" />
+      <button type="button" data-mute="music" aria-label="Mute music" title="Mute music">
+        <i class="fa fa-volume-up" aria-hidden="true"></i>
+      </button>
+    </div>
+  </section>
+  <div class="video" data-thumb="music">
+    <div id="music-video" class="music-video"></div>
+    <i class="fa fa-music badge" aria-hidden="true"></i>
+  </div>
+</div>
+
+<script>
+  import '../lib/player';
+</script>

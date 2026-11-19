@@ -1,0 +1,550 @@
+@use 'global' as *;
+
+div.Songs {
+    box-sizing: border-box;
+    padding: 0px 0px 125px 200px;
+    overflow-y: scroll;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    >div.music-cover {
+        padding: 32px 32px 20px 32px;
+        h2 {
+            font-size: 4em;
+        }
+    }
+    /*
+     * Speaker header: portrait, name, "years · N lectures", Play/Shuffle/Full screen
+     * (player.ts), a clamped Wikipedia bio with "Read more", and the books. A blurred
+     * copy of the portrait sits behind it.
+     */
+    >div.cover {
+        position: relative;
+        display: grid;
+        width: 100%;
+        grid-template-columns: 240px 1fr;
+        gap: 36px;
+        padding: 40px 32px 32px 32px;
+        overflow: hidden;
+        box-sizing: border-box;
+
+        div.backdrop {
+            position: absolute;
+            inset: -40px;
+            background-size: cover;
+            background-position: center 20%;
+            filter: grayscale(1) blur(40px);
+            opacity: 0.22;
+            -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+            pointer-events: none;
+        }
+
+        div.image {
+            position: relative;
+            width: 240px;
+            aspect-ratio: 4 / 5;
+            border-radius: 10px;
+            background-size: cover;
+            /* Same treatment as the home page tiles (see Featured.scss). */
+            background-position: center top;
+            background-color: $grey;
+            filter: grayscale(1);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+        }
+
+        div.bio {
+            position: relative;
+            min-width: 0;
+
+            h2 {
+                margin: 4px 0px 6px 0px;
+                font-size: 2.8em;
+                line-height: 1.05;
+            }
+        }
+
+        span.years {
+            display: block;
+            color: #b0b0b0;
+            font-size: 0.95em;
+
+            span.count {
+                color: $extralightgrey;
+            }
+        }
+
+        div.actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+
+            button {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5em;
+                padding: 9px 16px;
+                border: none;
+                border-radius: 999px;
+                background-color: rgba(255, 255, 255, 0.1);
+                color: $white;
+                font-family: $roboto;
+                font-size: 0.85em;
+                cursor: pointer;
+                transition: background-color 0.15s ease, transform 0.15s ease;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.18);
+                }
+
+                &:active {
+                    transform: scale(0.96);
+                }
+
+                &:focus {
+                    outline: none;
+                }
+
+                &:focus-visible {
+                    outline: 2px solid $blue;
+                    outline-offset: 2px;
+                }
+            }
+
+            /* Play/pause: the main action, white like the player's button. */
+            button.primary {
+                background-color: $white;
+                color: $grey;
+                font-weight: bold;
+                padding: 9px 20px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+
+                &:hover {
+                    background-color: $white;
+                    transform: scale(1.04);
+                }
+            }
+        }
+
+        /* Wikipedia bio (npm run fetch-bios) with a CC BY-SA credit; clamped to 4 lines. */
+        div.about {
+            margin-top: 22px;
+            max-width: 65ch;
+
+            p {
+                margin: 0;
+                font-size: 0.95em;
+                line-height: 1.65;
+                color: #dcdcdc;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 4;
+                line-clamp: 4;
+                overflow: hidden;
+            }
+
+            &.open p {
+                display: block;
+                -webkit-line-clamp: unset;
+                line-clamp: none;
+            }
+
+            button.more {
+                margin-top: 6px;
+                padding: 0px;
+                border: none;
+                background: none;
+                color: $white;
+                font-family: $roboto;
+                font-size: 0.8em;
+                font-weight: bold;
+                letter-spacing: 0.04em;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                &[hidden] {
+                    display: none;
+                }
+            }
+
+            span.credit {
+                display: block;
+                margin-top: 6px;
+                font-size: 0.75em;
+                color: $extralightgrey;
+                a {
+                    color: inherit;
+                }
+                a:hover {
+                    color: $white;
+                }
+            }
+        }
+
+        div.books-section {
+            margin-top: 26px;
+
+            div.books-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                max-width: 100%;
+                margin-bottom: 12px;
+            }
+
+            span.pager {
+                display: inline-flex;
+                gap: 8px;
+
+                button {
+                    width: 30px;
+                    height: 30px;
+                    padding: 0px;
+                    border: none;
+                    border-radius: 50%;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    color: $white;
+                    font-size: 0.7em;
+                    cursor: pointer;
+                    transition: background-color 0.15s ease, transform 0.15s ease;
+
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.2);
+                    }
+
+                    &:active {
+                        transform: scale(0.92);
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+
+                    &:focus-visible {
+                        outline: 2px solid $blue;
+                        outline-offset: 2px;
+                    }
+
+                    &[hidden] {
+                        display: none;
+                    }
+                }
+            }
+
+            /* Same style as the home page group titles. */
+            span.label {
+                display: block;
+                font-family: $opensans;
+                font-size: 0.75em;
+                letter-spacing: 0.25em;
+                text-transform: uppercase;
+                color: #cfcfcf;
+            }
+        }
+
+        /* One row of whole books; player.ts hides the ones not on the current page. */
+        div.books {
+            display: flex;
+            gap: 18px;
+            overflow: hidden;
+            padding: 4px 4px 8px 4px;
+            margin: -4px;
+
+            a.book {
+                flex-shrink: 0;
+                width: 104px;
+                color: inherit;
+                text-decoration: none;
+
+                span.book-cover {
+                    display: block;
+                    width: 104px;
+                    height: 150px;
+                    border-radius: 4px;
+                    background-size: cover;
+                    background-position: center center;
+                    background-color: $darkgrey;
+                    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                }
+
+                span.book-title {
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
+                    overflow: hidden;
+                    margin-top: 8px;
+                    font-size: 0.72em;
+                    line-height: 1.35;
+                    color: #bdbdbd;
+                    white-space: normal;
+                }
+
+                &:hover span.book-cover,
+                &:focus-visible span.book-cover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+                }
+
+                &:hover span.book-title {
+                    color: $white;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+
+                &:focus-visible span.book-cover {
+                    outline: 2px solid $blue;
+                    outline-offset: 2px;
+                }
+
+                &[hidden] {
+                    display: none;
+                }
+            }
+        }
+    }
+    /*
+     * Lecture/track list, styled like the full-screen player's list: a CSS-counter
+     * number that turns into ▶ on hover, equalizer bars on the playing row (.active,
+     * set by player.ts), soft rounded hover. Titles show exactly as written in the JSON
+     * (no text-transform); lecture titles are curated (see data.md).
+     */
+    div.list-head {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        max-width: 1100px;
+        margin: 8px 32px 10px 32px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+        span.label {
+            font-family: $opensans;
+            font-size: 0.75em;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #cfcfcf;
+        }
+
+        span.count {
+            font-size: 0.75em;
+            color: $extralightgrey;
+        }
+    }
+
+    div.rows {
+        max-width: 1100px;
+        margin: 0px 20px;
+        counter-reset: song;
+    }
+
+    div.song {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 11px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        color: #dcdcdc;
+        transition: background-color 0.12s ease;
+        counter-increment: song;
+
+        span.lead {
+            flex-shrink: 0;
+            position: relative;
+            width: 26px;
+            height: 1em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 0.85em;
+            color: $extralightgrey;
+
+            span.num::before {
+                content: counter(song);
+            }
+
+            i.hover-play,
+            span.bars {
+                display: none;
+            }
+
+            i.hover-play {
+                color: $white;
+                font-size: 0.85em;
+            }
+
+            span.bars {
+                align-items: flex-end;
+                gap: 2px;
+                height: 0.9em;
+
+                i {
+                    width: 3px;
+                    height: 40%;
+                    border-radius: 1px;
+                    background-color: $blue;
+                }
+            }
+        }
+
+        div.title {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.06);
+            color: $white;
+
+            span.lead span.num {
+                display: none;
+            }
+
+            span.lead i.hover-play {
+                display: inline;
+            }
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus-visible {
+            background-color: rgba(255, 255, 255, 0.08);
+            box-shadow: inset 2px 0 0 $blue;
+        }
+    }
+
+    /* Music titles are raw YouTube titles (not curated), so they're still capitalized. */
+    &[data-kind="music"] div.song div.title {
+        text-transform: capitalize;
+    }
+
+    /* The playing lecture/track. */
+    div.song.active {
+        color: $white;
+        font-weight: bold;
+        background-color: rgba(255, 255, 255, 0.04);
+
+        span.lead {
+            span.num,
+            i.hover-play {
+                display: none;
+            }
+
+            span.bars {
+                display: inline-flex;
+            }
+        }
+    }
+
+    /* Bars move only while something is playing (.Songs gets .playing from player.ts). */
+    &.playing div.song.active span.lead span.bars i {
+        animation: songs-bars 0.9s ease-in-out infinite alternate;
+
+        &:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: -0.6s;
+        }
+    }
+
+    /* Shown when a list has no videos (e.g. all were unavailable and removed). */
+    div.song.empty {
+        cursor: default;
+        color: $extralightgrey;
+        counter-increment: none;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    /* Marked at runtime when YouTube refuses to play the video (see player.ts). */
+    /* Dim via color, not opacity: animate.css's fadeIn (fill-mode: both) pins opacity to 1. */
+    div.song.unavailable {
+        color: $extralightgrey;
+        text-decoration: line-through;
+    }
+}
+
+@keyframes songs-bars {
+    from {
+        height: 25%;
+    }
+
+    to {
+        height: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    div.Songs.playing div.song.active span.lead span.bars i {
+        animation: none;
+        height: 70%;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+    div.Songs {
+        padding: 50px 0px 125px 0px;
+        >div.cover {
+            display: block;
+            padding: 20px 15px;
+
+            div.image {
+                float: left;
+                width: 96px;
+                margin: 0px 15px 10px 0px;
+            }
+
+            div.bio h2 {
+                font-size: 1.8em;
+            }
+
+            div.actions {
+                margin-top: 12px;
+
+                /* The full-screen player is desktop only. */
+                button.expand {
+                    display: none;
+                }
+            }
+
+            div.about {
+                clear: both;
+                padding-top: 10px;
+            }
+
+            div.books a.book {
+                width: 80px;
+
+                span.book-cover {
+                    width: 80px;
+                    height: 116px;
+                }
+            }
+        }
+
+        div.list-head {
+            margin: 8px 15px 8px 15px;
+        }
+
+        div.rows {
+            margin: 0px 5px;
+        }
+    }
+}

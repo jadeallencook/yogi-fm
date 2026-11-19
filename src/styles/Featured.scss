@@ -1,0 +1,299 @@
+@use 'global' as *;
+
+/*
+ * Home page groups (Featured.astro): a responsive grid of groups, each with a quiet
+ * header and 3 poster tiles that stretch to fill the column. The name and years sit
+ * on the photo over a gradient. Hover zooms the photo and shows a play button; the
+ * tile of the speaker that's playing gets a "Now playing" badge (player.ts).
+ */
+div.Featured {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+    gap: 40px 48px;
+    padding: 32px;
+
+    header {
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+        /* Same style as the sidebar's "SPEAKERS" label. */
+        h3.title {
+            margin: 0px;
+            font-family: $opensans;
+            font-size: 0.8em;
+            font-weight: normal;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
+
+        p.description {
+            margin: 6px 0px 0px 0px;
+            font-size: 0.85em;
+            color: #a8a8a8;
+        }
+    }
+
+    div.collection {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    div.tile {
+        position: relative;
+        aspect-ratio: 4 / 5;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: $grey;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+
+        /* The whole tile is the link to the speaker page. */
+        a.photo {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+
+            /* The photo is redrawn on ::before so it can zoom inside the frame. */
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: inherit;
+                background-size: cover;
+                /* Top-center keeps faces in frame; grayscale matches the original
+                   black & white portraits (newer ones are color). */
+                background-position: center top;
+                filter: grayscale(1);
+                transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease;
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid $white;
+                outline-offset: -4px;
+                border-radius: 8px;
+            }
+        }
+
+        div.caption {
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            padding: 48px 14px 12px 14px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.85));
+            pointer-events: none;
+
+            span {
+                display: block;
+            }
+
+            span.name {
+                font-weight: bold;
+                font-size: 0.95em;
+                line-height: 1.2;
+                text-transform: capitalize;
+            }
+
+            /* Years, then the lecture count on its own line (fits at any tile width). */
+            span.meta {
+                margin-top: 3px;
+                font-size: 0.72em;
+                line-height: 1.4;
+                color: #c4c4c4;
+
+                span {
+                    display: block;
+                    white-space: nowrap;
+                }
+
+                span.count {
+                    color: #9a9a9a;
+                }
+            }
+        }
+
+        /* Play (or pause, for the current speaker) without leaving the page; centered on
+       the photo, shown on hover. */
+        button.play {
+            position: absolute;
+            left: 50%;
+            top: 42%;
+            margin: -24px 0px 0px -24px;
+            width: 48px;
+            height: 48px;
+            padding: 0px;
+            border: none;
+            border-radius: 50%;
+            background-color: $white;
+            color: $grey;
+            font-size: 0.85em;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+
+            i.fa-play {
+                margin-left: 2px; /* The triangle's visual center sits left of its box. */
+            }
+
+            &:hover {
+                transform: scale(1.08);
+            }
+
+            &:active {
+                transform: scale(0.94);
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &:focus-visible {
+                opacity: 1;
+                transform: none;
+                outline: 2px solid $blue;
+                outline-offset: 2px;
+            }
+        }
+
+        span.now {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background-color: rgba(0, 0, 0, 0.7);
+            font-size: 0.65em;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            pointer-events: none;
+
+            /* Small equalizer; it only moves while the music/lecture is playing. */
+            span.bars {
+                display: inline-flex;
+                align-items: flex-end;
+                gap: 2px;
+                height: 10px;
+
+                i {
+                    width: 2px;
+                    height: 40%;
+                    background-color: $blue;
+                    border-radius: 1px;
+                }
+            }
+        }
+
+        &:hover,
+        &:focus-within {
+            a.photo::before {
+                transform: scale(1.08);
+                filter: grayscale(1) brightness(1.1);
+            }
+
+            button.play {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        &.current {
+            box-shadow: 0 0 0 2px $blue, 0 6px 20px rgba(0, 0, 0, 0.25);
+
+            span.now {
+                display: inline-flex;
+            }
+        }
+
+        &.playing span.now span.bars i {
+            animation: featured-bars 0.9s ease-in-out infinite alternate;
+
+            &:nth-child(2) {
+                animation-delay: -0.3s;
+            }
+
+            &:nth-child(3) {
+                animation-delay: -0.6s;
+            }
+        }
+    }
+}
+
+@keyframes featured-bars {
+    from {
+        height: 25%;
+    }
+
+    to {
+        height: 100%;
+    }
+}
+
+/* Touch screens can't hover: always show the play button there. */
+@media (hover: none) {
+    div.Featured div.tile button.play {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+    div.Featured {
+        padding: 20px 15px;
+        gap: 28px;
+
+        div.collection {
+            gap: 8px;
+        }
+
+        div.tile {
+            border-radius: 6px;
+
+            div.caption {
+                padding: 32px 8px 8px 8px;
+
+                span.name {
+                    font-size: 0.8em;
+                }
+
+                span.meta {
+                    font-size: 0.65em;
+                }
+            }
+
+            span.now {
+                font-size: 0.55em;
+                letter-spacing: 0.04em;
+            }
+
+            /* Too small for an overlay button on phones; the tile link still works. */
+            button.play {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    div.Featured div.tile {
+        a.photo::before,
+        button.play {
+            transition: none;
+        }
+
+        span.now span.bars i {
+            animation: none !important;
+            height: 70%;
+        }
+    }
+}

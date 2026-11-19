@@ -1,0 +1,165 @@
+---
+// Detail view for a speaker (cover, years, books) or a music genre, plus its video list.
+import '../styles/Songs.scss';
+import { asset, wikipediaUrl, formatYears, type Speaker, type Genre } from '../lib/data';
+import { EDIT_MODE } from '../lib/edit-mode';
+
+type Props =
+  | { kind: 'lecture'; slug: string; collection: Speaker }
+  | { kind: 'music'; slug: string; collection: Genre };
+
+const props = Astro.props;
+const { kind, slug, collection } = props;
+const lectureCount = Object.keys(collection.videos).length;
+---
+
+<div class="Songs" data-collection={slug} data-kind={kind}>
+  {props.kind === 'lecture' ? (
+    <div class="cover animated fadeIn">
+      {/* Blurred, darkened copy of the portrait behind the header. */}
+      {props.collection.image && (
+        <div class="backdrop" aria-hidden="true" style={`background-image: url(${asset(props.collection.image)})`}></div>
+      )}
+      <div class="image" style={props.collection.image ? `background-image: url(${asset(props.collection.image)})` : undefined}></div>
+      <div class="bio">
+        <h2>{props.collection.name}</h2>
+        <span class="years">
+          {formatYears(props.collection.years)}
+          {lectureCount > 0 && <span class="count"> · {lectureCount} lecture{lectureCount === 1 ? '' : 's'}</span>}
+        </span>
+        {lectureCount > 0 && (
+          <div class="actions">
+            {/* Handled in player.ts: play/pause this speaker, a random lecture, full screen. */}
+            <button type="button" class="primary" data-play-speaker={slug} aria-label={`Play ${props.collection.name}`}>
+              <i class="fa fa-play" aria-hidden="true"></i>
+              <span data-label>Play</span>
+            </button>
+            <button type="button" data-shuffle-speaker={slug}>
+              <i class="fa fa-random" aria-hidden="true"></i>
+              <span>Shuffle</span>
+            </button>
+            <button type="button" class="expand" data-expand-page>
+              <i class="fa fa-expand" aria-hidden="true"></i>
+              <span>Full screen</span>
+            </button>
+          </div>
+        )}
+        {(props.collection.bio || props.collection.imageCredit) && (
+          <div class="about">
+            {props.collection.bio && <p>{props.collection.bio}</p>}
+            {props.collection.bio && (
+              <button type="button" class="more" data-bio-toggle aria-expanded="false" hidden>Read more</button>
+            )}
+            {props.collection.bio && props.collection.wikipedia && (
+              <span class="credit">
+                Bio:{' '}
+                <a href={wikipediaUrl(props.collection.wikipedia)} target="_blank" rel="noopener noreferrer">
+                  Wikipedia
+                </a>{' '}
+                (<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer license">CC BY-SA 4.0</a>)
+              </span>
+            )}
+            {props.collection.imageCredit && (
+              <span class="credit">
+                Photo:{' '}
+                {props.collection.imageCredit.authorUrl ? (
+                  <a href={props.collection.imageCredit.authorUrl} target="_blank" rel="noopener noreferrer">
+                    {props.collection.imageCredit.author}
+                  </a>
+                ) : (
+                  props.collection.imageCredit.author
+                )}
+                ,{' '}
+                {props.collection.imageCredit.licenseUrl ? (
+                  <a href={props.collection.imageCredit.licenseUrl} target="_blank" rel="noopener noreferrer license">
+                    {props.collection.imageCredit.license}
+                  </a>
+                ) : (
+                  props.collection.imageCredit.license
+                )}
+                , via{' '}
+                <a href={props.collection.imageCredit.source} target="_blank" rel="noopener noreferrer">
+                  Wikimedia Commons
+                </a>
+              </span>
+            )}
+          </div>
+        )}
+        {props.collection.books.length > 0 && (
+          <div class="books-section" data-books>
+            <div class="books-head">
+              <span class="label">Books</span>
+              {/* Page through the row instead of a scrollbar; shown only when there's more (player.ts). */}
+              <span class="pager">
+                <button type="button" data-books-page="-1" aria-label="Previous books" hidden>
+                  <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <button type="button" data-books-page="1" aria-label="More books" hidden>
+                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </button>
+              </span>
+            </div>
+            <div class="books" data-shuffle>
+              {props.collection.books.map((book) => (
+                <a class="book animated fadeIn" href={book.link} target="_blank" rel="noopener noreferrer" title={book.title}>
+                  <span class="book-cover" style={`background-image: url(${book.image})`}></span>
+                  <span class="book-title">{book.title}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  ) : (
+    <div class="music-cover animated fadeInDown">
+      <h2>{collection.name}</h2>
+    </div>
+  )}
+  {EDIT_MODE && (
+    <form class="add-video-form" data-editor data-add data-astro-reload>
+      <input name="video" required placeholder="YouTube link or video ID" aria-label="YouTube link or video ID" />
+      <input name="title" placeholder="Title (blank = YouTube's title)" aria-label="Title" />
+      <select name="position" aria-label="Position">
+        <option value="top">Add to top</option>
+        <option value="bottom">Add to bottom</option>
+      </select>
+      <button type="submit">Add {kind === 'lecture' ? 'lecture' : 'track'}</button>
+      <span class="edit-status" data-add-status></span>
+    </form>
+  )}
+  <div class="list-head animated fadeIn">
+    <span class="label">{kind === 'lecture' ? 'Lectures' : 'Tracks'}</span>
+    {lectureCount > 0 && <span class="count">{lectureCount}</span>}
+  </div>
+  <div class="rows">
+    {lectureCount === 0 && (
+      <div class="song empty">
+        <div>{kind === 'lecture' ? 'No lectures yet.' : 'No tracks yet.'}</div>
+      </div>
+    )}
+    {Object.entries(collection.videos).map(([id, title], i) => (
+      <div
+        class="song animated fadeIn"
+        style={`animation-delay: ${Math.min(i, 20) * 40}ms`}
+        data-play={id}
+        role="button"
+        tabindex="0"
+      >
+        {/* Number (CSS counter, so edit-mode adds/deletes renumber), ▶ on hover, bars when playing. */}
+        <span class="lead" aria-hidden="true">
+          <span class="num"></span>
+          <i class="fa fa-play hover-play"></i>
+          <span class="bars"><i></i><i></i><i></i></span>
+        </span>
+        <div class="title"><span data-title>{title}</span></div>
+        {EDIT_MODE && (
+          <span class="edit-actions" data-editor>
+            <button type="button" class="edit-title" aria-label={`Edit title: ${title}`}>Edit</button>
+            <button type="button" class="delete-video" aria-label={`Delete: ${title}`}>Delete</button>
+          </span>
+        )}
+      </div>
+    ))}
+  </div>
+</div>

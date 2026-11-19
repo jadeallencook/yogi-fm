@@ -1,18 +1,32 @@
 {
     "drugs": {
         "title": "Drugs & Psychedelics",
-        "speakers": ["terence-mckenna", "timothy-leary", "aldous-huxley", "burroughs"]
+        "description": "Psychedelic pioneers and the minds they opened",
+        "speakers": ["timothy-leary", "terence-mckenna", "aldous-huxley"]
     },
     "east": {
         "title": "Far East",
-        "speakers": ["osho", "krishnamurti", "sadhguru", "thich"]
+        "description": "Zen, Buddhism and the mystics of the East",
+        "speakers": ["thich", "osho", "sadhguru"]
     },
     "self": {
         "title": "Self Discovery",
-        "speakers": ["alan-watts", "ram-dass", "joseph-campbell", "eckhart-tolle"]
+        "description": "On the self, the ego and waking up",
+        "speakers": ["alan-watts", "ram-dass", "krishnamurti"]
     },
     "relationships": {
         "title": "Relationships",
-        "speakers": ["kim-eng", "mr-rogers"]
+        "description": "Kindness, love and how we heal together",
+        "speakers": ["mr-rogers", "bell-hooks", "gabor-mate"]
+    },
+    "visionaries": {
+        "title": "Visionaries",
+        "description": "Big-picture thinkers on myth, design and poetry",
+        "speakers": ["buckminster-fuller", "joseph-campbell", "allen-ginsberg"]
+    },
+    "body": {
+        "title": "Mind & Body",
+        "description": "Movement, mindfulness and yoga",
+        "speakers": ["bruce-lee", "jon-kabat-zinn", "bks-iyengar"]
     }
 }

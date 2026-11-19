@@ -1,0 +1,50 @@
+{
+  "createdAt": "2026-11-19T01:06:55.624Z",
+  "removed": [
+    {
+      "kind": "music",
+      "slug": "classical",
+      "id": "DD0JjcYv6Sg",
+      "title": "Chopin   Complete Nocturnes Brigitte Engerer   YouTube",
+      "index": 3,
+      "reason": "embedding not allowed (often age-restricted)",
+      "source": "player 150"
+    },
+    {
+      "kind": "music",
+      "slug": "classical",
+      "id": "qRZmdzCGLYw",
+      "title": "The Best of Debussy",
+      "index": 4,
+      "reason": "embedding not allowed (often age-restricted)",
+      "source": "player 150"
+    },
+    {
+      "kind": "music",
+      "slug": "classic-jazz",
+      "id": "VQ5uo9_OijY",
+      "title": "Miles Davis   Kind Of Blue Full Album 1959",
+      "index": 1,
+      "reason": "embedding not allowed (often age-restricted)",
+      "source": "player 150"
+    },
+    {
+      "kind": "music",
+      "slug": "classic-jazz",
+      "id": "_lfHX8NBmXk",
+      "title": "ANTONIO CARLOS JOBIM (1970) - Stone Flower (Full Album)",
+      "index": 4,
+      "reason": "embedding not allowed (often age-restricted)",
+      "source": "player 150"
+    },
+    {
+      "kind": "music",
+      "slug": "japanese",
+      "id": "BHdF4rTVLWE",
+      "title": "Susumu Yokota Sakura full album(2000)",
+      "index": 5,
+      "reason": "embedding not allowed (often age-restricted)",
+      "source": "player 150"
+    }
+  ]
+}

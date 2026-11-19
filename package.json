@@ -1,33 +1,32 @@
 {
   "name": "yogi-fm",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "type": "module",
   "homepage": "https://yogifm.com/",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "dev:edit": "PUBLIC_EDIT_MODE=true astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "speakers": "node jobs/update-speakers.cjs",
+    "music": "node jobs/update-music.cjs",
+    "update": "npm run speakers && npm run music && echo \n",
+    "check-videos": "node jobs/check-videos.mjs",
+    "fetch-bios": "node jobs/fetch-bios.mjs",
+    "fetch-portraits": "node jobs/fetch-portraits.mjs"
+  },
   "dependencies": {
+    "animate.css": "3.7.0",
+    "astro": "7.4.13",
+    "font-awesome": "4.7.0"
+  },
+  "devDependencies": {
     "dom-parser": "^0.1.5",
     "fetch": "^1.1.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-scripts": "^5.0.1",
-    "react-youtube": "^7.9.0",
-    "sass": "^1.77.8"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "speakers": "node jobs/update-speakers.js",
-    "music": "node jobs/update-music.js",
-    "update": "npm run speakers && npm run music && echo \n",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "puppeteer-core": "25.16.0",
+    "sass": "1.107.1"
+  }
 }

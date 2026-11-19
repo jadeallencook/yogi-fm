@@ -1,0 +1,15 @@
+---
+// Edit-mode UI: badge + inline title editing. Rendered by Layout only when EDIT_MODE,
+// so neither the markup nor the script is in production builds. Styles live in
+// src/styles/editor.css and are injected by the script (see editor.ts): a <style>
+// here would be bundled into every page even when this component isn't rendered.
+---
+
+<div class="edit-mode-badge" data-editor transition:persist="edit-badge">
+  <i class="fa fa-pencil" aria-hidden="true"></i> Edit mode
+</div>
+
+<script>
+  import { initEditor } from '../lib/editor';
+  initEditor();
+</script>
