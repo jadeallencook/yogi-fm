@@ -7,6 +7,7 @@
  * are never moved or reloaded.
  */
 import { navigate, swapFunctions } from 'astro:transitions/client';
+import { trackEvent, trackPageview } from './analytics';
 import { speakers, music, defaults, genreAliases, firstVideo, hasVideos, asset, speakerUrl, genreUrl, formatDuration } from './data';
 // Video lengths (npm run fetch-durations) for the full-screen list; ~3 KB gzipped.
 import durationsJson from '../environments/durations.environment.json';
@@ -338,7 +339,10 @@ function setExpanded(open: boolean) {
   const track = document.querySelector<HTMLElement>('[data-marquee]');
   if (track) delete track.dataset.key;
   render();
-  if (open) scrollQueueToActive();
+  if (open) {
+    scrollQueueToActive();
+    trackEvent('Open full screen');
+  }
 }
 
 function scrollQueueToActive() {
@@ -632,6 +636,10 @@ function playMusic(genre: string, id: string, autoplay = true) {
   render();
 }
 
+/** Last lecture/track reported to analytics, so each counts once when it starts. */
+let trackedLecture = '';
+let trackedMusic = '';
+
 /** Videos YouTube refused to play this session (removed, private, embedding disabled). */
 const unavailable = new Set<string>();
 
@@ -657,6 +665,7 @@ function pick<T>(items: T[]): T {
 }
 
 function random() {
+  trackEvent('Random');
   const speaker = pick(Object.keys(speakers).filter((key) => hasVideos(speakers[key])));
   const genre = pick(Object.keys(music).filter((key) => hasVideos(music[key])));
   playMusic(genre, pick(Object.keys(music[genre].videos)), playing);
@@ -780,6 +789,13 @@ function createPlayers(YT: YTNamespace) {
         if (e.data === YT.PlayerState.PLAYING) {
           switchingUntil = 0;
           lectureErrors = 0;
+          if (trackedLecture !== state.lecture) {
+            trackedLecture = state.lecture;
+            trackEvent('Play lecture', {
+              speaker: speakers[state.speaker].name,
+              lecture: speakers[state.speaker].videos[state.lecture] ?? state.lecture,
+            });
+          }
           if (!playing) {
             playing = true;
             musicPlayer?.playVideo();
@@ -817,7 +833,16 @@ function createPlayers(YT: YTNamespace) {
         if (playing) e.target.playVideo();
       },
       onStateChange: (e) => {
-        if (e.data === YT.PlayerState.PLAYING) musicErrors = 0;
+        if (e.data === YT.PlayerState.PLAYING) {
+          musicErrors = 0;
+          if (trackedMusic !== state.music) {
+            trackedMusic = state.music;
+            trackEvent('Play music', {
+              genre: music[state.genre].name,
+              track: music[state.genre].videos[state.music] ?? state.music,
+            });
+          }
+        }
         if (e.data === YT.PlayerState.ENDED) {
           playMusic(state.genre, step(music[state.genre], state.music, 1), true);
         }
@@ -863,6 +888,7 @@ function installSwap() {
   });
 
   document.addEventListener('astro:page-load', () => {
+    trackPageview();
     shuffleBooks();
     markActiveLink();
     setupBioToggles();
@@ -893,6 +919,7 @@ function activate(target: HTMLElement) {
   // Speaker page header: a random lecture from this speaker (not the current one).
   const shuffleSlug = target.closest<HTMLElement>('[data-shuffle-speaker]')?.dataset.shuffleSpeaker;
   if (shuffleSlug && hasVideos(speakers[shuffleSlug])) {
+    trackEvent('Shuffle speaker', { speaker: speakers[shuffleSlug].name });
     const ids = Object.keys(speakers[shuffleSlug].videos).filter((id) => id !== state.lecture && !unavailable.has(id));
     direction = 1;
     playLecture(shuffleSlug, ids.length ? pick(ids) : firstVideo(speakers[shuffleSlug]));

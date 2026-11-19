@@ -40,6 +40,7 @@ Read the relevant doc before working in an area, and keep it updated when things
 - Navigation replaces only `[data-page]` (custom `astro:before-swap` in `src/lib/player.ts`). Never move or re-render the player's iframes, because that stops playback. Page content must live inside the layout's `<slot />`.
 - Player state is in the URL hash. Update it with `history.replaceState(history.state, …)` so Astro's router state is kept.
 - Edit mode must never reach production. Gate edit UI on `EDIT_MODE` (`src/lib/edit-mode.ts`, which also requires `DEV`), keep server code in `integrations/content-editor.mjs` (dev server only), never statically import `EditorTools.astro` or give it a `<style>`, and keep editor CSS `?inline`. After editor changes, run `PUBLIC_EDIT_MODE=true npm run build` and check that `dist/` has no editor code (commands in `documentation/editing.md`).
+- Analytics is Umami with auto-track **off** (the hash changes on every track); send page views/events through `src/lib/analytics.ts`. See `documentation/deployment.md`.
 - Anything added to `<head>` at runtime is removed on the next client-side navigation (Astro's head swap). Put runtime `<style>`/elements in `<body>` (outside `[data-page]`).
 - Astro's ClientRouter turns every `<form>` submit into a navigation, and its listener runs before page scripts. Client-handled forms need `data-astro-reload` (and/or a capture-phase listener).
 - The Astro dev toolbar is disabled on purpose. It covers the player controls and blocks their clicks.

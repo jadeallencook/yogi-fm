@@ -45,6 +45,18 @@ const EditorTools =
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,900" rel="stylesheet" />
     <title>{title}</title>
     <ClientRouter fallback="swap" />
+    {/* Umami analytics: production builds only; counts only on yogifm.com. Page views and
+        events are sent from src/lib/analytics.ts (auto-track is off; see deployment.md). */}
+    {import.meta.env.PROD && (
+      <script
+        is:inline
+        defer
+        src="https://cloud.umami.is/script.js"
+        data-website-id="31a8630e-1669-4adf-be89-408b66466a11"
+        data-domains="yogifm.com"
+        data-auto-track="false"
+      ></script>
+    )}
   </head>
   <body>
     <div class="App">

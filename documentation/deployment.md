@@ -20,3 +20,13 @@ The Astro, Sass, Font Awesome and animate.css versions are pinned exactly. To up
 ## Testing
 
 There is no automated test suite. To check changes, run `npm run build` and the preview server, then click through in a browser: navigation, play/pause, prev/next, Random, mobile width, and an old `/#speaker/lecture/genre/song` link. Check especially that the player keeps playing across navigation.
+
+## Analytics (Umami)
+
+Umami Cloud (free plan, cookieless, so no consent banner), website ID `31a8630e-1669-4adf-be89-408b66466a11` (public; it's in the page). Chosen in Nov 2026 over Google Analytics (cookies + consent banner, heavy) and Vercel Web Analytics (custom events need Vercel Pro).
+
+- The script is in `Layout.astro`, **production builds only** (`import.meta.env.PROD`), with `data-domains="yogifm.com"` so local previews, edit mode and preview deployments aren't counted.
+- `data-auto-track="false"`: the player rewrites the URL hash (`#speaker/lecture/genre/song`) on every track change, which auto-tracking would count as page views. `src/lib/analytics.ts` sends one page view per navigation (`astro:page-load`) with the path and query only, and queues calls until the deferred script has loaded (gives up after 20 s if it's blocked).
+- Events (from player.ts): `Play lecture` {speaker, lecture} and `Play music` {genre, track} when a new video actually starts playing (once per video), `Open full screen`, `Random`, `Shuffle speaker` {speaker}. Never send personal data.
+- To verify locally, block `cloud.umami.is` and stub `window.umami` in a headless browser (Umami ignores localhost because of `data-domains`).
+
