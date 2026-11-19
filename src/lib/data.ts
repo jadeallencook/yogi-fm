@@ -121,6 +121,15 @@ export const defaults = {
 /** "1915-1973" -> "1915–1973" and "1944-Now" -> "1944–Now" (the data keeps the plain hyphen). */
 export const formatYears = (years: string) => years.replace(/\s*-\s*/, '–');
 
+/** Seconds -> "4:05", "58:31", "1:09:15" (video lengths; see durations.environment.json). */
+export const formatDuration = (seconds: number) => {
+  const total = Math.max(0, Math.round(seconds));
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = String(total % 60).padStart(2, '0');
+  return h ? `${h}:${String(m).padStart(2, '0')}:${s}` : `${m}:${s}`;
+};
+
 export const speakerUrl = (slug: string) => `/speakers/${slug}/`;
 export const genreUrl = (slug: string) => `/music/${slug}/`;
 

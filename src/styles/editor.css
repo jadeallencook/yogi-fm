@@ -76,6 +76,13 @@ div.Songs .edit-actions.confirming {
   display: flex;
 }
 
+/* The row's Edit/Delete buttons sit where the length is; hide the length meanwhile. */
+div.Songs div.song:hover span.length,
+div.Songs div.song:has(.edit-actions:focus-within) span.length,
+div.Songs div.song:has(.edit-actions.confirming) span.length {
+  visibility: hidden;
+}
+
 div.Songs .edit-actions[hidden] {
   display: none !important;
 }

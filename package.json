@@ -16,7 +16,8 @@
     "update": "npm run speakers && npm run music && echo \n",
     "check-videos": "node jobs/check-videos.mjs",
     "fetch-bios": "node jobs/fetch-bios.mjs",
-    "fetch-portraits": "node jobs/fetch-portraits.mjs"
+    "fetch-portraits": "node jobs/fetch-portraits.mjs",
+    "fetch-durations": "node jobs/fetch-durations.mjs"
   },
   "dependencies": {
     "animate.css": "3.7.0",

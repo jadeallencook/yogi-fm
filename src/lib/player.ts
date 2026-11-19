@@ -7,7 +7,11 @@
  * are never moved or reloaded.
  */
 import { navigate, swapFunctions } from 'astro:transitions/client';
-import { speakers, music, defaults, genreAliases, firstVideo, hasVideos, asset, speakerUrl, genreUrl } from './data';
+import { speakers, music, defaults, genreAliases, firstVideo, hasVideos, asset, speakerUrl, genreUrl, formatDuration } from './data';
+// Video lengths (npm run fetch-durations) for the full-screen list; ~3 KB gzipped.
+import durationsJson from '../environments/durations.environment.json';
+
+const durations = durationsJson as Record<string, number>;
 
 // --- Minimal YouTube IFrame API types --------------------------------------
 
@@ -301,14 +305,23 @@ function setThumb(kind: 'lecture' | 'music', id: string, label: string) {
  * while expanded, the list then shows that speaker's (or genre's) videos.
  */
 let expanded = false;
-/** What the list shows: a browsed collection, or null for the playing speaker. */
-let queueTarget: { kind: 'lecture' | 'music'; slug: string } | null = null;
+/**
+ * The full-screen list has two sections, one open at a time: Lectures (a browsed
+ * speaker, or null for the playing one) and Music (a browsed genre, or null for the
+ * playing one, picked with the genre buttons).
+ */
+let openSection: 'lecture' | 'music' = 'lecture';
+let lectureTarget: string | null = null;
+let musicTarget: string | null = null;
 
 function setExpanded(open: boolean) {
   const player = document.querySelector<HTMLElement>('.Player');
   if (!player || isMobile) return;
   expanded = open;
-  queueTarget = null; // Opening always starts at the speaker that's playing.
+  // Opening always starts at the speaker that's playing.
+  lectureTarget = null;
+  musicTarget = null;
+  openSection = 'lecture';
   player.classList.toggle('expanded', open);
   const button = player.querySelector<HTMLElement>('[data-control="expand"]');
   button?.setAttribute('aria-label', open ? 'Close full-screen player' : 'Open full-screen player');
@@ -319,18 +332,93 @@ function setExpanded(open: boolean) {
   const track = document.querySelector<HTMLElement>('[data-marquee]');
   if (track) delete track.dataset.key;
   render();
-  if (open) document.querySelector('[data-queue] .row.active')?.scrollIntoView({ block: 'center' });
-  const list = document.querySelector<HTMLElement>('[data-queue] .list');
-  if (list) fadeEdges(list);
+  if (open) scrollQueueToActive();
 }
 
-/** While expanded, a sidebar link shows that page's speaker/genre in the list. */
+function scrollQueueToActive() {
+  const list = document.querySelector<HTMLElement>('[data-queue] .section.open .list');
+  if (!list) return;
+  const row = list.querySelector<HTMLElement>('.row.active');
+  if (row) list.scrollTop = row.offsetTop - list.clientHeight / 2 + row.offsetHeight / 2;
+  fadeEdges(list);
+}
+
+/** While expanded, a sidebar link shows that page's speaker or genre in its section. */
 function followPage() {
   if (!expanded) return;
   const page = document.querySelector<HTMLElement>('[data-page] [data-collection]');
   const slug = page?.dataset.collection;
-  const kind = page?.dataset.kind === 'music' ? 'music' : 'lecture';
-  queueTarget = slug && Object.hasOwn(kind === 'lecture' ? speakers : music, slug) ? { kind, slug } : null;
+  if (page?.dataset.kind === 'music' && slug && Object.hasOwn(music, slug)) {
+    musicTarget = slug;
+    openSection = 'music';
+  } else if (slug && Object.hasOwn(speakers, slug)) {
+    lectureTarget = slug;
+    openSection = 'lecture';
+  } else {
+    lectureTarget = null;
+    musicTarget = null;
+  }
+}
+
+const queueEl = <K extends keyof HTMLElementTagNameMap>(tag: K, className: string, text?: string) => {
+  const node = document.createElement(tag);
+  node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+};
+
+/** Rows with the same attributes as the page's list (Songs.astro), so activate() and render() handle them. */
+function queueList(kind: 'lecture' | 'music', slug: string) {
+  const collection = kind === 'lecture' ? speakers[slug] : music[slug];
+  const entries = Object.entries(collection.videos);
+  const list = queueEl('div', 'list');
+  list.dataset.collection = slug;
+  list.dataset.kind = kind;
+  if (!entries.length) list.append(queueEl('div', 'row empty', kind === 'lecture' ? 'No lectures yet.' : 'No tracks yet.'));
+  entries.forEach(([id, title], i) => {
+    const row = queueEl('div', 'row');
+    row.dataset.play = id;
+    row.setAttribute('role', 'button');
+    row.tabIndex = 0;
+    const playingIcon = queueEl('i', 'fa fa-volume-up now');
+    playingIcon.setAttribute('aria-hidden', 'true');
+    row.append(queueEl('span', 'num', String(i + 1)), playingIcon, queueEl('span', 'title', title));
+    if (Object.hasOwn(durations, id)) row.append(queueEl('span', 'length', formatDuration(durations[id])));
+    list.append(row);
+  });
+  list.addEventListener('scroll', () => fadeEdges(list), { passive: true });
+  return list;
+}
+
+/** A section's header: a button that opens it (and collapses the other). */
+function queueHead(section: 'lecture' | 'music', image: HTMLElement, label: string, name: string, count: string) {
+  const head = queueEl('button', 'header');
+  head.type = 'button';
+  head.dataset.queueSection = section;
+  head.setAttribute('aria-expanded', String(openSection === section));
+  const text = queueEl('div', 'text');
+  text.append(queueEl('span', 'label', label), queueEl('span', 'name', name), queueEl('span', 'count', count));
+  const chevron = queueEl('i', 'fa fa-chevron-down chevron');
+  chevron.setAttribute('aria-hidden', 'true');
+  head.append(image, text, chevron);
+  return head;
+}
+
+const plural = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`;
+
+/** Open/collapse the two sections without rebuilding them (animated in Player.scss). */
+function applyOpenSection(queue: HTMLElement) {
+  if (queue.dataset.open === openSection) return;
+  queue.dataset.open = openSection;
+  queue.querySelectorAll<HTMLElement>('section.section').forEach((section) => {
+    const open = section.dataset.section === openSection;
+    section.classList.toggle('open', open);
+    section.querySelector('button.header')?.setAttribute('aria-expanded', String(open));
+    // Keep the collapsed list out of the tab order.
+    section.querySelector<HTMLElement>('div.body')?.toggleAttribute('inert', !open);
+  });
+  const list = queue.querySelector<HTMLElement>('section.open .list');
+  if (list) fadeEdges(list);
 }
 
 function renderQueue() {
@@ -339,57 +427,77 @@ function renderQueue() {
   queue.hidden = !expanded;
   if (!expanded) return;
 
-  const { kind, slug } = queueTarget ?? { kind: 'lecture' as const, slug: state.speaker };
-  const collection = kind === 'lecture' ? speakers[slug] : music[slug];
-  const entries = Object.entries(collection.videos);
-  // Rebuild only when the list changes (not on every play/pause), so scrolling is kept.
-  const key = [kind, slug, ...entries.flat()].join('\u0001');
-  if (queue.dataset.key === key) return;
-  const changedList = queue.dataset.slug !== `${kind}/${slug}`;
+  const speakerSlug = lectureTarget ?? state.speaker;
+  const genreSlug = musicTarget ?? state.genre;
+  const speaker = speakers[speakerSlug];
+  const genre = music[genreSlug];
+  // Rebuild only when the content changes (not on play/pause or switching sections),
+  // so scrolling is kept and the open/close animation can run.
+  const key = [
+    speakerSlug,
+    genreSlug,
+    state.genre,
+    ...Object.entries(speaker.videos).flat(),
+    ...Object.entries(genre.videos).flat(),
+  ].join('\u0001');
+  if (queue.dataset.key === key) {
+    applyOpenSection(queue);
+    return;
+  }
+  const previousScroll: Record<string, number> = {};
+  queue.querySelectorAll<HTMLElement>('.list').forEach((list) => {
+    previousScroll[`${list.dataset.kind}/${list.dataset.collection}`] = list.scrollTop;
+  });
   queue.dataset.key = key;
-  queue.dataset.slug = `${kind}/${slug}`;
+  delete queue.dataset.open; // Re-applied below to the new elements.
 
-  const el = <K extends keyof HTMLElementTagNameMap>(tag: K, className: string, text?: string) => {
-    const node = document.createElement(tag);
-    node.className = className;
-    if (text !== undefined) node.textContent = text;
-    return node;
+  const section = (name: 'lecture' | 'music', head: HTMLElement, ...body: HTMLElement[]) => {
+    const el = queueEl('section', `section ${name === 'lecture' ? 'lectures' : 'music'}`);
+    el.dataset.section = name;
+    const wrap = queueEl('div', 'body');
+    wrap.append(...body);
+    el.append(head, wrap);
+    return el;
   };
 
-  const header = el('div', 'header');
-  const image = el('div', 'image');
-  const speaker = kind === 'lecture' ? speakers[slug] : null;
-  if (speaker?.image) image.style.backgroundImage = `url(${asset(speaker.image)})`;
-  else image.append(Object.assign(el('i', `fa ${kind === 'lecture' ? 'fa-microphone' : 'fa-music'}`), { ariaHidden: 'true' }));
-  const text = el('div', 'text');
-  const noun = kind === 'lecture' ? 'lecture' : 'track';
-  text.append(
-    el('span', 'name', collection.name),
-    el('span', 'count', `${entries.length} ${noun}${entries.length === 1 ? '' : 's'}`),
+  // Lectures.
+  const lectureImage = queueEl('div', 'image');
+  if (speaker.image) lectureImage.style.backgroundImage = `url(${asset(speaker.image)})`;
+  else lectureImage.append(queueEl('i', 'fa fa-microphone'));
+  const lectures = section(
+    'lecture',
+    queueHead('lecture', lectureImage, 'Lectures', speaker.name, plural(Object.keys(speaker.videos).length, 'lecture')),
+    queueList('lecture', speakerSlug),
   );
-  header.append(image, text);
 
-  // Same attributes as the page's list (Songs.astro), so activate() and render() handle the rows.
-  const list = el('div', 'list');
-  list.dataset.collection = slug;
-  list.dataset.kind = kind;
-  if (!entries.length) list.append(el('div', 'row empty', kind === 'lecture' ? 'No lectures yet.' : 'No tracks yet.'));
-  entries.forEach(([id, title], i) => {
-    const row = el('div', 'row');
-    row.dataset.play = id;
-    row.setAttribute('role', 'button');
-    row.tabIndex = 0;
-    const playingIcon = el('i', 'fa fa-volume-up now');
-    playingIcon.setAttribute('aria-hidden', 'true');
-    row.append(el('span', 'num', String(i + 1)), playingIcon, el('span', 'title', title));
-    list.append(row);
+  // Music: genre buttons, then that genre's tracks.
+  const musicImage = queueEl('div', 'image icon');
+  musicImage.append(queueEl('i', 'fa fa-music'));
+  const genres = queueEl('div', 'genres');
+  for (const [slug, g] of Object.entries(music)) {
+    if (!hasVideos(g)) continue;
+    const chip = queueEl('button', `genre${slug === genreSlug ? ' selected' : ''}${slug === state.genre ? ' playing' : ''}`, g.name);
+    chip.type = 'button';
+    chip.dataset.queueGenre = slug;
+    chip.setAttribute('aria-pressed', String(slug === genreSlug));
+    if (slug === state.genre) chip.title = 'Playing now';
+    genres.append(chip);
+  }
+  const musicSection = section(
+    'music',
+    queueHead('music', musicImage, 'Music', genre.name, plural(Object.keys(genre.videos).length, 'track')),
+    genres,
+    queueList('music', genreSlug),
+  );
+
+  queue.replaceChildren(lectures, musicSection);
+  applyOpenSection(queue);
+  queue.querySelectorAll<HTMLElement>('.list').forEach((list) => {
+    const previous = previousScroll[`${list.dataset.kind}/${list.dataset.collection}`];
+    if (previous !== undefined) list.scrollTop = previous;
   });
-
-  const scroll = queue.querySelector('.list')?.scrollTop ?? 0;
-  queue.replaceChildren(header, list);
-  if (!changedList) list.scrollTop = scroll;
-  list.addEventListener('scroll', () => fadeEdges(list), { passive: true });
-  fadeEdges(list);
+  if (Object.keys(previousScroll).length === 0) requestAnimationFrame(scrollQueueToActive);
+  queue.querySelectorAll<HTMLElement>('.list').forEach(fadeEdges);
 }
 
 /** Fade the list's top/bottom edge only when there's more to scroll to that way. */
@@ -791,6 +899,20 @@ function activate(target: HTMLElement) {
   const mute = target.closest<HTMLElement>('[data-mute]')?.dataset.mute;
   if (mute === 'lecture' || mute === 'music') {
     toggleMute(mute);
+    return true;
+  }
+
+  // Full-screen list: open a section (the other collapses), or browse a genre.
+  const section = target.closest<HTMLElement>('[data-queue-section]')?.dataset.queueSection;
+  if (section === 'lecture' || section === 'music') {
+    openSection = section;
+    render();
+    return true;
+  }
+  const queueGenre = target.closest<HTMLElement>('[data-queue-genre]')?.dataset.queueGenre;
+  if (queueGenre && Object.hasOwn(music, queueGenre)) {
+    musicTarget = queueGenre;
+    render();
     return true;
   }
 

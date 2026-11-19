@@ -1,7 +1,10 @@
 ---
 // Detail view for a speaker (cover, years, books) or a music genre, plus its video list.
 import '../styles/Songs.scss';
-import { asset, wikipediaUrl, formatYears, type Speaker, type Genre } from '../lib/data';
+import { asset, wikipediaUrl, formatYears, formatDuration, type Speaker, type Genre } from '../lib/data';
+// Video lengths (npm run fetch-durations). Imported here, not in data.ts, so they're only
+// used at build time and don't add to the player's client bundle.
+import durations from '../environments/durations.environment.json';
 import { EDIT_MODE } from '../lib/edit-mode';
 
 type Props =
@@ -153,6 +156,9 @@ const lectureCount = Object.keys(collection.videos).length;
           <span class="bars"><i></i><i></i><i></i></span>
         </span>
         <div class="title"><span data-title>{title}</span></div>
+        {Object.hasOwn(durations, id) && (
+          <span class="length">{formatDuration((durations as Record<string, number>)[id])}</span>
+        )}
         {EDIT_MODE && (
           <span class="edit-actions" data-editor>
             <button type="button" class="edit-title" aria-label={`Edit title: ${title}`}>Edit</button>

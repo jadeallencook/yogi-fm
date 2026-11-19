@@ -12,6 +12,7 @@ Yogi FM (yogifm.com) collects YouTube lectures from spiritual speakers (Alan Wat
 - `npm run preview`: serves `dist/`. In Astro 7 this runs as a background daemon; stop it with `npx astro preview stop`.
 - `npm run check-videos`: checks every video (oEmbed plus the real YouTube player in headless Chrome). It's a dry run by default; `-- --delete` removes unavailable speaker videos (saved to `jobs/removed-videos/` for `--restore`). See `documentation/data.md`.
 - `npm run fetch-portraits`: fills in missing speaker photos from freely licensed Wikimedia Commons images, with credit (see `documentation/data.md`).
+- `npm run fetch-durations`: saves every video's length to `durations.environment.json` (YouTube Data API; needs `YOUTUBE_API_KEY` in the git-ignored `.env`). See `documentation/data.md`.
 - `npm run fetch-bios`: refreshes speaker bios from Wikipedia (uses each speaker's `wikipedia` title; `-- --dry-run --show` to preview). See `documentation/data.md`.
 - `npm run update`: YouTube scraper jobs. **Don't run them.** They're broken and overwrite data; see `documentation/data.md`.
 

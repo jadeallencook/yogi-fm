@@ -70,6 +70,14 @@ The user's own Alan Watts titles are the reference ("Zen & Meditation", "You Are
 
 The Nov 2026 cleanup changed 243 titles across all speakers; the old titles are in `jobs/title-backups/2026-11-18-title-cleanup.json` (`{ slug: { videoId: oldTitle } }`).
 
+## durations.environment.json (`npm run fetch-durations`)
+
+`{ "<videoId>": seconds }` for every lecture and music video, from the YouTube Data API v3 (`videos.list`, `part=contentDetails`, 50 IDs per request). It's a separate file so the hand-edited titles in speakers/music JSON are never rewritten, and a video listed under several speakers has one entry.
+
+- Needs `YOUTUBE_API_KEY` in `.env` (git-ignored; `.env.example` documents it). The script reads it with `process.loadEnvFile`, sends only video IDs, and never prints the request URL (it contains the key). The key is not `PUBLIC_`-prefixed and nothing in `src/` reads it, so it can't reach the browser.
+- By default only videos without a length are fetched (`--all` refetches, `--dry-run` saves nothing). Entries for videos no longer listed are dropped. Run it after adding lectures in edit mode.
+- First run (Nov 2026): all 322 videos got a length (Alan Watts 9h35, Ram Dass 29h07, Krishnamurti 104h20).
+
 ## music.environment.json
 
 ```jsonc
