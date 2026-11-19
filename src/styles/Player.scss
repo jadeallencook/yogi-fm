@@ -216,7 +216,7 @@ div.Player {
     }
 }
 
-/* The desktop bar's extra parts; hidden by default (phones), shown in the block below. */
+/* The bar's extra parts; hidden by default, shown by the desktop and phone blocks below. */
 div.Player {
     section.info,
     section.progress {
@@ -1021,84 +1021,185 @@ div.Player.expanded {
     }
 }
 
+/*
+ * Phone bar: lectures only, with our own controls. Phones play one YouTube video with
+ * sound at a time (tested on iOS Safari and Firefox, Nov 2026), so no music player is
+ * created there (player.ts) and music UI is hidden.
+ *
+ *   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  (progress, seekable)
+ *   [ lecture video ]  Speaker             ◀◀  ❚❚  ▶▶
+ *   [               ]  Lecture title
+ *
+ * The lecture plays in #mobile-video (inside .controls); .controls uses
+ * `display: contents` so its children become cells of the bar's grid.
+ */
 @media only screen and (max-device-width: 480px) {
     div.Player {
-        >div {
-            iframe {
-                display: none;
-            }
-        }
+        display: grid;
+        grid-template-columns: 112px minmax(0, 1fr) auto auto auto;
+        align-items: center;
+        column-gap: 10px;
+        padding: 12px 12px calc(10px + env(safe-area-inset-bottom)) 12px;
+        text-align: left;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
 
-        /* Thumbnail boxes are desktop-only; mobile plays via the round player in .controls. */
-        >div.video {
-            background: none !important;
-
-            i.badge {
-                display: none;
-            }
-        }
-
-        span {
-            width: 80%;
-            left: 10%;
-        }
-
-        div.marquee {
-            width: 80%;
-            left: 10%;
-            div.track {
-                display: none;
-            }
-            span.mobile {
-                display: block;
-                width: 100%;
-                text-transform: none;
-            }
-        }
-
-        div.controls button.expand {
+        /* Desktop thumbnails and the (unused) music box aren't shown on phones. */
+        > div.video {
             display: none;
         }
 
-        div.controls {
-            margin-top: 0px;
-            margin-left: -15px;
-            width: 100%;
-            left: 15px;
-            i.fa-play {
+        > div.marquee {
+            display: none;
+        }
+
+        > div.controls {
+            display: contents;
+
+            button.expand {
                 display: none;
             }
 
-            i {
-                display: inline-block;
-                margin-top: -5px;
-            }
-
-            div {
-                display: inline-block;
-                height: 30px;
-                border-radius: 100%;
+            /* The lecture: its thumbnail, with the real player invisible on top (same
+               idea as the desktop boxes). Taps go to the box (play/pause), not the
+               player. */
+            > div.mobile-thumb {
+                display: block;
+                position: relative;
+                grid-column: 1;
+                grid-row: 1;
+                width: 112px;
+                height: 63px;
+                border-radius: 6px;
                 overflow: hidden;
-                width: 30px;
+                background-color: $darkgrey;
+                background-size: cover;
+                background-position: center center;
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+                cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
 
-                .mobile-video {
-                    display: inline-block;
-                    float: none;
-                    background-color: $darkgrey;
+                iframe {
+                    display: block;
+                    width: 112px;
+                    height: 63px;
+                    border: 0;
+                    opacity: 0;
+                    pointer-events: none;
+                }
 
-                    >div {
-                        height: 100%;
-                        width: 100%;
+                /* Small play/pause badge on the thumbnail. */
+                i.state {
+                    position: absolute;
+                    right: 5px;
+                    bottom: 5px;
+                    width: 22px;
+                    height: 22px;
+                    line-height: 22px;
+                    margin: 0px;
+                    border-radius: 50%;
+                    background-color: rgba(0, 0, 0, 0.65);
+                    color: $white;
+                    font-size: 0.6em;
+                    text-align: center;
+                    pointer-events: none;
 
-                        iframe {
-                            height: 30px;
-                            border-radius: 100%;
-                            overflow: hidden;
-                            width: 30px;
-                            display: block;
-                        }
+                    &.fa-play {
+                        text-indent: 1px;
                     }
                 }
+            }
+
+            i[data-control="prev"],
+            i[data-control="next"] {
+                grid-row: 1;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 34px;
+                height: 40px;
+                margin: 0px;
+                font-size: 0.95em;
+                color: #cfcfcf;
+            }
+
+            i[data-control="prev"] {
+                grid-column: 3;
+            }
+
+            i[data-control="toggle"] {
+                grid-column: 4;
+                grid-row: 1;
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                margin: 0px;
+                text-align: center;
+            }
+
+            i[data-control="next"] {
+                grid-column: 5;
+            }
+        }
+
+        section.info.lecture {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+            grid-column: 2;
+            grid-row: 1;
+
+            a.who {
+                align-self: flex-start;
+                max-width: 100%;
+                color: $white;
+                font-weight: bold;
+                font-size: 0.88em;
+                text-decoration: none;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            span.what {
+                font-size: 0.78em;
+                color: #b8b8b8;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                line-height: 1.3;
+            }
+
+            /* Phones use the hardware volume buttons. */
+            div.level {
+                display: none;
+            }
+        }
+
+        /* No music on phones. */
+        section.info.music {
+            display: none;
+        }
+
+        /* Progress: a thin seek bar along the top edge of the bar. */
+        section.progress {
+            display: block;
+            position: absolute;
+            top: -2px;
+            left: 0px;
+            right: 0px;
+
+            span.time {
+                display: none;
+            }
+
+            input {
+                display: block;
+                width: 100%;
+                height: 3px;
+                border-radius: 0px;
             }
         }
     }

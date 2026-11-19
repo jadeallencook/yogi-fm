@@ -28,3 +28,7 @@ Schemas and the update process are in [data.md](data.md).
 - Search (a React stub existed; removed in the Astro migration).
 - Speaker `bio` (only Alan Watts has one, and it isn't displayed) and `quotes` (always empty).
 - A 2021–2022 rewrite (see [history.md](history.md)) moved content into the Prismic CMS and added React Router and a mobile menu. It was later reverted.
+
+## On phones
+
+Phones play lectures only: mobile browsers allow one YouTube video with sound at a time (tested Nov 2026), so there's no background music there. The bottom bar shows a small lecture video, the speaker and title, prev / play-pause / next, and a thin progress bar.

@@ -209,5 +209,10 @@ div.Banner {
         div.actions {
             display: none;
         }
+
+        /* Phones play only one video with sound, so no background music there. */
+        span.genre {
+            display: none;
+        }
     }
 }

@@ -30,7 +30,11 @@ import '../styles/Player.scss';
     </button>
     <i class="fa fa-backward" data-control="prev" role="button" tabindex="0" aria-label="Previous lecture"></i>
     <i class="fa fa-play" data-control="toggle" role="button" tabindex="0" aria-label="Play"></i>
-    <div><div id="mobile-video" class="mobile-video"></div></div>
+    <!-- Phones: the lecture player, invisible over its thumbnail; tapping plays/pauses. -->
+    <div class="mobile-thumb" data-thumb="lecture" data-control="video" role="button" tabindex="0" aria-label="Play or pause the lecture">
+      <div id="mobile-video" class="mobile-video"></div>
+      <i class="fa fa-play state" aria-hidden="true"></i>
+    </div>
     <i class="fa fa-forward" data-control="next" role="button" tabindex="0" aria-label="Next lecture"></i>
   </div>
   <!-- Lecture progress: drag or click to seek (player.ts). -->
@@ -42,7 +46,6 @@ import '../styles/Player.scss';
   <!-- Seamless loop: player.ts fills the track with two identical items and animates it by -50%. -->
   <div class="marquee">
     <div class="track" data-marquee></div>
-    <span class="mobile">Be patient on mobile, the video is loading...</span>
   </div>
   <!-- Full-screen player only: the lectures of the playing (or last browsed) speaker.
        An <aside>, not a <div>, so the bar's legacy `> div` rules don't apply to it. -->

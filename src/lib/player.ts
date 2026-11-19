@@ -170,6 +170,7 @@ function render() {
   setText('genre', genre.name);
   setText('label', playing ? 'Now playing' : 'Press play to listen to');
   document.querySelector('.Banner')?.classList.toggle('playing', playing);
+  document.querySelector('.Player')?.classList.toggle('playing', playing);
   document.querySelector('[data-page] .Songs')?.classList.toggle('playing', playing);
   const bannerToggle = document.querySelector<HTMLElement>('[data-banner-toggle]');
   if (bannerToggle) {
@@ -219,6 +220,10 @@ function render() {
     const name = speakers[slug]?.name ?? '';
     button.setAttribute('aria-label', pauses ? `Pause ${name}` : `Play ${name}`);
   });
+
+  const thumbState = document.querySelector<HTMLElement>('.Player .mobile-thumb i.state');
+  thumbState?.classList.toggle('fa-play', !playing);
+  thumbState?.classList.toggle('fa-pause', playing);
 
   const toggle = document.querySelector<HTMLElement>('.Player [data-control="toggle"]');
   if (toggle) {
@@ -287,12 +292,13 @@ function renderMarquee(parts: { icon: string; label: string; title: string }[]) 
 
 /** Footer boxes show the current video's thumbnail until hovered (see Player.scss). */
 function setThumb(kind: 'lecture' | 'music', id: string, label: string) {
-  const box = document.querySelector<HTMLElement>(`[data-thumb="${kind}"]`);
-  if (!box) return;
-  box.title = label; // Always: the title can change in edit mode without a new video.
-  if (box.dataset.id === id) return;
-  box.dataset.id = id;
-  box.style.backgroundImage = `url(https://i.ytimg.com/vi/${id}/mqdefault.jpg)`;
+  // The desktop box, and on phones the lecture box in the controls.
+  document.querySelectorAll<HTMLElement>(`[data-thumb="${kind}"]`).forEach((box) => {
+    box.title = label; // Always: the title can change in edit mode without a new video.
+    if (box.dataset.id === id) return;
+    box.dataset.id = id;
+    box.style.backgroundImage = `url(https://i.ytimg.com/vi/${id}/mqdefault.jpg)`;
+  });
 }
 
 // --- Full-screen player -------------------------------------------------------
@@ -797,6 +803,11 @@ function createPlayers(YT: YTNamespace) {
     },
   });
 
+  // Phones play only one YouTube video with sound at a time (tested on iOS Safari and
+  // Firefox, Nov 2026), so there's no music player there; every musicPlayer use is
+  // null-safe.
+  if (isMobile) return;
+
   musicPlayer = new YT.Player('music-video', {
     videoId: state.music,
     playerVars,
@@ -947,7 +958,8 @@ function activate(target: HTMLElement) {
   }
 
   const control = target.closest<HTMLElement>('[data-control]')?.dataset.control;
-  if (control === 'toggle') playing ? pause() : play();
+  // 'video': tapping the phone's lecture thumbnail.
+  if (control === 'toggle' || control === 'video') playing ? pause() : play();
   else if (control === 'prev') skip(-1);
   else if (control === 'next') skip(1);
   else if (control === 'expand') setExpanded(!expanded);
