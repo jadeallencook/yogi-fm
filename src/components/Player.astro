@@ -53,6 +53,14 @@ import '../styles/Player.scss';
   <!-- Full-screen player only: the lectures of the playing (or last browsed) speaker.
        An <aside>, not a <div>, so the bar's legacy `> div` rules don't apply to it. -->
   <aside class="queue" data-queue hidden></aside>
+  <!-- Full-screen player only: a rotating quote by the playing speaker (renderNowQuote() in player.ts).
+       A <figure>, not a <div>, so the bar's legacy `> div` rules don't apply to it. -->
+  <figure class="now-quote" data-now-quote hidden>
+    <blockquote><p data-now-quote-text></p></blockquote>
+    <figcaption>
+      <span data-now-quote-source></span> · <a data-now-quote-credit href="https://en.wikiquote.org/" target="_blank" rel="noopener noreferrer">Wikiquote</a>
+    </figcaption>
+  </figure>
   <section class="info music">
     <a class="who" data-info-link="music" href="/"></a>
     <span class="what" data-info-title="music"></span>

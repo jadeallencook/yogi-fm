@@ -9,6 +9,10 @@ import { SITE_NAME, FOUNDED_YEAR } from '../lib/site';
 
 <div class="Sidebar animated slideInLeft" transition:persist="sidebar">
   <h2><a href="/">{SITE_NAME}</a></h2>
+  <!-- Phones only: the sidebar is a 50px top bar; this opens it as a full-screen menu (script below). -->
+  <button type="button" class="menu-toggle" data-menu-toggle aria-label="Open menu" aria-expanded="false">
+    <i class="fa fa-bars" aria-hidden="true"></i>
+  </button>
   <nav class="primary">
     <a class="link" href="/" data-nav-link>
       <i class="fa fa-home" aria-hidden="true"></i>
@@ -28,7 +32,8 @@ import { SITE_NAME, FOUNDED_YEAR } from '../lib/site';
     </a>
   ))}
 
-  <span class="title">Music</span>
+  <!-- Hidden on phones, which can't play music under a lecture (see product.md, "On phones"). -->
+  <span class="title" data-side-music>Music</span>
   {Object.entries(music).map(([key, genre]) => (
     <a class="link" href={genreUrl(key)} data-nav-link data-side-genre={key}>
       <span class="name">{genre.name}</span>
@@ -52,3 +57,43 @@ import { SITE_NAME, FOUNDED_YEAR } from '../lib/site';
     </span>
   </div>
 </div>
+
+<script>
+  // Phones: open/close the full-screen menu (Sidebar.scss, `.menu-open`). The sidebar is
+  // persisted across navigation, so this runs once. Choosing a link, Random, Escape or any
+  // navigation closes it. It opens at the top of the list, and closing waits for the
+  // close animation (200ms, matching menu-out) before collapsing back to the top bar.
+  const sidebar = document.querySelector<HTMLElement>('.Sidebar');
+  const toggle = sidebar?.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  if (sidebar && toggle) {
+    let closing = 0;
+    const setMenu = (open: boolean) => {
+      const isOpen = sidebar.classList.contains('menu-open') && !sidebar.classList.contains('menu-closing');
+      if (isOpen === open) return;
+      window.clearTimeout(closing);
+      document.documentElement.classList.toggle('menu-lock', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      toggle.querySelector('i')?.classList.toggle('fa-bars', !open);
+      toggle.querySelector('i')?.classList.toggle('fa-times', open);
+      if (open) {
+        sidebar.classList.remove('menu-closing');
+        sidebar.classList.add('menu-open');
+        // Always start at the top of the list.
+        sidebar.scrollTop = 0;
+      } else {
+        // Play the close animation (menu-out in Sidebar.scss), then collapse back to the bar.
+        sidebar.classList.add('menu-closing');
+        closing = window.setTimeout(() => sidebar.classList.remove('menu-open', 'menu-closing'), 200);
+      }
+    };
+    toggle.addEventListener('click', () => setMenu(!sidebar.classList.contains('menu-open')));
+    sidebar.addEventListener('click', (e) => {
+      if (e.target instanceof Element && e.target.closest('a, [data-random]')) setMenu(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setMenu(false);
+    });
+    document.addEventListener('astro:after-swap', () => setMenu(false));
+  }
+</script>

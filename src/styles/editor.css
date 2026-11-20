@@ -13,6 +13,14 @@
   pointer-events: none;
 }
 
+/* Phones: left of the menu button in the top bar. */
+@media only screen and (max-device-width: 480px) {
+  .edit-mode-badge {
+    top: 13px;
+    right: 58px;
+  }
+}
+
 /* Shared control look (rows are capitalized via CSS; editor controls are not). */
 div.Songs [data-editor] button,
 div.Songs [data-editor] input,

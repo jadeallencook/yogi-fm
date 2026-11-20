@@ -7,6 +7,8 @@ import { asset, wikipediaUrl, formatYears, formatDuration, findDuplicateTitles, 
 import durations from '../environments/durations.environment.json';
 import { EDIT_MODE } from '../lib/edit-mode';
 import { SITE_NAME } from '../lib/site';
+import { wikiquoteUrl, type SpeakerQuotes } from '../lib/quotes';
+import quotesJson from '../environments/quotes.environment.json';
 
 type Props =
   | { kind: 'lecture'; slug: string; collection: Speaker }
@@ -15,6 +17,8 @@ type Props =
 const props = Astro.props;
 const { kind, slug, collection } = props;
 const lectureCount = Object.keys(collection.videos).length;
+// Wikiquote quotes for this speaker (one shows at a time; player.ts picks a random one).
+const quotes = kind === 'lecture' ? (quotesJson as Record<string, SpeakerQuotes>)[slug] : undefined;
 // Dev server only: rows whose title another row also has (see DevWarnings.astro).
 const duplicateIds = new Set(
   import.meta.env.DEV
@@ -34,6 +38,9 @@ const duplicateIds = new Set(
       )}
       <div class="image" style={props.collection.image ? `background-image: url(${asset(props.collection.image)})` : undefined}></div>
       <div class="bio">
+        {/* Name, buttons and bio on the left; a quote beside them (stacks below on narrower screens). */}
+        <div class="head">
+        <div class="intro">
         <h2>{props.collection.name}</h2>
         <span class="years">
           {formatYears(props.collection.years)}
@@ -60,7 +67,7 @@ const duplicateIds = new Set(
           <div class="about">
             {props.collection.bio && <p>{props.collection.bio}</p>}
             {props.collection.bio && (
-              <button type="button" class="more" data-bio-toggle aria-expanded="false" hidden>Read more</button>
+              <button type="button" class="more" data-bio-toggle aria-expanded="false">Read more</button>
             )}
             {props.collection.bio && props.collection.wikipedia && (
               <span class="credit">
@@ -97,33 +104,67 @@ const duplicateIds = new Set(
             )}
           </div>
         )}
-        {props.collection.books.length > 0 && (
-          <div class="books-section" data-books>
-            <div class="books-head">
-              <span class="label">Books</span>
-              {/* Page through the row instead of a scrollbar; shown only when there's more (player.ts). */}
-              <span class="pager">
-                <button type="button" data-books-page="-1" aria-label="Previous books" hidden>
-                  <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                </button>
-                <button type="button" data-books-page="1" aria-label="More books" hidden>
-                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                </button>
-              </span>
-            </div>
-            <div class="books" data-shuffle>
-              {props.collection.books.map((book) => (
-                <a class="book animated fadeIn" href={book.link} target="_blank" rel="sponsored noopener" title={book.title}>
-                  <span class="book-cover" style={`background-image: url(${/^https?:/.test(book.image) ? book.image : asset(book.image)})`}></span>
-                  <span class="book-title">{book.title}</span>
-                </a>
+        </div>
+        {quotes && quotes.quotes.length > 0 && (
+          <figure class="quote" data-quotes>
+            {/* All quotes stacked in one grid cell, so the box is as tall as the longest and
+                never changes height. None shows until player.ts picks a random one (no swap on load). */}
+            <div class="slides">
+              {quotes.quotes.map((quote, i) => (
+                <div class={quote.text.length > 150 ? 'slide long' : 'slide'} data-quote={i} hidden>
+                  <blockquote>
+                    <p>{quote.text}{quote.excerpt && ' …'}</p>
+                  </blockquote>
+                  <figcaption>{quote.source}</figcaption>
+                </div>
               ))}
             </div>
-            {/* Required by the Amazon Associates program (see "Books" in documentation/data.md). */}
-            <p class="books-disclosure">As an Amazon Associate, {SITE_NAME} earns from qualifying purchases.</p>
-          </div>
+            <div class="foot">
+              {quotes.quotes.length > 1 && (
+                <span class="pager">
+                  <button type="button" data-quote-step="-1" aria-label="Previous quote">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" data-quote-step="1" aria-label="Next quote">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                  </button>
+                </span>
+              )}
+              {/* Required by Wikiquote's CC BY-SA license. */}
+              <a class="credit" href={wikiquoteUrl(quotes.page)} target="_blank" rel="noopener noreferrer">Wikiquote</a>
+            </div>
+          </figure>
         )}
+        </div>
       </div>
+      {/* Full width under the header, so it lines up with the photo and the lecture list. */}
+      {props.collection.books.length > 0 && (
+        <div class="books-section" data-books>
+          <div class="books-head">
+            <span class="label">Books</span>
+            {/* Page through the row instead of a scrollbar; shown only when there's more (player.ts). */}
+            <span class="pager">
+              <button type="button" data-books-page="-1" aria-label="Previous books" hidden>
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+              </button>
+              <button type="button" data-books-page="1" aria-label="More books" hidden>
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              </button>
+            </span>
+          </div>
+          {/* In the order of speakers.environment.json (the shuffle on load was removed: it reordered the books on every visit). */}
+          <div class="books">
+            {props.collection.books.map((book) => (
+              <a class="book animated fadeIn" href={book.link} target="_blank" rel="sponsored noopener" title={book.title}>
+                <span class="book-cover" style={`background-image: url(${/^https?:/.test(book.image) ? book.image : asset(book.image)})`}></span>
+                <span class="book-title">{book.title}</span>
+              </a>
+            ))}
+          </div>
+          {/* Required by the Amazon Associates program (see "Books" in documentation/data.md). */}
+          <p class="books-disclosure">As an Amazon Associate, {SITE_NAME} earns from qualifying purchases.</p>
+        </div>
+      )}
     </div>
   ) : (
     <div class="music-cover animated fadeInDown">

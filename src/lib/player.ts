@@ -8,6 +8,7 @@
  */
 import { navigate, swapFunctions } from 'astro:transitions/client';
 import { trackEvent, trackPageview } from './analytics';
+import { QUOTES_URL, wikiquoteUrl, type SpeakerQuotes } from './quotes';
 import { speakers, music, defaults, genreAliases, firstVideo, hasVideos, asset, speakerUrl, genreUrl, formatDuration } from './data';
 // Video lengths (npm run fetch-durations) for the full-screen list; ~3 KB gzipped.
 import durationsJson from '../environments/durations.environment.json';
@@ -207,6 +208,7 @@ function render() {
   }
 
   renderQueue();
+  renderNowQuote();
 
   document.querySelectorAll<HTMLElement>('[data-play]').forEach((row) => {
     const id = row.dataset.play;
@@ -554,7 +556,11 @@ function markActiveLink() {
   });
 }
 
-/** Show "Read more" only for bios that are actually cut off by the line clamp. */
+/**
+ * "Read more" is rendered visible (every bio is longer than the 4-line clamp at full
+ * width); hide it for bios that aren't cut off. Hidden keeps its line (Songs.scss), so
+ * this never shifts the page.
+ */
 function setupBioToggles() {
   document.querySelectorAll<HTMLElement>('[data-page] .about').forEach((about) => {
     const text = about.querySelector<HTMLElement>('p');
@@ -594,19 +600,85 @@ function pageBooks(button: HTMLElement) {
   updateBookPagers();
 }
 
-/** Book covers are shuffled on every view, like the React app did. */
-function shuffleBooks() {
-  document.querySelectorAll<HTMLElement>('[data-shuffle]').forEach((list) => {
-    const items = Array.from(list.children);
-    for (let i = items.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [items[i], items[j]] = [items[j], items[i]];
-    }
-    items.forEach((item, i) => {
-      (item as HTMLElement).style.animationDelay = `${i * 100}ms`;
-      list.append(item);
-    });
+// --- Quotes -------------------------------------------------------------------
+
+/** Speaker page (Songs.astro renders every quote, stacked and hidden): show a random one. */
+function setupQuotes() {
+  document.querySelectorAll<HTMLElement>('[data-page] [data-quotes]').forEach((figure) => {
+    const count = figure.querySelectorAll('[data-quote]').length;
+    showQuote(figure, Math.floor(Math.random() * count));
   });
+}
+
+function showQuote(figure: HTMLElement, index: number) {
+  const slides = figure.querySelectorAll<HTMLElement>('[data-quote]');
+  const i = ((index % slides.length) + slides.length) % slides.length;
+  slides.forEach((slide, n) => (slide.hidden = n !== i));
+  figure.dataset.index = String(i);
+}
+
+/**
+ * Full-screen player: a quote by the playing lecture's speaker under the video,
+ * changing every QUOTE_SECONDS. The quotes are fetched from /quotes.json the first time
+ * the player opens (kept out of this bundle).
+ */
+const QUOTE_SECONDS = 40;
+let quotesData: Record<string, SpeakerQuotes> | null = null;
+let quotesLoading: Promise<void> | null = null;
+let nowQuote = { speaker: '', index: 0 };
+let quoteTimer = 0;
+
+function loadQuotes() {
+  quotesLoading ??= fetch(QUOTES_URL)
+    .then((res) => (res.ok ? res.json() : {}))
+    .catch(() => ({}))
+    .then((data) => {
+      quotesData = data;
+    });
+  return quotesLoading;
+}
+
+function renderNowQuote(advance = false) {
+  const figure = document.querySelector<HTMLElement>('[data-now-quote]');
+  const player = document.querySelector<HTMLElement>('.Player');
+  if (!figure || !player) return;
+  const hide = () => {
+    figure.hidden = true;
+    delete figure.dataset.key;
+    player.classList.remove('with-quote');
+    window.clearInterval(quoteTimer);
+    quoteTimer = 0;
+  };
+  if (!expanded) return hide();
+  if (!quotesData) {
+    void loadQuotes().then(() => expanded && renderNowQuote());
+    return;
+  }
+  const entry = quotesData[state.speaker];
+  if (!entry?.quotes.length) return hide();
+  const count = entry.quotes.length;
+  if (nowQuote.speaker !== state.speaker) nowQuote = { speaker: state.speaker, index: Math.floor(Math.random() * count) };
+  else if (advance) nowQuote.index = (nowQuote.index + 1) % count;
+  const key = `${state.speaker}:${nowQuote.index}`;
+  if (!quoteTimer) quoteTimer = window.setInterval(() => renderNowQuote(true), QUOTE_SECONDS * 1000);
+  // render() runs on every play/pause; only touch the DOM when the quote changes.
+  if (figure.dataset.key === key) return;
+  figure.dataset.key = key;
+  const quote = entry.quotes[nowQuote.index];
+  const set = (selector: string, text: string) => {
+    const el = figure.querySelector<HTMLElement>(selector);
+    if (el) el.textContent = text;
+  };
+  set('[data-now-quote-text]', quote.excerpt ? `${quote.text} …` : quote.text);
+  set('[data-now-quote-source]', `${speakers[state.speaker].name}, ${quote.source}`);
+  figure.querySelector<HTMLAnchorElement>('[data-now-quote-credit]')?.setAttribute('href', wikiquoteUrl(entry.page));
+  figure.classList.toggle('long', quote.text.length > 150);
+  figure.hidden = false;
+  player.classList.add('with-quote');
+  // Restart the fade-in.
+  figure.classList.remove('fade');
+  void figure.offsetWidth;
+  figure.classList.add('fade');
 }
 
 // --- Playback ---------------------------------------------------------------
@@ -942,9 +1014,9 @@ function installSwap() {
 
   document.addEventListener('astro:page-load', () => {
     trackPageview();
-    shuffleBooks();
     markActiveLink();
     setupBioToggles();
+    setupQuotes();
     updateBookPagers();
     followPage();
     render();
@@ -1018,6 +1090,14 @@ function activate(target: HTMLElement) {
   const booksPage = target.closest<HTMLElement>('[data-books-page]');
   if (booksPage) {
     pageBooks(booksPage);
+    return true;
+  }
+
+  // Speaker page quote: previous/next.
+  const quoteStep = target.closest<HTMLElement>('[data-quote-step]');
+  if (quoteStep) {
+    const figure = quoteStep.closest<HTMLElement>('[data-quotes]');
+    if (figure) showQuote(figure, Number(figure.dataset.index ?? 0) + Number(quoteStep.dataset.quoteStep));
     return true;
   }
 

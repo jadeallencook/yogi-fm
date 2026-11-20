@@ -553,7 +553,8 @@ div.Player div.controls button.expand {
     }
 }
 
-div.Player aside.queue {
+div.Player aside.queue,
+div.Player figure.now-quote {
     display: none;
 }
 
@@ -573,11 +574,83 @@ div.Player.expanded {
     --music-h: calc(var(--side) * 9 / 16);
     /* Main column; the lecture video fits it, and the viewport height minus the controls. */
     --main: calc(100vw - 200px - var(--side) - #{$pad * 3});
-    --lw: min(var(--main), calc((100vh - 230px) * 16 / 9));
+    /* Room under the marquee for the speaker quote (.with-quote, set by player.ts). */
+    --quote-h: 0px;
+    --lw: min(var(--main), calc((100vh - 230px - var(--quote-h)) * 16 / 9));
     --lh: calc(var(--lw) * 9 / 16);
     --left: calc(#{$pad} + (var(--main) - var(--lw)) / 2);
-    /* Video + controls + marquee (~110px) are centered vertically. */
-    --top: max(#{$pad}, calc((100vh - var(--lh) - 150px) / 2));
+    /* Video + controls + marquee (~110px) + quote are centered vertically. */
+    --top: max(#{$pad}, calc((100vh - var(--lh) - 150px - var(--quote-h)) / 2));
+
+    &.with-quote {
+        --quote-h: 130px;
+    }
+
+    /* The playing speaker's quote, centered under the marquee; fades in on each change. */
+    figure.now-quote:not([hidden]) {
+        display: block;
+        position: absolute;
+        top: calc(var(--top) + var(--lh) + 182px);
+        left: var(--left);
+        width: var(--lw);
+        margin: 0;
+        text-align: center;
+
+        &.fade {
+            animation: now-quote-in 1.2s ease both;
+        }
+
+        blockquote {
+            max-width: 46em;
+            margin: 0 auto;
+
+            p {
+                margin: 0;
+                font-size: 1.05em;
+                font-weight: 300;
+                line-height: 1.5;
+                color: #e6e6e6;
+
+                &::before {
+                    content: '\201C';
+                }
+
+                &::after {
+                    content: '\201D';
+                }
+            }
+        }
+
+        &.long blockquote p {
+            font-size: 0.92em;
+        }
+
+        /* One line: long Wikiquote citations are cut off, the credit link never is. */
+        figcaption {
+            display: flex;
+            justify-content: center;
+            gap: 0.35em;
+            margin-top: 8px;
+            font-size: 0.72em;
+            color: $extralightgrey;
+            white-space: nowrap;
+
+            span {
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            a {
+                flex-shrink: 0;
+                color: inherit;
+
+                &:hover {
+                    color: $white;
+                }
+            }
+        }
+    }
     /* Absolutely positioned children, not the desktop bar's grid. */
     display: block;
 
@@ -1256,5 +1329,21 @@ div.Player.expanded {
                 border-radius: 0px;
             }
         }
+    }
+}
+
+@keyframes now-quote-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    div.Player.expanded figure.now-quote.fade {
+        animation: none;
     }
 }

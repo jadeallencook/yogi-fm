@@ -1,5 +1,8 @@
 @use 'global' as *;
 
+/* Width of the speaker page's content (header, books, lecture list); see div.cover. */
+$content: 1100px;
+
 div.Songs {
     box-sizing: border-box;
     padding: 0px 0px 125px 200px;
@@ -18,13 +21,19 @@ div.Songs {
      * (player.ts), a clamped Wikipedia bio with "Read more", and the books. A blurred
      * copy of the portrait sits behind it.
      */
+    /*
+     * One content column for the whole page: the header, the books and the lecture list
+     * all start at 32px (the photo's edge) and end at 32px + $content (the list's line).
+     */
     >div.cover {
         position: relative;
         display: grid;
         width: 100%;
         grid-template-columns: 240px 1fr;
-        gap: 36px;
-        padding: 40px 32px 32px 32px;
+        column-gap: 36px;
+        row-gap: 0px;
+        /* Full width (so the blurred backdrop spans the page); the right padding keeps the content $content wide. */
+        padding: 40px max(32px, calc(100% - #{$content} - 32px)) 24px 32px;
         overflow: hidden;
         box-sizing: border-box;
 
@@ -166,8 +175,10 @@ div.Songs {
                     text-decoration: underline;
                 }
 
+                /* Hidden by player.ts when the bio isn't cut off; keeps its line so nothing shifts. */
                 &[hidden] {
-                    display: none;
+                    display: inline-block;
+                    visibility: hidden;
                 }
             }
 
@@ -185,8 +196,130 @@ div.Songs {
             }
         }
 
+        /* Round arrow buttons: the books pager and the quote pager. */
+        span.pager {
+            display: inline-flex;
+            gap: 8px;
+
+            button {
+                width: 30px;
+                height: 30px;
+                padding: 0px;
+                border: none;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.1);
+                color: $white;
+                font-size: 0.7em;
+                cursor: pointer;
+                transition: background-color 0.15s ease, transform 0.15s ease;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.2);
+                }
+
+                &:active {
+                    transform: scale(0.92);
+                }
+
+                &:focus {
+                    outline: none;
+                }
+
+                &:focus-visible {
+                    outline: 2px solid $blue;
+                    outline-offset: 2px;
+                }
+
+                &[hidden] {
+                    display: none;
+                }
+            }
+        }
+
+
+        /* Name/buttons/bio, then the quote under the bio (one column at every width). */
+        div.head {
+            display: grid;
+            grid-template-columns: minmax(0, 65ch);
+            row-gap: 24px;
+        }
+
+        /* One Wikiquote quote at a time (player.ts picks a random one; the arrows step). */
+        figure.quote {
+            position: relative;
+            margin: 0;
+            padding: 2px 0px 2px 18px;
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
+
+            /* Stacked: hidden quotes keep their space (visibility), so nothing shifts. */
+            div.slides {
+                display: grid;
+            }
+
+            div.slide {
+                grid-area: 1 / 1;
+                opacity: 1;
+                transform: none;
+                transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+
+                &[hidden] {
+                    display: block;
+                    visibility: hidden;
+                    opacity: 0;
+                    transform: translateY(4px);
+                }
+            }
+
+            blockquote {
+                margin: 0;
+
+                p {
+                    margin: 0;
+                    font-size: 1.12em;
+                    font-weight: 300;
+                    line-height: 1.5;
+                    color: #f0f0f0;
+                }
+            }
+
+            /* Long quotes a little smaller. */
+            div.slide.long blockquote p {
+                font-size: 1em;
+            }
+
+            figcaption {
+                margin-top: 8px;
+                font-size: 0.78em;
+                line-height: 1.4;
+                color: #9a9a9a;
+
+                &::before {
+                    content: '\2014\00A0';
+                }
+            }
+
+            div.foot {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-top: 12px;
+
+                a.credit {
+                    font-size: 0.72em;
+                    color: $extralightgrey;
+
+                    &:hover {
+                        color: $white;
+                    }
+                }
+            }
+        }
+
+        /* Under the header, across both columns (photo edge to the list's right edge). */
         div.books-section {
-            margin-top: 26px;
+            grid-column: 1 / -1;
+            min-width: 0;
+            margin-top: 32px;
 
             p.books-disclosure {
                 margin: 10px 0 0 0;
@@ -194,52 +327,15 @@ div.Songs {
                 color: #8a8a8a;
             }
 
+            /* As tall as the pager buttons, which only appear after player.ts measures the row. */
             div.books-head {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 gap: 12px;
+                min-height: 30px;
                 max-width: 100%;
                 margin-bottom: 12px;
-            }
-
-            span.pager {
-                display: inline-flex;
-                gap: 8px;
-
-                button {
-                    width: 30px;
-                    height: 30px;
-                    padding: 0px;
-                    border: none;
-                    border-radius: 50%;
-                    background-color: rgba(255, 255, 255, 0.1);
-                    color: $white;
-                    font-size: 0.7em;
-                    cursor: pointer;
-                    transition: background-color 0.15s ease, transform 0.15s ease;
-
-                    &:hover {
-                        background-color: rgba(255, 255, 255, 0.2);
-                    }
-
-                    &:active {
-                        transform: scale(0.92);
-                    }
-
-                    &:focus {
-                        outline: none;
-                    }
-
-                    &:focus-visible {
-                        outline: 2px solid $blue;
-                        outline-offset: 2px;
-                    }
-
-                    &[hidden] {
-                        display: none;
-                    }
-                }
             }
 
             /* Same style as the home page group titles. */
@@ -279,11 +375,14 @@ div.Songs {
                     transition: transform 0.2s ease, box-shadow 0.2s ease;
                 }
 
+                /* Always two lines tall, so the row's height doesn't depend on which books
+                   (one- or two-line titles) are on the current page. */
                 span.book-title {
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
                     -webkit-line-clamp: 2;
                     overflow: hidden;
+                    min-height: 2.7em;
                     margin-top: 8px;
                     font-size: 0.72em;
                     line-height: 1.35;
@@ -326,7 +425,7 @@ div.Songs {
         display: flex;
         align-items: baseline;
         gap: 10px;
-        max-width: 1100px;
+        max-width: $content;
         margin: 8px 32px 10px 32px;
         padding-bottom: 10px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.12);
@@ -345,8 +444,9 @@ div.Songs {
         }
     }
 
+    /* 20px margin + 12px row padding: titles and times line up with the head's 32px edges. */
     div.rows {
-        max-width: 1100px;
+        max-width: $content + 24px;
         margin: 0px 20px;
         counter-reset: song;
     }
@@ -513,25 +613,75 @@ div.Songs {
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    div.Songs > div.cover figure.quote div.slide {
+        transition: none;
+    }
+}
+
 @media only screen and (max-device-width: 480px) {
     div.Songs {
         padding: 50px 0px 125px 0px;
+        /*
+         * Phones: the wrappers (.bio, .head, .intro) get `display: contents`, so their
+         * children become cells of one grid:
+         *
+         *   [photo] [name ]
+         *   [photo] [years]
+         *   [ Play | Shuffle ]
+         *   [ bio (3 lines)  ]
+         *   [ quote          ]
+         *   [ books          ]
+         */
         >div.cover {
-            display: block;
-            padding: 20px 15px;
+            grid-template-columns: 84px minmax(0, 1fr);
+            grid-template-areas:
+                "image name"
+                "image years"
+                "actions actions"
+                "about about"
+                "quote quote"
+                "books books";
+            column-gap: 16px;
+            row-gap: 0px;
+            padding: 20px 16px 8px 16px;
+
+            div.bio,
+            div.head,
+            div.intro {
+                display: contents;
+            }
 
             div.image {
-                float: left;
-                width: 96px;
-                margin: 0px 15px 10px 0px;
+                grid-area: image;
+                align-self: center;
+                width: 84px;
+                border-radius: 8px;
             }
 
             div.bio h2 {
-                font-size: 1.8em;
+                grid-area: name;
+                align-self: end;
+                margin: 0px 0px 4px 0px;
+                font-size: 1.7em;
+            }
+
+            span.years {
+                grid-area: years;
+                align-self: start;
+                font-size: 0.85em;
             }
 
             div.actions {
-                margin-top: 12px;
+                grid-area: actions;
+                flex-wrap: nowrap;
+                margin-top: 18px;
+
+                button {
+                    flex: 1;
+                    justify-content: center;
+                    padding: 11px 16px;
+                }
 
                 /* The full-screen player is desktop only. */
                 button.expand {
@@ -540,8 +690,46 @@ div.Songs {
             }
 
             div.about {
-                clear: both;
-                padding-top: 10px;
+                grid-area: about;
+                max-width: none;
+                margin-top: 16px;
+
+                p {
+                    font-size: 0.9em;
+                    line-height: 1.6;
+                    -webkit-line-clamp: 3;
+                    line-clamp: 3;
+                }
+            }
+
+            figure.quote {
+                grid-area: quote;
+                margin-top: 22px;
+                padding: 2px 0px 2px 14px;
+
+                blockquote p,
+                div.slide.long blockquote p {
+                    font-size: 0.95em;
+                    line-height: 1.5;
+                }
+
+                figcaption {
+                    margin-top: 8px;
+                    font-size: 0.72em;
+                }
+
+                div.foot {
+                    margin-top: 10px;
+                }
+            }
+
+            span.pager button {
+                width: 28px;
+                height: 28px;
+            }
+
+            div.books-section {
+                grid-area: books;
             }
 
             div.books a.book {

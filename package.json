@@ -16,6 +16,7 @@
     "update": "npm run speakers && npm run music && echo \n",
     "check-videos": "node jobs/check-videos.mjs",
     "fetch-bios": "node jobs/fetch-bios.mjs",
+    "fetch-quotes": "node jobs/fetch-quotes.mjs",
     "fetch-portraits": "node jobs/fetch-portraits.mjs",
     "fetch-durations": "node jobs/fetch-durations.mjs"
   },

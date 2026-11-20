@@ -14,6 +14,7 @@ Yogi FM (yogifm.com) collects YouTube lectures from spiritual speakers (Alan Wat
 - `npm run fetch-portraits`: fills in missing speaker photos from freely licensed Wikimedia Commons images, with credit (see `documentation/data.md`).
 - `npm run fetch-durations`: saves every video's length to `durations.environment.json` (YouTube Data API; needs `YOUTUBE_API_KEY` in the git-ignored `.env`). See `documentation/data.md`.
 - `python3 -I jobs/make-og-images.py`: regenerates the link-preview cards in `public/og/` (local only, Pillow; re-run after adding speakers/genres). See "Link previews" in `documentation/architecture.md`.
+- `npm run fetch-quotes`: refreshes quote candidates from Wikiquote and rebuilds `quotes.environment.json` from the hand-picked `jobs/quotes/picks.json` (never quotes from memory: most popular quotes are misattributed). See `documentation/data.md`.
 - `npm run fetch-bios`: refreshes speaker bios from Wikipedia (uses each speaker's `wikipedia` title; `-- --dry-run --show` to preview). See `documentation/data.md`.
 - `npm run update`: YouTube scraper jobs. **Don't run them.** They're broken and overwrite data; see `documentation/data.md`.
 

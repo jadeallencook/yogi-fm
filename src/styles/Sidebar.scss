@@ -265,8 +265,19 @@ div.Sidebar {
     }
 }
 
+/* Desktop: the sidebar is always open. */
+div.Sidebar button.menu-toggle {
+    display: none;
+}
+
 @media only screen and (max-device-width: 480px) {
     div.Sidebar {
+        /* No slide-in from the left for the top bar (animate.css's slideInLeft is desktop only).
+           Before .menu-open below, which has the same specificity and sets its own animation. */
+        &.slideInLeft {
+            animation-name: none;
+        }
+
         height: 50px;
         padding: 0px 15px;
         width: 100%;
@@ -278,5 +289,131 @@ div.Sidebar {
             padding: 0px;
             margin: 10px 0px;
         }
+
+        /* No music on phones (one YouTube video with sound at a time), so no genre links. */
+        span.title[data-side-music],
+        .link[data-side-genre] {
+            display: none;
+        }
+
+        /* Top-right menu button (Sidebar.astro opens/closes .menu-open). */
+        button.menu-toggle {
+            display: block;
+            position: absolute;
+            top: 3px;
+            right: 6px;
+            width: 44px;
+            height: 44px;
+            padding: 0px;
+            border: none;
+            background: none;
+            color: $white;
+            font-size: 1.3em;
+            cursor: pointer;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid $blue;
+                outline-offset: -4px;
+                border-radius: 8px;
+            }
+        }
+
+        /*
+         * Open: the whole sidebar (Home, Random, every speaker and genre, Support) as a
+         * full-screen menu over the page and the player bar. The bar stays put at the top.
+         */
+        &.menu-open {
+            position: fixed;
+            inset: 0px;
+            z-index: 10001;
+            height: auto;
+            padding: 0px 15px calc(30px + env(safe-area-inset-bottom)) 15px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            animation: menu-in 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+            button.menu-toggle {
+                position: fixed;
+                z-index: 2;
+            }
+
+            /* The bar (logo + ✕) stays pinned while the list scrolls under it, so the top
+               50px always look like the closed bar (the animations reveal from below it). */
+            h2 {
+                position: sticky;
+                top: 0px;
+                z-index: 1;
+                margin: 0px -15px;
+                padding: 10px 15px;
+                background-color: $darkgrey;
+            }
+
+            nav.primary {
+                margin-top: 8px;
+            }
+
+            span.title {
+                margin-top: 22px;
+            }
+
+            /* Bigger tap targets than the desktop list. */
+            .link {
+                padding: 11px 8px;
+                font-size: 1.05em;
+            }
+
+            div.bottom {
+                margin-top: 24px;
+                box-shadow: none;
+                background: none;
+            }
+        }
+
+        /* Closing: folds back up into the bar, then the script removes .menu-open (200ms). */
+        &.menu-open.menu-closing {
+            animation: menu-out 0.2s cubic-bezier(0.4, 0, 1, 1) both;
+            pointer-events: none;
+        }
+    }
+
+    /* No page scroll behind the open menu. */
+    html.menu-lock,
+    html.menu-lock body {
+        overflow: hidden;
+    }
+}
+
+/*
+ * The menu unfolds downward from the 50px bar and folds back into it. Only a clip-path
+ * animates (never opacity), so the bar itself never fades or blinks.
+ */
+@keyframes menu-in {
+    from {
+        clip-path: inset(0px 0px calc(100% - 50px) 0px);
+    }
+
+    to {
+        clip-path: inset(0px 0px 0px 0px);
+    }
+}
+
+@keyframes menu-out {
+    from {
+        clip-path: inset(0px 0px 0px 0px);
+    }
+
+    to {
+        clip-path: inset(0px 0px calc(100% - 50px) 0px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    div.Sidebar.menu-open,
+    div.Sidebar.menu-open.menu-closing {
+        animation: none;
     }
 }
