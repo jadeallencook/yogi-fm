@@ -85,7 +85,7 @@ The user's own Alan Watts titles are the reference ("Zen & Meditation", "You Are
 - **When the topic alone isn't unique**, keep the minimum to tell them apart, e.g. Krishnamurti's untitled Q&As: "Saanen Q&A 2 (1985)", or a truncated title replaced by its series and part ("The Transformation of Man, Pt. 4"). Many of the official Krishnamurti YouTube titles are truncated ("…") at the source, so the full subtitle isn't available.
 - A video listed under several speakers (e.g. `GXR7fQZi_VA`, the 1990 Maryland lecture) gets a per-speaker title naming the *other* speakers.
 
-The Nov 2026 cleanup changed 243 titles across all speakers; the old titles are in `jobs/title-backups/2026-11-18-title-cleanup.json` (`{ slug: { videoId: oldTitle } }`).
+The Nov 2026 cleanup changed 243 titles across all speakers; the old titles are in `jobs/title-backups/2026-11-18-title-cleanup.json` (`{ slug: { videoId: oldTitle } }`). Music track titles follow the same Title Case (2026-11-20: 25 tracks fixed, including "Hip Hop"/"HipHop" → "Hip-Hop" to match the genre name and the typo "Chantiing"; old titles in `jobs/title-backups/2026-11-20-music-capitalization.json`). Foreign-language titles keep their own capitalization ("Prélude à l'après-midi d'un faune"). 2026-11-20: 42 Sadhguru lectures were added by the user; 20 Sadhguru titles fixed (capitalization, plus a missing "?" on question titles), old ones in `jobs/title-backups/2026-11-20-sadhguru-capitalization.json`. Short verbs and "Is"/"Be" are capitalized ("What Is God?", "Learn to Be Alone"); a final preposition is too ("Which One to Listen To?").
 
 ### Duplicates
 
