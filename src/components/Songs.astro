@@ -6,6 +6,7 @@ import { asset, wikipediaUrl, formatYears, formatDuration, findDuplicateTitles, 
 // used at build time and don't add to the player's client bundle.
 import durations from '../environments/durations.environment.json';
 import { EDIT_MODE } from '../lib/edit-mode';
+import { SITE_NAME } from '../lib/site';
 
 type Props =
   | { kind: 'lecture'; slug: string; collection: Speaker }
@@ -112,12 +113,14 @@ const duplicateIds = new Set(
             </div>
             <div class="books" data-shuffle>
               {props.collection.books.map((book) => (
-                <a class="book animated fadeIn" href={book.link} target="_blank" rel="noopener noreferrer" title={book.title}>
-                  <span class="book-cover" style={`background-image: url(${book.image})`}></span>
+                <a class="book animated fadeIn" href={book.link} target="_blank" rel="sponsored noopener" title={book.title}>
+                  <span class="book-cover" style={`background-image: url(${/^https?:/.test(book.image) ? book.image : asset(book.image)})`}></span>
                   <span class="book-title">{book.title}</span>
                 </a>
               ))}
             </div>
+            {/* Required by the Amazon Associates program (see "Books" in documentation/data.md). */}
+            <p class="books-disclosure">As an Amazon Associate, {SITE_NAME} earns from qualifying purchases.</p>
           </div>
         )}
       </div>

@@ -1,0 +1,464 @@
+{
+ "alan-watts": [
+  {
+   "link": "https://www.amazon.com/gp/product/0307741206/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0307741206&linkId=8933b5f69c063b78e0229b5b64b8147d",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41NH-KT4y-L._SL160_.jpg",
+   "title": "The Wisdom of Insecurity: A Message for an Age of Anxiety"
+  },
+  {
+   "link": "https://www.amazon.com/dp/0679723005?tag=jadeallencook-20",
+   "image": "https://m.media-amazon.com/images/P/0679723005.01._SCLZZZZZZZ_SL300_.jpg",
+   "title": "The Book: On the Taboo Against Knowing Who You Are"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0375705104/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0375705104&linkId=abcd1113e45db600c067ab7994c89619",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/418tTqkIxGL._SL160_.jpg",
+   "title": "The Way of Zen"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1608684156/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1608684156&linkId=10b84892b4c480266119a8a93daf9393",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51iLdPavT6L._SL160_.jpg",
+   "title": "The Collected Letters of Alan Watts"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0679732330/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0679732330&linkId=1eca357e7e443eeef6dbf1819d75958a",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51g8aAyKKcL._SL160_.jpg",
+   "title": "Nature, Man and Woman"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0394733118/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0394733118&linkId=f6b496bcec321c9d038800f05c29eeee",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51ws6KXf2GL._SL160_.jpg",
+   "title": "Tao: The Watercourse Way"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0394719042/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0394719042&linkId=7a79bfb5555e11eb85ea8d08f057decc",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/519FQGhDteL._SL160_.jpg",
+   "title": "This Is It: and Other Essays on Zen and Spiritual Experience"
+  }
+ ],
+ "aldous-huxley": [
+  {
+   "link": "https://www.amazon.com/gp/product/0061729078/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0061729078&linkId=053e5b9b3c002e91718eebc6586f08b1",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/61ybO4ucZvL._SL160_.jpg",
+   "title": "The Doors of Perception and Heaven and Hell"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0060850523/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0060850523&linkId=85e37ccf6e2160bd5f6cf59489b9058a",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41l%2B4UobkRL._SL160_.jpg",
+   "title": "Brave New World"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0061724947/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0061724947&linkId=1a489e7e43116ea5c529779cb6be39fe",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51NRX%2BDrMdL._SL160_.jpg",
+   "title": "The Perennial Philosophy"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0060776099/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0060776099&linkId=036f9407091300e9df3a9f3f8aa7b52c",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51T%2BOO-pBRL._SL160_.jpg",
+   "title": "Brave New World and Brave New World Revisited"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0061724912/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0061724912&linkId=f3dd097ccdd3e49eacde5e7f969bfe37",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41xbZHHnDWL._SL160_.jpg",
+   "title": "The Devils of Loudun"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0892817585/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0892817585&linkId=d5066528cbd9d5bb9bcf9625d02dc216",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51v0jOcJnwL._SL160_.jpg",
+   "title": "Moksha: Aldous Huxley's Classic Writings on Psychedelics and the Visionary Experience"
+  }
+ ],
+ "bruce-lee": [
+  {
+   "link": "https://www.amazon.com/gp/product/0897502027/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0897502027&linkId=d333bce763aa6d5da9271f8be12207a2",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41El1qUI73L._SL160_.jpg",
+   "title": "Tao of Jeet Kune Do: New Expanded Edition"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1501187627/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1501187627&linkId=f2cc78a54b9c94e3ff2cc3a5761aaf08",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51YwkeaJFTL._SL160_.jpg",
+   "title": "Bruce Lee: A Life"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0897501705/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0897501705&linkId=15455c1318353575357a315279507306",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41iCQgcKFFL._SL160_.jpg",
+   "title": "Bruce Lee's Fighting Method: The Complete Edition"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0804834717/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0804834717&linkId=5960af96b2a1ad602b7d95d2c796ae10",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41H5l6gsO%2BL._SL160_.jpg",
+   "title": "Bruce Lee Striking Thoughts: Bruce Lee's Wisdom for Daily Living (Bruce Lee Library)"
+  }
+ ],
+ "buckminster-fuller": [
+  {
+   "link": "https://www.amazon.com/gp/product/3037781262/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=3037781262&linkId=a6331a9a3ad5108df41979ca11a9dfc7",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/513v81mSPnL._SL160_.jpg",
+   "title": "Operating Manual for Spaceship Earth"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/061518314X/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=061518314X&linkId=73d72d3fd28b00287d63279e5f69b63f",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51QWcLjhJUL._SL160_.jpg",
+   "title": "A Fuller Explanation: The Synergetic Geometry of R Buckminster Fuller"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0312174918/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0312174918&linkId=dfbf944de8d4e210de6dc11027ea306b",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51gK94aTO2L._SL160_.jpg",
+   "title": "Critical Path"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0020653204/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0020653204&linkId=8fb1ef8ec225e6a6e241fdefb2071feb",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51dGingNSrL._SL160_.jpg",
+   "title": "Synergetics: Explorations in the Geometry of Thinking"
+  }
+ ],
+ "eckhart-tolle": [
+  {
+   "link": "https://www.amazon.com/gp/product/157731400X/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=157731400X&linkId=f5fec8cb617924c9293c76bc2c893d19",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51cgPkIVGJL._SL160_.jpg",
+   "title": "Stillness Speaks"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/B000PC0S5K/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=B000PC0S5K&linkId=6418dcffe810f681c1af9b8860da2888",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51v1gTD5hbL._SL160_.jpg",
+   "title": "A New Earth (Oprah #61): Awakening to Your Life's Purpose"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1577314808/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1577314808&linkId=05d7b0efada907268962908c803d5c0e",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41WIbflfG2L._SL160_.jpg",
+   "title": "The Power of Now: A Guide to Spiritual Enlightenment"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0452296080/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0452296080&linkId=0be8cb9d7970859d0dccc99f59894701",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51XvdhuVIVL._SL160_.jpg",
+   "title": "Oneness with All Life: Inspirational Selections from A New Earth"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1577311957/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1577311957&linkId=1ee71aa9aefb2d430c7367e4cd3e9cb5",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41TDvcvc5RL._SL160_.jpg",
+   "title": "Practicing the Power of Now: Essential Teachings, Meditations, and Exercises From The Power of Now"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1577316517/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1577316517&linkId=e8129fb0c94ade38ecbb855f70ea0db4",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41EIC0htXuL._SL160_.jpg",
+   "title": "A New Earth Inspiration Deck: Awakening to Your Life's Purpose"
+  }
+ ],
+ "joseph-campbell": [
+  {
+   "link": "https://www.amazon.com/gp/product/1577315936/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1577315936&linkId=9807b0d66c6beb79f1772aab62a705f6",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51VeJN9ikML._SL160_.jpg",
+   "title": "The Hero with a Thousand Faces (The Collected Works of Joseph Campbell)"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0385418868/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0385418868&linkId=dc881cebe2bebc0190734240ed2454c5",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51uiMoC2zBL._SL160_.jpg",
+   "title": "The Power of Myth"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1577314719/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1577314719&linkId=0b0fe8fc0790a5f0ff77bb2af86d2e84",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51DaQBZLfML._SL160_.jpg",
+   "title": "Pathways to Bliss: Mythology and Personal Transformation"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1608681823/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1608681823&linkId=6e26329214a40ea026d7d4cec92249c7",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51%2BYZTFfDHL._SL160_.jpg",
+   "title": "Goddesses: Mysteries of the Feminine Divine (Collected Works of Joseph Campbell)"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0140194436/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0140194436&linkId=0c3ade79810e5d7333436349d0f228c3",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51yYKUnu0TL._SL160_.jpg",
+   "title": "Primitive Mythology (The Masks of God)"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0140194614/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0140194614&linkId=312c611efc9c44476ee09a6ca31c6095",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41n-zTHeQEL._SL160_.jpg",
+   "title": "Myths to Live By"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1608683257/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1608683257&linkId=bb62996e10264d4e7e523c21c94b49e4",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51aeTrLkvwL._SL160_.jpg",
+   "title": "Correspondence: 1927–1987 (The Collected Works of Joseph Campbell)"
+  }
+ ],
+ "kim-eng": [
+  {
+   "link": "https://www.amazon.com/gp/product/1591798124/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1591798124&linkId=74c9ebd404ac53ef48a1cb9294882d41",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51PSOoPeHsL._SL160_.jpg",
+   "title": "Presence Through Movement: Yin Yoga"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1591797039/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1591797039&linkId=999eba7cbf6c4485536c13935387db41",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51Qegi67SQL._SL160_.jpg",
+   "title": "Qi Flow Yoga"
+  }
+ ],
+ "krishnamurti": [
+  {
+   "link": "https://www.amazon.com/gp/product/0060648082/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0060648082&linkId=d19d4ad632d962ce6a96f99c13b6cd24",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51QAOKrFoVL._SL160_.jpg",
+   "title": "Freedom from the Known"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/B003SE7ZGW/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=B003SE7ZGW&linkId=a52c6ab748c5cbf3f45892f24e0cc163",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51mZlh1-euL._SL160_.jpg",
+   "title": "The Book of Life: Daily Meditations with Krishnamurti"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0060648805/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0060648805&linkId=b16033a3a41191b1234df59067acc462",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41Yu9slMgdL._SL160_.jpg",
+   "title": "Total Freedom: The Essential Krishnamurti"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0060916095/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0060916095&linkId=5ce8e5bffa90844753dbb63cefa8c960",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41HIB%2BytmlL._SL160_.jpg",
+   "title": "Think on These Things"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0060648341/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0060648341&linkId=3fc43708dbba9e1827b3b3385502867d",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51p71tRTJ8L._SL160_.jpg",
+   "title": "The Awakening of Intelligence"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1890772623/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1890772623&linkId=3f9ca47d756847970278adc83942bfe7",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41VoxLU%2BOlL._SL160_.jpg",
+   "title": "As One Is: To Free the Mind from All Conditioning"
+  }
+ ],
+ "mr-rogers": [
+  {
+   "link": "https://www.amazon.com/gp/product/B07FCQ2T9K/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=B07FCQ2T9K&linkId=bc5b9a2c8f6d51e2b3d4b340eedd416a",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51xAunMP-fL._SL160_.jpg",
+   "title": "Won't You Be My Neighbor?"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/B00E97HL4I/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=B00E97HL4I&linkId=0a3cf58ce20013730ffa447228aa3c48",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/514BupdN8OL._SL160_.jpg",
+   "title": "Mister Rogers & Me"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1419727729/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1419727729&linkId=d787b95ee0f6f4f8a6abdd0d3867f53c",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/511e%2BkrN%2BdL._SL160_.jpg",
+   "title": "The Good Neighbor: The Life and Work of Fred Rogers"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1401301061/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1401301061&linkId=a0e02a969a4ed1e463fbd57ff0ef25bc",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41rW3Jc2PCL._SL160_.jpg",
+   "title": "The World According to Mister Rogers: Important Things to Remember"
+  }
+ ],
+ "osho": [
+  {
+   "link": "https://www.amazon.com/gp/product/0312291620/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0312291620&linkId=dc766b274053ecd7397b338d301eec13",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/31TawNJsSJL._SL160_.jpg",
+   "title": "Love, Freedom, Aloneness: The Koan of Relationships"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0312205171/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0312205171&linkId=02f0d51f60ca697eb6a221e4bc1e2763",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51HJ6xKkNdL._SL160_.jpg",
+   "title": "Courage: The Joy of Living Dangerously"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0312650604/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0312650604&linkId=d6f89137438fd65871b912553e1dbe5b",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41GTv%2B7%2B7vL._SL160_.jpg",
+   "title": "The Book of Secrets: 112 Meditations to Discover the Mystery Within"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0307337901/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0307337901&linkId=8e5274fd983e94233cc847ca8f40dd0a",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/31yjpttOUDL._SL160_.jpg",
+   "title": "Being in Love: How to Love with Awareness and Relate Without Fear"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1938755928/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1938755928&linkId=8249a226059f4804320bc209ea20b1fa",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41wl2jwqZGL._SL160_.jpg",
+   "title": "Emotions: Freedom from Anger, Jealousy and Fear"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0312205198/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0312205198&linkId=1739083637449c32940d32ec93789e7a",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51hEG82Fi%2BL._SL160_.jpg",
+   "title": "Creativity: Unleashing the Forces Within (Osho Insights for a New Way of Living)"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0312275668/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0312275668&linkId=34a8f874f8871e22110b8e8a62ef18ea",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51XUiVvZmNL._SL160_.jpg",
+   "title": "Intimacy: Trusting Oneself and the Other"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0312275676/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0312275676&linkId=6a26e2573c2b8624fb0cf8a4d6982653",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51K3JTahMlL._SL160_.jpg",
+   "title": "Intuition: Knowing Beyond Logic"
+  }
+ ],
+ "ram-dass": [
+  {
+   "link": "https://www.amazon.com/gp/product/0517543052/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0517543052&linkId=8fceadbc0771d3ae704be8e8e2ef6fe8",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/61ZGMBIiIiL._SL160_.jpg",
+   "title": "Be Here Now"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1622033809/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1622033809&linkId=8faed6241e15e8a88ca170f9011d25ed",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41920-JTIDL._SL160_.jpg",
+   "title": "Polishing the Mirror: How to Live from Your Spiritual Heart"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0061961388/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0061961388&linkId=ca85700cfbb669f769a2a020293a6c72",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/616HPL2EtrL._SL160_.jpg",
+   "title": "Be Love Now: The Path of the Heart"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1573228710/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1573228710&linkId=69701c6ebacd195a042483b74c5371c2",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/515RoTd5k%2BL._SL160_.jpg",
+   "title": "Still Here: Embracing Aging, Changing, and Dying"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1400054036/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1400054036&linkId=024158e9eb7329777a444677b319f04b",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51q%2BF0c0UCL._SL160_.jpg",
+   "title": "Paths to God: Living the Bhagavad Gita"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0553285726/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0553285726&linkId=16be62100680d9669bf7903db829997b",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51r3jASMzQL._SL160_.jpg",
+   "title": "Journey of Awakening: A Meditator's Guidebook"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1887474005/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1887474005&linkId=8cffc30e5cf84998a61a9c1ff9739279",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41A6pITRC0L._SL160_.jpg",
+   "title": "Miracle of Love"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0394729471/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0394729471&linkId=5edec01ba48dec9e59f4a6728fa3f102",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41ONhk1R1sL._SL160_.jpg",
+   "title": "How Can I Help?: Stories and Reflections on Service"
+  }
+ ],
+ "sadhguru": [
+  {
+   "link": "https://www.amazon.com/gp/product/0812997794/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0812997794&linkId=8f95796df43f56e22c93a3ad0e0e5e3e",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51H8icODg5L._SL160_.jpg",
+   "title": "Inner Engineering: A Yogi's Guide to Joy"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/9352643925/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=9352643925&linkId=fdc5e2d1735ab424f9ad1236265b6276",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51P3BqJ5fFL._SL160_.jpg",
+   "title": "Adiyogi: The Source of Yoga"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0143421123/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0143421123&linkId=e600ef3178d5dccfbcb8f04ab0b6e11a",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51WNPe-6mpL._SL160_.jpg",
+   "title": "Sadhguru: More Than a Life"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/B073T1G8TP/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=B073T1G8TP&linkId=163a1dc372611544c13a42047d7b70e4",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41pfGxsr8gL._SL160_.jpg",
+   "title": "Don't Polish Your Ignorance"
+  }
+ ],
+ "terence-mckenna": [
+  {
+   "link": "https://www.amazon.com/gp/product/0553371304/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0553371304&linkId=7acc44da3930b62c4b5155ea998f5f1d",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51OjtMiKQTL._SL160_.jpg",
+   "title": "Food of the Gods: The Search for the Original Tree of Knowledge A Radical History of Plants, Drugs, and Human Evolution"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0062506528/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0062506528&linkId=aa6f0a392dc7a6d85db0cc559b67be66",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51agJrTf3EL._SL160_.jpg",
+   "title": "True Hallucinations: Being an Account of the Author's Extraordinary Adventures in the Devil's Paradise"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0062506137/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0062506137&linkId=9984a9123c1a51f9de62d65ba797c713",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/518YInJpIoL._SL160_.jpg",
+   "title": "The Archaic Revival: Speculations on Psychedelic Mushrooms, the Amazon, Virtual Reality, UFOs, Evolution, Shamanism, the Rebirth of the Goddess, and the End of History"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/B07664TWY8/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=B07664TWY8&linkId=13e8dc0d5b7fdd344e8527f646cd01a9",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51t8wSEqBdL._SL160_.jpg",
+   "title": "Terence McKenna - Seeking the Stone - Mind and Time, Spirit and Matter"
+  }
+ ],
+ "thich": [
+  {
+   "link": "https://www.amazon.com/gp/product/0553351397/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0553351397&linkId=39aae6ec1b12d1932ff347f5ff12cdc3",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/411s9nKBjAL._SL160_.jpg",
+   "title": "Peace Is Every Step: The Path of Mindfulness in Everyday Life"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/B011G3HD6I/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=B011G3HD6I&linkId=2b601e0a91e92a188f2bf798c47133da",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51wAevM6%2B%2BL._SL160_.jpg",
+   "title": "The Heart of the Buddha's Teaching: Transforming Suffering into Peace, Joy, and Liberation"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0807012394/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0807012394&linkId=70bbe68c397a24cdc1ec86a572dc94fb",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/412TJCbqUCL._SL160_.jpg",
+   "title": "The Miracle of Mindfulness: An Introduction to the Practice of Meditation"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1937006859/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1937006859&linkId=7ccd19a29a76ea816479844681be27d4",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/519DTQt9IsL._SL160_.jpg",
+   "title": "No Mud, No Lotus: The Art of Transforming Suffering"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1590308387/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1590308387&linkId=1ef8f27b7b1b2d4f50feddb6bd435b41",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41z3HrsqVHL._SL160_.jpg",
+   "title": "You Are Here: Discovering the Magic of the Present Moment"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1937006883/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1937006883&linkId=8d00fe1c1f3a85a8c6441eb412dab22b",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41WMXR0VYlL._SL160_.jpg",
+   "title": "How to Love (Mindfulness Essentials)"
+  }
+ ],
+ "timothy-leary": [
+  {
+   "link": "https://www.amazon.com/gp/product/0806538570/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0806538570&linkId=c7a819cffd8de9506d39e0f464c67572",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51-9f2VzK%2BL._SL160_.jpg",
+   "title": "The Psychedelic Experience: A Manual Based on the Tibetan Book of the Dead"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1455563587/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1455563587&linkId=0111dee02b2ea72348c71329bc563981",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51-Gp-0yWiL._SL160_.jpg",
+   "title": "The Most Dangerous Man in America: Timothy Leary, Richard Nixon and the Hunt for the Fugitive King of LSD"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1579510094/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1579510094&linkId=e1e00ef4fd8f0c99b2bd501103f00bd3",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51RadZfi5bL._SL160_.jpg",
+   "title": "Turn On, Tune In, Drop Out"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/1561841056/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=1561841056&linkId=81aa4661b0a6dc1e8f1071eedda6c50c",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41FpZvfu2GL._SL160_.jpg",
+   "title": "Info-Psychology: A Manual for the Use of the Human Nervous System According to the Instructions of the Manufacturers, and a Navigational Guide for Piloting the Evolution of the Human Individual"
+  }
+ ],
+ "burroughs": [
+  {
+   "link": "https://www.amazon.com/gp/product/0802122078/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0802122078&linkId=f7eaa76237fcbe736886b7e4cbff8a10",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51s5Je-MYyL._SL160_.jpg",
+   "title": "Naked Lunch"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/B005OROOTW/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=B005OROOTW&linkId=bd42212d5a955f5c90339fb2292baba5",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51nTC92UTcL._SL160_.jpg",
+   "title": "William S. Burroughs: A Man Within"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0802120423/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0802120423&linkId=9b307552a337042635b7dcac9b66ad0b",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/616nbkV0aFL._SL160_.jpg",
+   "title": "Junky: The Definitive Text of \"Junk\""
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0814254896/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0814254896&linkId=3a71d3086000d10c8bb1d5a381f730d8",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/41tmEHSVz4L._SL160_.jpg",
+   "title": "William S. Burroughs' \"The Revised Boy Scout Manual\": An Electronic Revolution (Bulletin)"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0143117831/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0143117831&linkId=e16f494a2d65bff6a555956606d82030",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51r3bMtxwiL._SL160_.jpg",
+   "title": "Queer, 25th Anniversary Edition"
+  },
+  {
+   "link": "https://www.amazon.com/gp/product/0142000256/ref=as_li_qf_asin_il_tl?ie=UTF8&tag=yogifm-20&creative=9325&linkCode=as2&creativeASIN=0142000256&linkId=9130b72f096a17dfc5abb820f5bdefb7",
+   "image": "https://images-na.ssl-images-amazon.com/images/I/51GBqSVu6sL._SL160_.jpg",
+   "title": "The Cat Inside"
+  }
+ ]
+}

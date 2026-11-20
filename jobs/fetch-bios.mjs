@@ -7,8 +7,8 @@
 //   npm run fetch-bios -- --show       also print the bio text
 //
 // Each speaker's `wikipedia` field is the English Wikipedia article title (e.g.
-// "Jiddu Krishnamurti" for krishnamurti). Speakers without one are skipped, e.g.
-// Kim Eng, who has no article ("Kim Eng" redirects to an unrelated bank).
+// "Jiddu Krishnamurti" for krishnamurti). Speakers without one are skipped (e.g. the
+// former speaker Kim Eng, who had no article: "Kim Eng" redirects to an unrelated bank).
 //
 // Source: the article's plain-text lead section (MediaWiki action API, prop=extracts).
 // Text is CC BY-SA 4.0; the speaker page shows a credit linking to the article.

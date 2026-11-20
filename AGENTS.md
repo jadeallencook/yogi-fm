@@ -55,6 +55,7 @@ Read the relevant doc before working in an area, and keep it updated when things
 - No two videos in one list may share a title (case/punctuation ignored). Edit mode refuses it, `npm run build` fails on it, and the dev server shows it in the page instead of crashing (`findDuplicateTitles()` in `src/lib/data.ts`, `DevWarnings.astro`).
 - Home page groups (`featured.environment.json`) have exactly 3 speakers each, the most prominent ones, and no speaker in two groups; the build fails otherwise. Not every speaker is featured.
 - Lecture titles follow the user's Alan Watts style (Title Case, just the topic, no speaker name/years/"full lecture"); see "Lecture title style" in `documentation/data.md`.
+- Book links use the Amazon Associates tag `jadeallencook-20` in the clean form `https://www.amazon.com/dp/<ASIN>?tag=…`, with covers from Amazon by ASIN (`m.media-amazon.com/images/P/<ASIN>.01._SCLZZZZZZZ_SL300_.jpg`); see "Books" in `documentation/data.md`.
 - Adding a speaker: follow the checklist in `documentation/data.md` (portraits only from freely licensed Commons images, with credit).
 - Content lives in `src/environments/*.json`, keyed by slug. Key order is display order. YouTube playlists on the project's channel are the source of truth for the video lists.
 - Pin dependencies to exact versions. Prefer releases at least two weeks old, unless the user asks for a specific or the latest version.

@@ -19,7 +19,7 @@ Yogi FM (https://yogifm.com, tagline "Broadcasting Awareness") collects lectures
 - 16 speakers and about 360 lectures. Krishnamurti (97) and Alan Watts (58) have the most.
 - 8 music genres and about 44 tracks.
 - Every speaker has a curated YouTube playlist owned by the project's channel (playlist IDs start with `PLkj0Wb8QyEE…`). The playlists are the source of truth for the video lists.
-- Book links carry the Amazon Associates tag `yogifm-20`.
+- Book links carry the Amazon Associates tag `jadeallencook-20` (the old `yogifm-20` expired; all books were removed on 2026-11-19 and are being redone, see "Books" in `documentation/data.md`). The books section shows the Associates disclosure.
 
 Schemas and the update process are in [data.md](data.md).
 

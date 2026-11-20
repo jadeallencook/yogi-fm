@@ -1,0 +1,22 @@
+{
+  "note": "Kim Eng removed 2026-11-20 at the user's request: no books on Amazon (audio only) and few lectures online. To bring her back, put the entry back in speakers.environment.json at about the same index; her portrait is in git history (public/assets/images/kim-eng.png).",
+  "removed": {
+    "kim-eng": {
+      "index": 11,
+      "entry": {
+        "playlist": "PLkj0Wb8QyEETc5JLf58oqV19BZe4wUNmX",
+        "years": "1980-Now",
+        "name": "Kim Eng",
+        "image": "assets/images/kim-eng.png",
+        "bio": "",
+        "books": [],
+        "videos": {
+          "DDDyKtj7p4E": "Negativity",
+          "Zu3tN6TBZTw": "Pain Body",
+          "KVynflm1l_U": "Life Is Full of Challenges"
+        },
+        "quotes": {}
+      }
+    }
+  }
+}

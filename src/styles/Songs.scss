@@ -188,6 +188,12 @@ div.Songs {
         div.books-section {
             margin-top: 26px;
 
+            p.books-disclosure {
+                margin: 10px 0 0 0;
+                font-size: 0.68em;
+                color: #8a8a8a;
+            }
+
             div.books-head {
                 display: flex;
                 align-items: center;
